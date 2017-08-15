@@ -483,10 +483,8 @@ Player.prototype.pause = function() {
 };
 
 Player.prototype.setContent = function(contentInfo) {
-  this.absolutifyPaths_(contentInfo);
-  var data = {
-    contentInfo: contentInfo
-  };
+  // this.absolutifyPaths_(contentInfo);
+  var data = {contentInfo: contentInfo};
   this.sender.send({type: Message.SET_CONTENT, data: data});
 };
 
