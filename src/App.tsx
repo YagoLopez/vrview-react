@@ -7,6 +7,7 @@ import {IVrviewConfig} from './vrview/IVrviewConfig';
 
 export class App extends React.Component<{}, IVrviewConfig> {
 
+  //todo: probar a pasar config como props en vez de como estado (como aplicar cambios en props?)
   state: IVrviewConfig = {
     width: '90%',
     height: 400,

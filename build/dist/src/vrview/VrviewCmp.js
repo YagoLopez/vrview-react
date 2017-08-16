@@ -25,8 +25,6 @@ var Vrview = (function (_super) {
         var onVrViewLoad = function () {
             //todo: (refactor) (probar en nueva branch) esto debería estar en el estado y funcionar como single source of true para subcomponentes (hotspots)
             _this.vrview = new VRView.Player('#vrview', _this.props.config);
-            // console.log('React Children', (this.props.children as any).props.data );
-            // console.log('React Children count', (React.Children.toArray(this.props.children)[0] as any).props.data );
             var hotspotsChildrenComponents = _this.props.children;
             React.Children.map(hotspotsChildrenComponents, function (hotspotChildComponent) {
                 var hotspot = hotspotChildComponent.props.data;

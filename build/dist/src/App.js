@@ -18,6 +18,7 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        //todo: probar a pasar config como props en vez de como estado (como aplicar cambios en props?)
         _this.state = {
             width: '90%',
             height: 400,

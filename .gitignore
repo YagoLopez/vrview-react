@@ -10,6 +10,7 @@
 # /build
 
 # misc
+Thumbs.db
 .DS_Store
 .env.local
 .env.development.local

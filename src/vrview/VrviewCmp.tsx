@@ -16,9 +16,6 @@ export default class Vrview extends React.Component<{config: IVrviewConfig}, {}>
 
       //todo: (refactor) (probar en nueva branch) esto debería estar en el estado y funcionar como single source of true para subcomponentes (hotspots)
       this.vrview = new VRView.Player('#vrview', this.props.config);
-
-      // console.log('React Children', (this.props.children as any).props.data );
-      // console.log('React Children count', (React.Children.toArray(this.props.children)[0] as any).props.data );
       const hotspotsChildrenComponents = this.props.children;
 
       React.Children.map( hotspotsChildrenComponents, (hotspotChildComponent) => {
