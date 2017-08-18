@@ -2,6 +2,7 @@
 //todo: buscar e incluir tipos (@type) para vrview
 //todo: quitar # en div id de vrview
 //todo: is_debug prop = true/false
+//todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||

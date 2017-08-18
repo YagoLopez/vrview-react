@@ -1,6 +1,7 @@
 //todo: buscar e incluir tipos (@type) para vrview
 //todo: quitar # en div id de vrview
 //todo: is_debug prop = true/false
+//todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 
 import * as React from 'react';
 import * as VRView from  './vrview.js';
