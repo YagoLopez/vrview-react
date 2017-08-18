@@ -1,3 +1,6 @@
+//todo: es subcomponente hotspot deberia recibir el objeto vrView como prop???
+//todo: crear los hotspots en el evento onLoad
+
 //todo: (refactor) cambiar definicion de componente de clase a funcion (componente funcional)
 
 import * as React from 'react';

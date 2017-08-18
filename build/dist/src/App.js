@@ -35,7 +35,7 @@ var App = (function (_super) {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement("h1", null, "App"),
-            React.createElement(VrviewCmp_1.default, { config: this.state, ref: "vrview" },
+            React.createElement(VrviewCmp_1.default, { config: this.state },
                 React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }, loadSceneOnClick: { image: '../images/walrus.jpg', is_stereo: true } }),
                 React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }, loadSceneOnClick: { image: '../images/1.jpg', is_stereo: false } })),
             React.createElement("button", { onClick: function () { return _this.changeImage(); } }, "cambiar imagen")));

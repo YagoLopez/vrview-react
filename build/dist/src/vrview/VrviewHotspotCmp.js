@@ -1,5 +1,6 @@
 "use strict";
-//todo: (refactor) cambiar definicion de componente de clase a funcion (componente funcional)
+//todo: es subcomponente hotspot deberia recibir el objeto vrView como prop???
+//todo: crear los hotspots en el evento onLoad
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -11,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+//todo: (refactor) cambiar definicion de componente de clase a funcion (componente funcional)
 var React = require("react");
 var VrviewHotspot = (function (_super) {
     __extends(VrviewHotspot, _super);

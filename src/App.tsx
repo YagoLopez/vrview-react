@@ -25,7 +25,7 @@ export class App extends React.Component<{}, IVrviewConfig> {
       <div>
         <h1>App</h1>
 
-        <Vrview config={this.state} ref="vrview">
+        <Vrview config={this.state}>
           <VrviewHotspot
             data={{name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2}}
             loadSceneOnClick={{image: '../images/walrus.jpg', is_stereo: true}} />
