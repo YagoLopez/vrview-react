@@ -7,9 +7,10 @@ export class App extends React.Component<{}, ISceneConfig> {
   state: ISceneConfig = {
     scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
     hotspots: [
-      {name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, loadNewSceneOnClick: {
+      {name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
         scene: {image: '../images/1.jpg', is_stereo: false},
-        hotspots: [{name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, loadNewSceneOnClick: {
+        hotspots: [
+          {name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
             scene: {image: '../images/2.jpg', is_stereo: false}
           }
         }]

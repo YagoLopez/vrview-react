@@ -12,5 +12,5 @@ export interface IHotspot {
   yaw: number,           // In degrees. To the right is positive.
   radius: number,        // Radius of the circular target in meters.
   distance: number       // Distance of target from camera in meters.
-  loadNewSceneOnClick?: ISceneConfig  // Destination scene on click event
+  newScene?: ISceneConfig  // Destination scene on click event
 }

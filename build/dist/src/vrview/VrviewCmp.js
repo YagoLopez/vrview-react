@@ -47,7 +47,7 @@ var Vrview = (function (_super) {
             _this.vrview.on('click', function (event) {
                 if (event.id === hotspot.name) {
                     console.log('hotspot click event handler', hotspot);
-                    _this.setState({ config: hotspot.loadNewSceneOnClick });
+                    _this.setState({ config: hotspot.newScene });
                 }
             });
         });
@@ -72,17 +72,18 @@ var Vrview = (function (_super) {
     //   return false;
     // }
     Vrview.prototype.componentWillReceiveProps = function () {
-        console.log('component will recive props', this.props.config);
+        console.log('component will recive props, props', this.props);
     };
     /**
      * On State Change
      */
     Vrview.prototype.componentDidUpdate = function () {
-        console.log('component did update', this.state.config);
+        console.log('component did update, state:', this.state);
         // Load new scene content data from state
         this.vrview.setContent(this.state.config.scene);
         // Load hotspots
         this.loadHotspots();
+        debugger;
         this.addHotspotsClickHandlers();
     };
     Vrview.prototype.render = function () {

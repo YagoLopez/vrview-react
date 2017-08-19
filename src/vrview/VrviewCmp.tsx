@@ -37,7 +37,7 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
       this.vrview.on( 'click', (event: {id: string}) => {
         if(event.id === hotspot.name){
           console.log('hotspot click event handler', hotspot);
-          this.setState({config: hotspot.loadNewSceneOnClick})
+          this.setState({config: hotspot.newScene})
         }
       })
     });
@@ -64,18 +64,19 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
   // }
 
   componentWillReceiveProps(){
-    console.log('component will recive props', this.props.config);
+    console.log('component will recive props, props', this.props);
   }
 
   /**
    * On State Change
    */
   componentDidUpdate() {
-    console.log('component did update', this.state.config);
+    console.log('component did update, state:', this.state);
     // Load new scene content data from state
     this.vrview.setContent(this.state.config.scene);
     // Load hotspots
     this.loadHotspots();
+    debugger
     this.addHotspotsClickHandlers();
   }
 
