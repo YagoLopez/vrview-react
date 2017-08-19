@@ -19,57 +19,74 @@ var VRView = require("./vrview.js");
 var Vrview = (function (_super) {
     __extends(Vrview, _super);
     function Vrview() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        //todo: add type information to state
+        _this.state = _this.props;
+        return _this;
     }
+    //todo: refactor this fn
+    Vrview.prototype.loadHotspots = function () {
+        var _this = this;
+        // this.vrview.on('ready', () => {
+        var hotspots = this.state.config.hotspots;
+        hotspots && hotspots.forEach(function (hotspot) {
+            console.log('adding hotspot', hotspot);
+            _this.vrview.addHotspot(hotspot.name, {
+                pitch: hotspot.pitch,
+                yaw: hotspot.yaw,
+                radius: hotspot.radius,
+                distance: hotspot.distance
+            });
+        });
+        // });
+    };
+    Vrview.prototype.addHotspotsClickHandlers = function () {
+        var _this = this;
+        var hotspots = this.props.config.hotspots;
+        hotspots && hotspots.forEach(function (hotspot) {
+            _this.vrview.on('click', function (event) {
+                if (event.id === hotspot.name) {
+                    console.log('hotspot click event handler', hotspot);
+                    _this.setState({ config: hotspot.loadNewSceneOnClick });
+                }
+            });
+        });
+    };
+    /**
+     * After view init
+     */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
         var onVrViewLoad = function () {
-            //todo: (refactor) (probar en nueva branch) esto debería estar en el estado y funcionar como single source of true para subcomponentes (hotspots)
-            _this.vrview = new VRView.Player('#vrview', _this.props.config);
-            var hotspotsChildrenComponents = _this.props.children;
-            React.Children.map(hotspotsChildrenComponents, function (hotspotChildComponent) {
-                var hotspot = hotspotChildComponent.props.data;
-                var loadSceneOnClick = hotspotChildComponent.props.loadSceneOnClick;
-                console.log('loadSceneOnClick', loadSceneOnClick);
-                _this.vrview.on('ready', function () {
-                    console.log('adding hotspot', hotspot);
-                    _this.vrview.addHotspot(hotspot.name, {
-                        pitch: hotspot.pitch,
-                        yaw: hotspot.yaw,
-                        radius: hotspot.radius,
-                        distance: hotspot.distance
-                    });
-                }); //on
-                _this.vrview.on('click', function (event) {
-                    if ((event.id === hotspot.name) && loadSceneOnClick) {
-                        _this.vrview.setContent({
-                            image: loadSceneOnClick.image,
-                            is_stereo: loadSceneOnClick.is_stereo
-                        });
-                    }
-                    if ((event.id === hotspot.name) && !loadSceneOnClick) {
-                        alert('Undefined destination scene');
-                    }
-                }); //on
-            }); //map
+            console.log('vrview props on load', _this.props);
+            console.log('vrview state on load', _this.state);
+            _this.vrview = new VRView.Player('vrview', _this.state.config.scene);
+            _this.vrview.on('ready', function () {
+                _this.loadHotspots();
+            });
+            _this.addHotspotsClickHandlers();
         };
         window.addEventListener('load', onVrViewLoad);
     };
-    //todo: esto a lo mejor deberia ir en VrviewHotspotCmp
-    // hotspotClick( event: {id: string}, hotspotName: string ): void {
-    // }
     // shouldComponentUpdate(){
     //   return false;
     // }
-    // componentWillReceiveProps(){
-    //   console.log('component will recive props', this.props.config);
-    // }
+    Vrview.prototype.componentWillReceiveProps = function () {
+        console.log('component will recive props', this.props.config);
+    };
+    /**
+     * On State Change
+     */
     Vrview.prototype.componentDidUpdate = function () {
-        console.log('component did update', this.props.config);
-        this.vrview.setContent(this.props.config);
+        console.log('component did update', this.state.config);
+        // Load new scene content data from state
+        this.vrview.setContent(this.state.config.scene);
+        // Load hotspots
+        this.loadHotspots();
+        this.addHotspotsClickHandlers();
     };
     Vrview.prototype.render = function () {
-        return (React.createElement("div", { id: '#vrview', ref: "vrview" }, this.props.children));
+        return (React.createElement("div", { id: 'vrview' }));
     };
     return Vrview;
 }(React.Component));

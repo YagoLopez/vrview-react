@@ -5,9 +5,9 @@
 
 import * as React from 'react';
 import {IHotspot} from './IHotspot';
-import {IVrviewConfig} from "./IVrviewConfig";
+import {ISceneConfig} from "./ISceneConfig";
 
-export default class VrviewHotspot extends React.Component<{data: IHotspot, loadSceneOnClick?: IVrviewConfig}, {}> {
+export default class VrviewHotspot extends React.Component<{data: IHotspot, loadSceneOnClick?: ISceneConfig}, {}> {
 
 /*
   constructor(props: any){

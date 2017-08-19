@@ -1,40 +1,49 @@
-// todo: no usar estado, sencillamente pasar nuevo objeto de configuracion
-
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
-import VrviewHotspot from './vrview/VrviewHotspotCmp';
-import {IVrviewConfig} from './vrview/IVrviewConfig';
+import {ISceneConfig} from './vrview/ISceneConfig';
 
-export class App extends React.Component<{}, IVrviewConfig> {
+export class App extends React.Component<{}, ISceneConfig> {
 
-  //todo: probar a pasar config como props en vez de como estado (como aplicar cambios en props?)
-  state: IVrviewConfig = {
-    width: '90%',
-    height: 400,
-    image: '../images/coral.jpg',
-    is_stereo: true,
-    is_debug: true
+  state: ISceneConfig = {
+    scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
+    hotspots: [
+      {name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, loadNewSceneOnClick: {
+        scene: {image: '../images/1.jpg', is_stereo: false},
+        hotspots: [{name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, loadNewSceneOnClick: {
+            scene: {image: '../images/2.jpg', is_stereo: false}
+          }
+        }]
+      }},
+      {name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2}
+    ]
   };
 
-  changeImage(){
-    this.setState({image: '../images/walrus.jpg', is_stereo: true});
+  changeScene(): void {
+    this.setState({
+      scene: {image: '../images/walrus.jpg', is_stereo: true},
+      hotspots: [{name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2}]
+    });
+  }
+
+  // todo: investigar contenido de this.vrview._events
+  changeScene2(){
+    debugger
+    (this.refs.vrviewComponent as any).vrview.setContent({
+      image: '../images/1.jpg',
+      is_stereo: false
+    })
   }
 
   render(){
     return(
       <div>
-        <h1>App</h1>
+        <h1>Virtual Reality View</h1>
 
-        <Vrview config={this.state}>
-          <VrviewHotspot
-            data={{name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2}}
-            loadSceneOnClick={{image: '../images/walrus.jpg', is_stereo: true}} />
-          <VrviewHotspot
-            data={{name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2}}
-            loadSceneOnClick={{image: '../images/1.jpg', is_stereo: false}}/>
-        </Vrview>
+        {/*todo: cambiar ref string por callback*/}
+        <Vrview config={this.state} ref="vrviewComponent" />
 
-        <button onClick={() => this.changeImage()}>cambiar imagen</button>
+        <button onClick={() => this.changeScene()}>cambiar escena</button>
+        <button onClick={() => this.changeScene2()}>cambiar escena</button>
       </div>
     );
   }
