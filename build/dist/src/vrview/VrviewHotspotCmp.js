@@ -30,7 +30,8 @@ var VrviewHotspot = (function (_super) {
         console.log('VrviewHotspot will mount');
     };
     VrviewHotspot.prototype.componentDidMount = function () {
-        console.log('VrviewHotspot did mount');
+        console.log('VrviewHotspot did mount, props: ', this.props);
+        console.log('VrviewHotspot this.refs: ', this.refs);
     };
     VrviewHotspot.prototype.render = function () {
         return null;

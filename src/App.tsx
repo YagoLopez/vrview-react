@@ -3,12 +3,12 @@
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import VrviewHotspot from './vrview/VrviewHotspotCmp';
-import {IVrviewConfig} from './vrview/IVrviewConfig';
+import {ISceneConfig} from './vrview/IVrviewConfig';
 
-export class App extends React.Component<{}, IVrviewConfig> {
+export class App extends React.Component<{}, ISceneConfig> {
 
   //todo: probar a pasar config como props en vez de como estado (como aplicar cambios en props?)
-  state: IVrviewConfig = {
+  state: ISceneConfig = {
     width: '90%',
     height: 400,
     image: '../images/coral.jpg',
@@ -16,7 +16,7 @@ export class App extends React.Component<{}, IVrviewConfig> {
     is_debug: true
   };
 
-  changeImage(){
+  changeScene(){
     this.setState({image: '../images/walrus.jpg', is_stereo: true});
   }
 
@@ -28,13 +28,13 @@ export class App extends React.Component<{}, IVrviewConfig> {
         <Vrview config={this.state}>
           <VrviewHotspot
             data={{name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2}}
-            loadSceneOnClick={{image: '../images/walrus.jpg', is_stereo: true}} />
+            newScene={{image: '../images/walrus.jpg', is_stereo: true}} />
           <VrviewHotspot
             data={{name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2}}
-            loadSceneOnClick={{image: '../images/1.jpg', is_stereo: false}}/>
+            newScene={{image: '../images/1.jpg', is_stereo: false}}/>
         </Vrview>
 
-        <button onClick={() => this.changeImage()}>cambiar imagen</button>
+        <button onClick={() => this.changeScene()}>cambiar imagen</button>
       </div>
     );
   }

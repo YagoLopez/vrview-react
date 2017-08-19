@@ -1,7 +1,7 @@
 /**
  * VR View Scene configuration
  */
-export interface IVrviewConfig {
+export interface ISceneConfig {
   video?: string,             // URL pointing to a 360° video file or an adaptive streaming manifest file (.mpd or .m3u8).
   image?: string              // URL pointing to a 360° image file. Exactly one video or image is required.
   width?:	string | number     // Iframe's width attribute.

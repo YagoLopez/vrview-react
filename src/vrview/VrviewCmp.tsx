@@ -5,9 +5,9 @@
 
 import * as React from 'react';
 import * as VRView from  './vrview.js';
-import {IVrviewConfig} from './IVrviewConfig';
+import {ISceneConfig} from './IVrviewConfig';
 
-export default class Vrview extends React.Component<{config: IVrviewConfig}, {}> {
+export default class Vrview extends React.Component<{config: ISceneConfig}, {}> {
 
   //todo: definir tipo/interfaz para vrview
   vrview: any;
@@ -16,14 +16,14 @@ export default class Vrview extends React.Component<{config: IVrviewConfig}, {}>
     const onVrViewLoad = () => {
 
       //todo: (refactor) (probar en nueva branch) esto debería estar en el estado y funcionar como single source of true para subcomponentes (hotspots)
-      this.vrview = new VRView.Player('#vrview', this.props.config);
+      this.vrview = new VRView.Player('vrview', this.props.config);
       const hotspotsChildrenComponents = this.props.children;
 
       React.Children.map( hotspotsChildrenComponents, (hotspotChildComponent) => {
 
         const hotspot = (hotspotChildComponent as any).props.data;
-        const loadSceneOnClick = (hotspotChildComponent as any).props.loadSceneOnClick;
-        console.log('loadSceneOnClick', loadSceneOnClick);
+        const newScene = (hotspotChildComponent as any).props.newScene;
+        console.log('newScene', newScene);
 
         this.vrview.on('ready', () => {
           console.log('adding hotspot', hotspot);
@@ -36,13 +36,13 @@ export default class Vrview extends React.Component<{config: IVrviewConfig}, {}>
         }); //on
 
         this.vrview.on('click', (event: {id: string}) => {
-          if ( (event.id === hotspot.name) && loadSceneOnClick ) {
+          if ( (event.id === hotspot.name) && newScene ) {
             this.vrview.setContent({
-              image: loadSceneOnClick.image,
-              is_stereo: loadSceneOnClick.is_stereo
+              image: newScene.image,
+              is_stereo: newScene.is_stereo
             });
           }
-          if( (event.id === hotspot.name) && !loadSceneOnClick) {
+          if( (event.id === hotspot.name) && !newScene) {
             alert('Undefined destination scene');
           }
         }); //on
@@ -55,17 +55,13 @@ export default class Vrview extends React.Component<{config: IVrviewConfig}, {}>
 
   }
 
-  //todo: esto a lo mejor deberia ir en VrviewHotspotCmp
-  // hotspotClick( event: {id: string}, hotspotName: string ): void {
-  // }
-
   // shouldComponentUpdate(){
   //   return false;
   // }
 
-  // componentWillReceiveProps(){
-  //   console.log('component will recive props', this.props.config);
-  // }
+  componentWillReceiveProps(){
+    console.log('component will recive props', this.props.config);
+  }
 
   componentDidUpdate() {
     console.log('component did update', this.props.config);
@@ -74,7 +70,7 @@ export default class Vrview extends React.Component<{config: IVrviewConfig}, {}>
 
   render() {
     return (
-      <div id='#vrview' ref="vrview">
+      <div id='vrview'>
         {this.props.children}
       </div>
     );

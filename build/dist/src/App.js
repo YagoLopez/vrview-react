@@ -28,7 +28,7 @@ var App = (function (_super) {
         };
         return _this;
     }
-    App.prototype.changeImage = function () {
+    App.prototype.changeScene = function () {
         this.setState({ image: '../images/walrus.jpg', is_stereo: true });
     };
     App.prototype.render = function () {
@@ -36,9 +36,9 @@ var App = (function (_super) {
         return (React.createElement("div", null,
             React.createElement("h1", null, "App"),
             React.createElement(VrviewCmp_1.default, { config: this.state },
-                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }, loadSceneOnClick: { image: '../images/walrus.jpg', is_stereo: true } }),
-                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }, loadSceneOnClick: { image: '../images/1.jpg', is_stereo: false } })),
-            React.createElement("button", { onClick: function () { return _this.changeImage(); } }, "cambiar imagen")));
+                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }, newScene: { image: '../images/walrus.jpg', is_stereo: true } }),
+                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }, newScene: { image: '../images/1.jpg', is_stereo: false } })),
+            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar imagen")));
     };
     return App;
 }(React.Component));

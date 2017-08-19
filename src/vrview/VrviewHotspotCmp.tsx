@@ -5,9 +5,9 @@
 
 import * as React from 'react';
 import {IHotspot} from './IHotspot';
-import {IVrviewConfig} from "./IVrviewConfig";
+import {ISceneConfig} from "./IVrviewConfig";
 
-export default class VrviewHotspot extends React.Component<{data: IHotspot, loadSceneOnClick?: IVrviewConfig}, {}> {
+export default class VrviewHotspot extends React.Component<{data: IHotspot, newScene?: ISceneConfig}, {}> {
 
 /*
   constructor(props: any){
@@ -22,7 +22,8 @@ export default class VrviewHotspot extends React.Component<{data: IHotspot, load
   }
 
   componentDidMount(){
-    console.log('VrviewHotspot did mount');
+    console.log('VrviewHotspot did mount, props: ', this.props);
+    console.log('VrviewHotspot this.refs: ', this.refs);
   }
 
   render(){
