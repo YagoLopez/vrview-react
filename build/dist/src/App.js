@@ -1,5 +1,4 @@
 "use strict";
-// todo: no usar estado, sencillamente pasar nuevo objeto de configuracion
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -13,32 +12,41 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var VrviewCmp_1 = require("./vrview/VrviewCmp");
-var VrviewHotspotCmp_1 = require("./vrview/VrviewHotspotCmp");
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        //todo: probar a pasar config como props en vez de como estado (como aplicar cambios en props?)
         _this.state = {
-            width: '90%',
-            height: 400,
-            image: '../images/coral.jpg',
-            is_stereo: true,
-            is_debug: true
+            scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
+            hotspots: [
+                { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
+                        scene: { image: '../images/1.jpg', is_stereo: false },
+                        hotspots: [
+                            { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
+                                    scene: { image: '../images/2.jpg', is_stereo: false }
+                                } },
+                            { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
+                                    scene: { image: '../images/1.jpg', is_stereo: false }
+                                } }
+                        ]
+                    } },
+                { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }
+            ]
         };
         return _this;
     }
     App.prototype.changeScene = function () {
-        this.setState({ image: '../images/walrus.jpg', is_stereo: true });
+        this.setState({
+            scene: { image: '../images/walrus.jpg', is_stereo: true },
+            hotspots: [{ name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2 }]
+        });
     };
     App.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
-            React.createElement("h1", null, "App"),
-            React.createElement(VrviewCmp_1.default, { config: this.state },
-                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }, newScene: { image: '../images/walrus.jpg', is_stereo: true } }),
-                React.createElement(VrviewHotspotCmp_1.default, { data: { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }, newScene: { image: '../images/1.jpg', is_stereo: false } })),
-            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar imagen")));
+            React.createElement("h1", null, "Virtual Reality View"),
+            React.createElement(VrviewCmp_1.default, { config: this.state }),
+            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar escena")));
     };
     return App;
 }(React.Component));
