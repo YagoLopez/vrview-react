@@ -1,8 +1,6 @@
 "use strict";
 //todo: no funciona el cambio de estado desde el boton
 //todo: buscar e incluir tipos (@type) para vrview
-//todo: quitar # en div id de vrview
-//todo: is_debug prop = true/false
 //todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 //todo: is_debug on/off (usar parametros url?)
 var __extends = (this && this.__extends) || (function () {

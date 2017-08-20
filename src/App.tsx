@@ -20,6 +20,7 @@ export class App extends React.Component<{}, ISceneConfig> {
       ]
   };
 
+  //todo: fix this (use componentDidUpdated() lifecycle method)
   changeScene(): void {
     this.setState({
       scene: {image: '../images/walrus.jpg', is_stereo: true},
@@ -31,9 +32,7 @@ export class App extends React.Component<{}, ISceneConfig> {
     return(
       <div>
         <h1>Virtual Reality View</h1>
-
         <Vrview config={this.state} />
-
         <button onClick={() => this.changeScene()}>cambiar escena</button>
       </div>
     );

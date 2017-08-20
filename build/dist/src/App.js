@@ -35,6 +35,7 @@ var App = (function (_super) {
         };
         return _this;
     }
+    //todo: fix this (use componentDidUpdated() lifecycle method)
     App.prototype.changeScene = function () {
         this.setState({
             scene: { image: '../images/walrus.jpg', is_stereo: true },
