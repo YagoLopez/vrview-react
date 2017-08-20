@@ -25,7 +25,6 @@ export class App extends React.Component<{}, ISceneConfig> {
       scene: {image: '../images/walrus.jpg', is_stereo: true},
       hotspots: [{name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2}]
     });
-
   }
 
   render(){
