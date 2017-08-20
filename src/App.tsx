@@ -25,15 +25,7 @@ export class App extends React.Component<{}, ISceneConfig> {
       scene: {image: '../images/walrus.jpg', is_stereo: true},
       hotspots: [{name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2}]
     });
-  }
 
-  // todo: investigar contenido de this.vrview._events
-  changeScene2(){
-    debugger
-    (this.refs.vrviewComponent as any).vrview.setContent({
-      image: '../images/1.jpg',
-      is_stereo: false
-    })
   }
 
   render(){
@@ -41,11 +33,9 @@ export class App extends React.Component<{}, ISceneConfig> {
       <div>
         <h1>Virtual Reality View</h1>
 
-        {/*todo: cambiar ref string por callback*/}
-        <Vrview config={this.state} ref="vrviewComponent" />
+        <Vrview config={this.state} />
 
         <button onClick={() => this.changeScene()}>cambiar escena</button>
-        <button onClick={() => this.changeScene2()}>cambiar escena</button>
       </div>
     );
   }

@@ -1,8 +1,8 @@
 "use strict";
 //todo: buscar e incluir tipos (@type) para vrview
-//todo: quitar # en div id de vrview
 //todo: is_debug prop = true/false
 //todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
+//todo: is_debug on/off (usar parametros url?)
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -24,10 +24,8 @@ var Vrview = (function (_super) {
         _this.state = _this.props;
         return _this;
     }
-    //todo: refactor this fn
     Vrview.prototype.loadHotspots = function () {
         var _this = this;
-        // this.vrview.on('ready', () => {
         var hotspots = this.state.config.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             console.log('adding hotspot', hotspot);
@@ -38,11 +36,10 @@ var Vrview = (function (_super) {
                 distance: hotspot.distance
             });
         });
-        // });
     };
     Vrview.prototype.addHotspotsClickHandlers = function () {
         var _this = this;
-        var hotspots = this.props.config.hotspots;
+        var hotspots = this.state.config.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrview.on('click', function (event) {
                 if (event.id === hotspot.name) {
@@ -53,7 +50,7 @@ var Vrview = (function (_super) {
         });
     };
     /**
-     * After view init
+     * After dom load/view init
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
@@ -68,33 +65,26 @@ var Vrview = (function (_super) {
         };
         window.addEventListener('load', onVrViewLoad);
     };
+    /**
+     * On State Change
+     */
+    Vrview.prototype.componentDidUpdate = function () {
+        console.log('component did update, state:', this.state);
+        if (this.state.config) {
+            // Load new scene content data from state
+            this.vrview.setContent(this.state.config.scene);
+            this.loadHotspots();
+            this.addHotspotsClickHandlers();
+        }
+        else {
+            alert('No scene defined for hotspot');
+        }
+    };
     // shouldComponentUpdate(){
     //   return false;
     // }
     Vrview.prototype.componentWillReceiveProps = function () {
         console.log('component will recive props, props', this.props);
-    };
-    /**
-     * On State Change
-     */
-    Vrview.prototype.componentDidUpdate = function () {
-        var _this = this;
-        console.log('component did update, state:', this.state);
-        // Load new scene content data from state
-        this.vrview.setContent(this.state.config.scene);
-        // Load hotspots
-        this.loadHotspots();
-        // Load hotspots event handlers
-        // debugger
-        var hotspots = this.state.config.hotspots;
-        hotspots && hotspots.forEach(function (hotspot) {
-            _this.vrview.on('click', function (event) {
-                if (event.id === hotspot.name) {
-                    console.log('hotspot click event handler', hotspot);
-                    _this.setState({ config: hotspot.newScene });
-                }
-            });
-        });
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));

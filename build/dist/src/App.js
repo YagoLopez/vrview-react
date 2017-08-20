@@ -41,21 +41,12 @@ var App = (function (_super) {
             hotspots: [{ name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2 }]
         });
     };
-    // todo: investigar contenido de this.vrview._events
-    App.prototype.changeScene2 = function () {
-        debugger;
-        this.refs.vrviewComponent.vrview.setContent({
-            image: '../images/1.jpg',
-            is_stereo: false
-        });
-    };
     App.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement("h1", null, "Virtual Reality View"),
-            React.createElement(VrviewCmp_1.default, { config: this.state, ref: "vrviewComponent" }),
-            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar escena"),
-            React.createElement("button", { onClick: function () { return _this.changeScene2(); } }, "cambiar escena")));
+            React.createElement(VrviewCmp_1.default, { config: this.state }),
+            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar escena")));
     };
     return App;
 }(React.Component));

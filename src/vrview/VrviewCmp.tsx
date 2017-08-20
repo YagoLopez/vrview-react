@@ -1,7 +1,7 @@
 //todo: buscar e incluir tipos (@type) para vrview
-//todo: quitar # en div id de vrview
 //todo: is_debug prop = true/false
 //todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
+//todo: is_debug on/off (usar parametros url?)
 
 import * as React from 'react';
 import * as VRView from  './vrview.js';
@@ -15,24 +15,21 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
   //todo: add type information to state
   state: any = this.props;
 
-  //todo: refactor this fn
   loadHotspots(): void {
-    // this.vrview.on('ready', () => {
-      const hotspots = this.state.config.hotspots as IHotspot[];
-      hotspots && hotspots.forEach( (hotspot: IHotspot) => {
-        console.log('adding hotspot', hotspot);
-        this.vrview.addHotspot(hotspot.name, {
-          pitch: hotspot.pitch,
-          yaw: hotspot.yaw,
-          radius: hotspot.radius,
-          distance: hotspot.distance
-        });
+    const hotspots = this.state.config.hotspots as IHotspot[];
+    hotspots && hotspots.forEach( (hotspot: IHotspot) => {
+      console.log('adding hotspot', hotspot);
+      this.vrview.addHotspot(hotspot.name, {
+        pitch:    hotspot.pitch,
+        yaw:      hotspot.yaw,
+        radius:   hotspot.radius,
+        distance: hotspot.distance
       });
-    // });
+    });
   }
 
-  addHotspotsClickHandlers() : void {
-    const hotspots = this.props.config.hotspots as IHotspot[];
+  addHotspotsClickHandlers(): void {
+    const hotspots = this.state.config.hotspots as IHotspot[];
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
       this.vrview.on( 'click', (event: {id: string}) => {
         if(event.id === hotspot.name){
@@ -44,7 +41,7 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
   }
 
   /**
-   * After view init
+   * After dom load/view init
    */
   componentDidMount() {
     const onVrViewLoad = () => {
@@ -59,37 +56,27 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
     window.addEventListener('load', onVrViewLoad);
   }
 
+  /**
+   * On State Change
+   */
+  componentDidUpdate() {
+    console.log('component did update, state:', this.state);
+    if(this.state.config){
+      // Load new scene content data from state
+      this.vrview.setContent(this.state.config.scene);
+      this.loadHotspots();
+      this.addHotspotsClickHandlers()
+    } else {
+      alert('No scene defined for hotspot');
+    }
+  }
+
   // shouldComponentUpdate(){
   //   return false;
   // }
 
   componentWillReceiveProps(){
     console.log('component will recive props, props', this.props);
-  }
-
-  /**
-   * On State Change
-   */
-  componentDidUpdate() {
-    console.log('component did update, state:', this.state);
-
-    // Load new scene content data from state
-    this.vrview.setContent(this.state.config.scene);
-
-    // Load hotspots
-    this.loadHotspots();
-
-    // Load hotspots event handlers
-    // debugger
-    const hotspots = this.state.config.hotspots as IHotspot[];
-    hotspots && hotspots.forEach( (hotspot: IHotspot) => {
-      this.vrview.on( 'click', (event: {id: string}) => {
-        if(event.id === hotspot.name){
-          console.log('hotspot click event handler', hotspot);
-          this.setState({config: hotspot.newScene})
-        }
-      })
-    });
   }
 
   render() {
