@@ -72,12 +72,24 @@ export default class Vrview extends React.Component<{config: ISceneConfig}, {}> 
    */
   componentDidUpdate() {
     console.log('component did update, state:', this.state);
+
     // Load new scene content data from state
     this.vrview.setContent(this.state.config.scene);
+
     // Load hotspots
     this.loadHotspots();
-    debugger
-    this.addHotspotsClickHandlers();
+
+    // Load hotspots event handlers
+    // debugger
+    const hotspots = this.state.config.hotspots as IHotspot[];
+    hotspots && hotspots.forEach( (hotspot: IHotspot) => {
+      this.vrview.on( 'click', (event: {id: string}) => {
+        if(event.id === hotspot.name){
+          console.log('hotspot click event handler', hotspot);
+          this.setState({config: hotspot.newScene})
+        }
+      })
+    });
   }
 
   render() {

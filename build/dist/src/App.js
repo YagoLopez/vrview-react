@@ -24,8 +24,10 @@ var App = (function (_super) {
                         hotspots: [
                             { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
                                     scene: { image: '../images/2.jpg', is_stereo: false }
-                                }
-                            }
+                                } },
+                            { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
+                                    scene: { image: '../images/1.jpg', is_stereo: false }
+                                } }
                         ]
                     } },
                 { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }

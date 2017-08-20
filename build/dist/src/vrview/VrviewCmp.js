@@ -78,13 +78,23 @@ var Vrview = (function (_super) {
      * On State Change
      */
     Vrview.prototype.componentDidUpdate = function () {
+        var _this = this;
         console.log('component did update, state:', this.state);
         // Load new scene content data from state
         this.vrview.setContent(this.state.config.scene);
         // Load hotspots
         this.loadHotspots();
-        debugger;
-        this.addHotspotsClickHandlers();
+        // Load hotspots event handlers
+        // debugger
+        var hotspots = this.state.config.hotspots;
+        hotspots && hotspots.forEach(function (hotspot) {
+            _this.vrview.on('click', function (event) {
+                if (event.id === hotspot.name) {
+                    console.log('hotspot click event handler', hotspot);
+                    _this.setState({ config: hotspot.newScene });
+                }
+            });
+        });
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));
