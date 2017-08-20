@@ -1,4 +1,6 @@
+//todo: no funciona el cambio de estado desde el boton
 //todo: buscar e incluir tipos (@type) para vrview
+//todo: quitar # en div id de vrview
 //todo: is_debug prop = true/false
 //todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 //todo: is_debug on/off (usar parametros url?)
@@ -8,12 +10,12 @@ import * as VRView from  './vrview.js';
 import {ISceneConfig} from './ISceneConfig';
 import {IHotspot} from "./IHotspot";
 
-export default class Vrview extends React.Component<{config: ISceneConfig}, {}> {
+export default class Vrview extends React.Component<{config: ISceneConfig}> {
 
   //todo: definir tipo/interfaz para vrview
   vrview: any;
-  //todo: add type information to state
-  state: any = this.props;
+  state = this.props;
+
 
   loadHotspots(): void {
     const hotspots = this.state.config.hotspots as IHotspot[];
