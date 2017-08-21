@@ -20,20 +20,31 @@ export class App extends React.Component<{}, ISceneConfig> {
       ]
   };
 
-  //todo: fix this (use componentDidUpdated() lifecycle method)
-  changeScene(): void {
-    this.setState({
-      scene: {image: '../images/walrus.jpg', is_stereo: true},
-      hotspots: [{name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2}]
-    });
+  changeScene = (): void => {
+    (this.refs.vrview as any).setState(
+      {config: {
+        scene: {image: '../images/walrus.jpg', is_stereo: true},
+        hotspots: [{name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2}]
+        }
+      });
+  };
+
+  componentWillUpdate(){
+    console.log('app component will update');
+    console.log('state: ', this.state);
+  }
+
+  componentDidUpdate(){
+    console.log('app component did update');
+    console.log('state: ', this.state);
   }
 
   render(){
     return(
       <div>
         <h1>Virtual Reality View</h1>
-        <Vrview config={this.state} />
-        <button onClick={() => this.changeScene()}>cambiar escena</button>
+        <Vrview config={this.state} ref="vrview" />
+        <button onClick={this.changeScene}>cambiar escena</button>
       </div>
     );
   }

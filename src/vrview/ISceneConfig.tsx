@@ -1,7 +1,7 @@
 import {IHotspot} from "./IHotspot";
 
 /**
- * VR View Scene configuration
+ * VrView scene configuration with hotspots (optional)
  */
 export interface ISceneConfig {
   scene: {

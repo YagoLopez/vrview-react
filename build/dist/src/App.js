@@ -33,21 +33,28 @@ var App = (function (_super) {
                 { name: 'hotspot2', pitch: 0, yaw: 0, radius: 0.05, distance: 2 }
             ]
         };
+        _this.changeScene = function () {
+            _this.refs.vrview.setState({ config: {
+                    scene: { image: '../images/walrus.jpg', is_stereo: true },
+                    hotspots: [{ name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2 }]
+                }
+            });
+        };
         return _this;
     }
-    //todo: fix this (use componentDidUpdated() lifecycle method)
-    App.prototype.changeScene = function () {
-        this.setState({
-            scene: { image: '../images/walrus.jpg', is_stereo: true },
-            hotspots: [{ name: 'hotspot2', pitch: 0, yaw: -20, radius: 0.05, distance: 2 }]
-        });
+    App.prototype.componentWillUpdate = function () {
+        console.log('app component will update');
+        console.log('state: ', this.state);
+    };
+    App.prototype.componentDidUpdate = function () {
+        console.log('app component did update');
+        console.log('state: ', this.state);
     };
     App.prototype.render = function () {
-        var _this = this;
         return (React.createElement("div", null,
             React.createElement("h1", null, "Virtual Reality View"),
-            React.createElement(VrviewCmp_1.default, { config: this.state }),
-            React.createElement("button", { onClick: function () { return _this.changeScene(); } }, "cambiar escena")));
+            React.createElement(VrviewCmp_1.default, { config: this.state, ref: "vrview" }),
+            React.createElement("button", { onClick: this.changeScene }, "cambiar escena")));
     };
     return App;
 }(React.Component));
