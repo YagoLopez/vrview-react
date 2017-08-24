@@ -26,6 +26,7 @@ var Vrview = (function (_super) {
     __extends(Vrview, _super);
     function Vrview() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Initial state comes from parent's props
         _this.state = _this.props;
         return _this;
     }
@@ -48,6 +49,7 @@ var Vrview = (function (_super) {
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrview.on('click', function (event) {
                 if (event.id === hotspot.name) {
+                    //todo: revisar esto (usar preventDefault?)
                     if (hotspot.newScene) {
                         console.log('click event for hotspot: ', hotspot);
                         _this.setState({ scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots });
@@ -77,25 +79,11 @@ var Vrview = (function (_super) {
      * Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
-        if (this.state.scene) {
-            // Load new scene content data from state
+        if (this.vrview) {
             this.vrview.setContent(this.state.scene);
             this.loadHotspots();
             this.addHotspotsClickHandlers();
         }
-        else {
-            alert('No scene defined for hotspot');
-        }
-    };
-    /**
-     * State can be changed by the own component clicking on hotspots or
-     * from parent component passing it as props to this component. In this case
-     * this lifecycle method is used to change state.
-     *
-     * An example of this is changing state in parent component using a botton
-     */
-    Vrview.prototype.componentWillReceiveProps = function (newProps) {
-        this.setState(newProps);
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));

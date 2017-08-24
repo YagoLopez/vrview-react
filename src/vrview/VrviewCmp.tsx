@@ -18,6 +18,8 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
 
   //todo: definir tipo/interfaz para vrview
   vrview: any;
+
+  // Initial state comes from parent's props
   state: ISceneConfig = this.props;
 
   loadHotspots(): void {
@@ -38,6 +40,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
       this.vrview.on( 'click', (event: {id: string}) => {
         if(event.id === hotspot.name){
+          //todo: revisar esto (usar preventDefault?)
           if(hotspot.newScene){
             console.log('click event for hotspot: ', hotspot);
             this.setState({scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots});
@@ -67,25 +70,11 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
    * Executed after state changed
    */
   componentDidUpdate() {
-    if(this.state.scene){
-      // Load new scene content data from state
+    if(this.vrview){
       this.vrview.setContent(this.state.scene);
       this.loadHotspots();
       this.addHotspotsClickHandlers()
-    } else {
-      alert('No scene defined for hotspot');
     }
-  }
-
-  /**
-   * State can be changed by the own component clicking on hotspots or
-   * from parent component passing it as props to this component. In this case
-   * this lifecycle method is used to change state.
-   *
-   * An example of this is changing state in parent component using a botton
-   */
-  componentWillReceiveProps(newProps: ISceneConfig){
-    this.setState(newProps);
   }
 
   render() {

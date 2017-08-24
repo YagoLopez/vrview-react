@@ -4,7 +4,7 @@ import {ISceneConfig} from "./vrview/ISceneConfig";
 
 export class App extends React.Component<{}, ISceneConfig> {
 
-  initialState: ISceneConfig = {
+  initialProps: ISceneConfig = {
     scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
     hotspots: [
       {name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -21,27 +21,26 @@ export class App extends React.Component<{}, ISceneConfig> {
     ]
   };
 
-  constructor(){
-    super();
-    this.state = this.initialState;
+  componentDidMount(){
+    (this.refs.vrview as any).setState(this.initialProps);
   }
 
   changeScene = (): void => {
-    this.setState({
+    (this.refs.vrview as any).setState({
       scene: {image: '../images/walrus.jpg', is_stereo: true},
-      hotspots: []
+      hotspots: [{name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2}]
     })
   };
 
   resetScene = (): void => {
-    this.setState(this.initialState);
+    (this.refs.vrview as any).setState(this.initialProps);
   };
 
   render(){
     return(
       <div>
         <h1>Virtual Reality View</h1>
-        <Vrview {...this.state} />
+        <Vrview {...this.initialProps} ref="vrview" />
         <button onClick={this.changeScene}>Change Scene</button>&nbsp;
         <button onClick={this.resetScene}>Reset Scene</button>
       </div>

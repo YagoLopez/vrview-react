@@ -23,8 +23,8 @@ var VrviewCmp_1 = require("./vrview/VrviewCmp");
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
-        var _this = _super.call(this) || this;
-        _this.initialState = {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.initialProps = {
             scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -42,21 +42,23 @@ var App = (function (_super) {
             ]
         };
         _this.changeScene = function () {
-            _this.setState({
+            _this.refs.vrview.setState({
                 scene: { image: '../images/walrus.jpg', is_stereo: true },
-                hotspots: []
+                hotspots: [{ name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }]
             });
         };
         _this.resetScene = function () {
-            _this.setState(_this.initialState);
+            _this.refs.vrview.setState(_this.initialProps);
         };
-        _this.state = _this.initialState;
         return _this;
     }
+    App.prototype.componentDidMount = function () {
+        this.refs.vrview.setState(this.initialProps);
+    };
     App.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement("h1", null, "Virtual Reality View"),
-            React.createElement(VrviewCmp_1.default, __assign({}, this.state)),
+            React.createElement(VrviewCmp_1.default, __assign({}, this.initialProps, { ref: "vrview" })),
             React.createElement("button", { onClick: this.changeScene }, "Change Scene"),
             "\u00A0",
             React.createElement("button", { onClick: this.resetScene }, "Reset Scene")));
