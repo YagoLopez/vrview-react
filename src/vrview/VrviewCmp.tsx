@@ -1,7 +1,13 @@
+//todo: nueva rama: usar solo estado en VrviewCmp.tsx
 //todo: no funciona el cambio de estado desde el boton
 //todo: buscar e incluir tipos (@type) para vrview
 //todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 //todo: is_debug on/off (usar parametros url?)
+//todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
+//todo: hacer algunos test
+//todo: favicon
+//todo: añadir enlace a conversion de formato de cardboard
+//todo: service worker y manifest.json
 
 import * as React from 'react';
 import * as VRView from  './vrview.js';
@@ -72,11 +78,11 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
   }
 
   /**
-   * State change can be defined by the own component clicking hotspots or
-   * changing state in parent component and passing it as props. In this case
-   * this lifecycle method is used.
+   * State can be changed by the own component clicking on hotspots or
+   * from parent component passing it as props to this component. In this case
+   * this lifecycle method is used to change state.
    *
-   * An example of this is changing state in parent component using the botton
+   * An example of this is changing state in parent component using a botton
    */
   componentWillReceiveProps(newProps: ISceneConfig){
     this.setState(newProps);
