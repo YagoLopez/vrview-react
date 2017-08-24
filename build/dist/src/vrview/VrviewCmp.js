@@ -25,7 +25,7 @@ var Vrview = (function (_super) {
     }
     Vrview.prototype.loadHotspots = function () {
         var _this = this;
-        var hotspots = this.state.config.hotspots;
+        var hotspots = this.state.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             console.log('adding hotspot', hotspot);
             _this.vrview.addHotspot(hotspot.name, {
@@ -38,25 +38,28 @@ var Vrview = (function (_super) {
     };
     Vrview.prototype.addHotspotsClickHandlers = function () {
         var _this = this;
-        var hotspots = this.state.config.hotspots;
+        var hotspots = this.state.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrview.on('click', function (event) {
                 if (event.id === hotspot.name) {
-                    console.log('hotspot click event handler', hotspot);
-                    _this.setState({ config: hotspot.newScene });
+                    if (hotspot.newScene) {
+                        console.log('click event for hotspot: ', hotspot);
+                        _this.setState({ scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots });
+                    }
+                    else {
+                        alert('No Scene defined for hotspot');
+                    }
                 }
             });
         });
     };
     /**
-     * After dom load/view init
+     * Executed after dom load
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
         var onVrViewLoad = function () {
-            console.log('vrview props on load', _this.props);
-            console.log('vrview state on load', _this.state);
-            _this.vrview = new VRView.Player('vrview', _this.state.config.scene);
+            _this.vrview = new VRView.Player('vrview', _this.state.scene);
             _this.vrview.on('ready', function () {
                 _this.loadHotspots();
             });
@@ -65,13 +68,12 @@ var Vrview = (function (_super) {
         window.addEventListener('load', onVrViewLoad);
     };
     /**
-     * On State Change
+     * Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
-        console.log('component did update, state:', this.state);
-        if (this.state.config) {
+        if (this.state.scene) {
             // Load new scene content data from state
-            this.vrview.setContent(this.state.config.scene);
+            this.vrview.setContent(this.state.scene);
             this.loadHotspots();
             this.addHotspotsClickHandlers();
         }
@@ -79,11 +81,15 @@ var Vrview = (function (_super) {
             alert('No scene defined for hotspot');
         }
     };
-    // shouldComponentUpdate(){
-    //   return false;
-    // }
-    Vrview.prototype.componentWillReceiveProps = function () {
-        console.log('component will recive props, props', this.props);
+    /**
+     * State change can be defined by the own component clicking hotspots or
+     * changing state in parent component and passing it as props. In this case
+     * this lifecycle method is used.
+     *
+     * An example of this is changing state in parent component using the botton
+     */
+    Vrview.prototype.componentWillReceiveProps = function (newProps) {
+        this.setState(newProps);
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));

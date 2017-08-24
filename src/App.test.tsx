@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import Vrview from './vrview/VrviewCmp';
 import {ISceneConfig} from "./vrview/ISceneConfig";
 
-const config: ISceneConfig = {
+const scenes: ISceneConfig = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
   hotspots: [
     {name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
@@ -21,5 +21,5 @@ const config: ISceneConfig = {
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Vrview config={config} />, div);
+  ReactDOM.render(<Vrview {...scenes} />, div);
 });
