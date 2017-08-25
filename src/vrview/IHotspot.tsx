@@ -8,9 +8,9 @@ import {ISceneConfig} from "./ISceneConfig";
  */
 export interface IHotspot {
   name: string,            // Hotspot identifier. Used on click event
-  pitch: number,           // In degrees. Up is positive.
-  yaw: number,             // In degrees. To the right is positive.
-  radius: number,          // Radius of the circular target in meters.
-  distance: number         // Distance of target from camera in meters.
+  pitch: number,           // The latitude of center, specified in degrees, between -90 and 90, with 0 at the horizon.
+  yaw: number,             // The longitude of center, specified in degrees, between -180 and 180, with 0 at the image center.
+  radius: number,          // The radius of the hotspot, specified in meters.
+  distance: number         // The distance of the hotspot from camera, specified in meters.
   newScene?: ISceneConfig  // Destination scene on click event
 }

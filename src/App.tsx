@@ -22,18 +22,19 @@ export class App extends React.Component<{}, ISceneConfig> {
   };
 
   componentDidMount(){
-    (this.refs.vrview as any).setState(this.initialProps);
+    // State is only mantained in Vrview Component not in this parent component
+    (this.refs.vrview as Vrview).setState(this.initialProps);
   }
 
   changeScene = (): void => {
-    (this.refs.vrview as any).setState({
+    (this.refs.vrview as Vrview).setState({
       scene: {image: '../images/walrus.jpg', is_stereo: true},
       hotspots: [{name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2}]
     })
   };
 
   resetScene = (): void => {
-    (this.refs.vrview as any).setState(this.initialProps);
+    (this.refs.vrview as Vrview).setState(this.initialProps);
   };
 
   render(){

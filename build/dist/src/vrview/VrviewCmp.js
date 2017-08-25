@@ -1,14 +1,15 @@
 "use strict";
-//todo: nueva rama: usar solo estado en VrviewCmp.tsx
-//todo: no funciona el cambio de estado desde el boton
-//todo: buscar e incluir tipos (@type) para vrview
-//todo: eliminar manejadores de eventos para evitar perdidas de memoria (vrview.on)
 //todo: is_debug on/off (usar parametros url?)
+//todo: buscar e incluir tipos (@type) para vrview
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
 //todo: favicon
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
+//todo: probar con video y las funciones de reproduccion de video
+//todo: revisar hotspot id en vrview.js
+//todo: material design para react
+//todo: hacer escena responsiva
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -49,7 +50,11 @@ var Vrview = (function (_super) {
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrview.on('click', function (event) {
                 if (event.id === hotspot.name) {
-                    //todo: revisar esto (usar preventDefault?)
+                    // If there are old click events, delete them
+                    if (_this.vrview._events.click) {
+                        _this.vrview._events.click.length = 0;
+                    }
+                    // If there is newSecene defined for this hotspot click event, set state to new scene
                     if (hotspot.newScene) {
                         console.log('click event for hotspot: ', hotspot);
                         _this.setState({ scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots });
@@ -67,6 +72,7 @@ var Vrview = (function (_super) {
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
         var onVrViewLoad = function () {
+            // Vrview object creation
             _this.vrview = new VRView.Player('vrview', _this.state.scene);
             _this.vrview.on('ready', function () {
                 _this.loadHotspots();

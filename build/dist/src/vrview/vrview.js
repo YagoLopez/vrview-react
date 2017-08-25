@@ -423,6 +423,7 @@ else {
                     // Create a VR View iframe depending on the parameters.
                     var iframe = this.createIframe_(contentInfo);
                     this.iframe = iframe;
+                    // Modifications
                     // var parentEl = document.querySelector(selector);
                     var parentEl = document.getElementById(selector);
                     parentEl.appendChild(iframe);
@@ -465,6 +466,7 @@ else {
                     this.sender.send({ type: Message.PAUSE });
                 };
                 Player.prototype.setContent = function (contentInfo) {
+                    // Modifications
                     // this.absolutifyPaths_(contentInfo);
                     var data = { contentInfo: contentInfo };
                     this.sender.send({ type: Message.SET_CONTENT, data: data });
@@ -484,6 +486,7 @@ else {
                  * @return {IFrameElement} The iframe.
                  */
                 Player.prototype.createIframe_ = function (contentInfo) {
+                    // Modifications
                     // this.absolutifyPaths_(contentInfo);
                     var iframe = document.createElement('iframe');
                     iframe.setAttribute('allowfullscreen', true);
@@ -498,8 +501,8 @@ else {
                         iframe.setAttribute('height', contentInfo.height);
                         delete contentInfo.height;
                     }
+                    // Modifications
                     // var url = this.getEmbedUrl_() + Util.createGetParams(contentInfo);
-                    // debugger
                     var url = 'vrview/vrview.html' + Util.createGetParams(contentInfo);
                     iframe.src = url;
                     console.log('iframe.src', iframe.src);

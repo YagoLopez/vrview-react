@@ -53,6 +53,7 @@ var App = (function (_super) {
         return _this;
     }
     App.prototype.componentDidMount = function () {
+        // State is only mantained in Vrview Component not in this parent component
         this.refs.vrview.setState(this.initialProps);
     };
     App.prototype.render = function () {

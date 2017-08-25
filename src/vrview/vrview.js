@@ -433,6 +433,7 @@ function Player(selector, contentInfo) {
   var iframe = this.createIframe_(contentInfo);
   this.iframe = iframe;
 
+  // Modifications
   // var parentEl = document.querySelector(selector);
   var parentEl = document.getElementById(selector);
   parentEl.appendChild(iframe);
@@ -483,6 +484,7 @@ Player.prototype.pause = function() {
 };
 
 Player.prototype.setContent = function(contentInfo) {
+  // Modifications
   // this.absolutifyPaths_(contentInfo);
   var data = {contentInfo: contentInfo};
   this.sender.send({type: Message.SET_CONTENT, data: data});
@@ -504,6 +506,7 @@ Player.prototype.setVolume = function(volumeLevel) {
  * @return {IFrameElement} The iframe.
  */
 Player.prototype.createIframe_ = function(contentInfo) {
+  // Modifications
   // this.absolutifyPaths_(contentInfo);
 
   var iframe = document.createElement('iframe');
@@ -521,8 +524,8 @@ Player.prototype.createIframe_ = function(contentInfo) {
     delete contentInfo.height;
   }
 
+  // Modifications
   // var url = this.getEmbedUrl_() + Util.createGetParams(contentInfo);
-  // debugger
   var url = 'vrview/vrview.html' + Util.createGetParams(contentInfo);
   iframe.src = url;
   console.log('iframe.src', iframe.src);
