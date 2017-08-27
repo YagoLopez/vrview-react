@@ -44,13 +44,16 @@ var App = (function (_super) {
         _this.changeScene = function () {
             _this.refs.vrview.setState({
                 scene: { image: '../images/walrus.jpg', is_stereo: true },
-                hotspots: [{ name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2, clickFn: function () { return alert('arbitrary fn'); } }]
+                hotspots: [
+                    { name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: function () { return alert('Function executed'); } }
+                ]
             });
         };
         _this.resetScene = function () {
             // Important clean onClick event when reset scene
-            _this.refs.vrview.clearHotspotsClickEvents();
-            _this.refs.vrview.setState(_this.initialProps);
+            var vrview = _this.refs.vrview;
+            vrview.clearHotspotsClickHandlers();
+            vrview.setState(_this.initialProps);
         };
         _this.toggleDebugMode = function () {
             _this.refs.vrview.toggleDebugMode();

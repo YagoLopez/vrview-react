@@ -29,14 +29,17 @@ export class App extends React.Component<{}, ISceneConfig> {
   changeScene = (): void => {
     (this.refs.vrview as Vrview).setState({
       scene: {image: '../images/walrus.jpg', is_stereo: true},
-      hotspots: [{name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2, clickFn: () => alert('arbitrary fn')}]
+      hotspots: [
+        {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
+      ]
     })
   }
 
   resetScene = (): void => {
     // Important clean onClick event when reset scene
-    (this.refs.vrview as Vrview).clearHotspotsClickEvents();
-    (this.refs.vrview as Vrview).setState(this.initialProps);
+    const vrview = this.refs.vrview as Vrview;
+    vrview.clearHotspotsClickHandlers();
+    vrview.setState(this.initialProps)
   }
 
   toggleDebugMode = (): void => {

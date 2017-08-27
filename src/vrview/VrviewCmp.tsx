@@ -9,6 +9,7 @@
 //todo: revisar hotspot id en vrview.js
 //todo: material design para react
 //todo: hacer scene container responsivo
+//todo: hotspot editor (user creates hotspots when clicking on scene)
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
@@ -28,6 +29,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
     const hotspots = this.state.hotspots as IHotspot[];
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
       console.log('adding hotspot', hotspot);
+      // console.log('adding hotspots, event', this.vrview._events.click);
       this.vrview.addHotspot(hotspot.name, {
         pitch:    hotspot.pitch,
         yaw:      hotspot.yaw,
@@ -40,9 +42,10 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
   addHotspotsClickHandlers(): void {
     const hotspots = this.state.hotspots as IHotspot[];
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
+      // Hotspot clicked
       this.vrview.on( 'click', (event: {id: string}) => {
         if(event.id === hotspot.name){
-          // If there is function defined by the user on click event, run it
+          // If there is function defined by the user for the click event, run it
           if(hotspot.clickFn){
             hotspot.clickFn();
           } else {
@@ -58,7 +61,6 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
       })
     });
   }
-
 
   /**
    * Executed after dom load
@@ -79,7 +81,6 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
    * Executed after state changed
    */
   componentDidUpdate() {
-    console.log('component did update, this.state.scene.is_debug: ', this.state.scene.is_debug);
     if(this.vrview){
       this.vrview.setContent(this.state.scene);
       this.loadHotspots();
@@ -87,35 +88,41 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
     }
   }
 
-  clearHotspotsClickEvents(): void {
-    if(this.vrview._events.click){
-      this.vrview._events.click.length = 0;
+  clearHotspotsClickHandlers(): void {
+    if(this.vrview._events){
+      if(this.vrview._events.click){
+        this.vrview._events.click.length = 0;
+      }
     }
   }
 
-  getIframeWindow = (iframe_object: any): any => {
+  /**
+   * Get iframe window where is 3d canvas scene
+   * @param iframe_object
+   * @returns {Window}
+   */
+  getIframeWindow = (iframe_object: any): Window => {
     let result: any = undefined;
     if (iframe_object.contentWindow) {
-      // return iframe_object.contentWindow;
       result = iframe_object.contentWindow;
     }
-
     if (iframe_object.window) {
-      // return iframe_object.window;
       result = iframe_object.window;
     }
-    // return undefined;
     return result;
   }
 
   isDebugEnabled(iframe: HTMLIFrameElement): boolean {
     return (this.getIframeWindow(iframe)).document.querySelector('#stats') != null
   }
+
   /**
-   * Toggle Debug Mode
-   * It is needed to create a new VRView object. It is not enough to change state field 'is_debug'
+   * Toggle Canvas Debug Mode
+   * To enable/disable debug mode it is needed to create a new VRView object.
+   * It is not enough to change state field 'is_debug'
    */
   toggleDebugMode(): void {
+    this.clearHotspotsClickHandlers();
     const scene = this.state.scene;
     const iframe: HTMLIFrameElement = document.querySelector('iframe') as HTMLIFrameElement;
     const parentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
@@ -123,7 +130,6 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
     scene.width = iframe.width;
     scene.height = iframe.height;
     this.setState(scene as any);
-    console.log('toggle debug mode, is_debug: ', scene.is_debug);
     parentElement.removeChild(iframe);
     this.vrview = new VRView.Player('vrview', this.state.scene);
   }

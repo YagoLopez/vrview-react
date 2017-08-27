@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var ReactDOM = require("react-dom");
 var VrviewCmp_1 = require("./vrview/VrviewCmp");
-var scenes = {
+var scene = {
     scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
     hotspots: [
         { name: 'hotspot1', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
@@ -30,5 +30,5 @@ var scenes = {
 };
 it('renders without crashing', function () {
     var div = document.createElement('div');
-    ReactDOM.render(React.createElement(VrviewCmp_1.default, __assign({}, scenes)), div);
+    ReactDOM.render(React.createElement(VrviewCmp_1.default, __assign({}, scene)), div);
 });
