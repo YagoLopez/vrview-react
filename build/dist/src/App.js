@@ -44,11 +44,16 @@ var App = (function (_super) {
         _this.changeScene = function () {
             _this.refs.vrview.setState({
                 scene: { image: '../images/walrus.jpg', is_stereo: true },
-                hotspots: [{ name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }]
+                hotspots: [{ name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2, clickFn: function () { return alert('arbitrary fn'); } }]
             });
         };
         _this.resetScene = function () {
+            // Important clean onClick event when reset scene
+            _this.refs.vrview.clearHotspotsClickEvents();
             _this.refs.vrview.setState(_this.initialProps);
+        };
+        _this.toggleDebugMode = function () {
+            _this.refs.vrview.toggleDebugMode();
         };
         return _this;
     }
@@ -62,7 +67,9 @@ var App = (function (_super) {
             React.createElement(VrviewCmp_1.default, __assign({}, this.initialProps, { ref: "vrview" })),
             React.createElement("button", { onClick: this.changeScene }, "Change Scene"),
             "\u00A0",
-            React.createElement("button", { onClick: this.resetScene }, "Reset Scene")));
+            React.createElement("button", { onClick: this.resetScene }, "Reset Scene"),
+            "\u00A0",
+            React.createElement("button", { onClick: this.toggleDebugMode }, "Toggle Debug Mode")));
     };
     return App;
 }(React.Component));

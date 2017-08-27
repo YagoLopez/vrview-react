@@ -29,13 +29,19 @@ export class App extends React.Component<{}, ISceneConfig> {
   changeScene = (): void => {
     (this.refs.vrview as Vrview).setState({
       scene: {image: '../images/walrus.jpg', is_stereo: true},
-      hotspots: [{name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2}]
+      hotspots: [{name: 'hotspot5', pitch: 0, yaw: -35, radius: 0.05, distance: 2, clickFn: () => alert('arbitrary fn')}]
     })
-  };
+  }
 
   resetScene = (): void => {
+    // Important clean onClick event when reset scene
+    (this.refs.vrview as Vrview).clearHotspotsClickEvents();
     (this.refs.vrview as Vrview).setState(this.initialProps);
-  };
+  }
+
+  toggleDebugMode = (): void => {
+    (this.refs.vrview as Vrview).toggleDebugMode()
+  }
 
   render(){
     return(
@@ -43,7 +49,8 @@ export class App extends React.Component<{}, ISceneConfig> {
         <h1>Virtual Reality View</h1>
         <Vrview {...this.initialProps} ref="vrview" />
         <button onClick={this.changeScene}>Change Scene</button>&nbsp;
-        <button onClick={this.resetScene}>Reset Scene</button>
+        <button onClick={this.resetScene}>Reset Scene</button>&nbsp;
+        <button onClick={this.toggleDebugMode}>Toggle Debug Mode</button>
       </div>
     );
   }

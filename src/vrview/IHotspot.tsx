@@ -13,4 +13,5 @@ export interface IHotspot {
   radius: number,          // The radius of the hotspot, specified in meters.
   distance: number         // The distance of the hotspot from camera, specified in meters.
   newScene?: ISceneConfig  // Destination scene on click event
+  clickFn?: Function       // Arbitrary function to run on hotspot click event
 }
