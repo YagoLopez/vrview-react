@@ -1,6 +1,6 @@
 # <p align="center">VRVIEW React</p>
 
-## Virtual Reality React Component to view equirectangular photospheres and 360º videos
+## <p align="center">Virtual Reality React Component to view equirectangular photospheres and 360º videos</p>
 
 - It wraps <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points or hotspots to navigate between scenes
@@ -11,7 +11,9 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
   target="_blank">Demo in simulator (for desktop)</a>
 
-## Installation: FYI this project uses create-react-app with typscript support. Clone the repository or:
+## Installation
+
+FYI this project uses create-react-app with typscript support. Clone the repository or:
 
 ```shell
 npm install YagoLopez/vrview-react
@@ -21,11 +23,11 @@ npm install
 
 ## Application Programming Interface
 
-```typescript
+```reactjs
 <Vrview {sceneConfiguration} />
 ```
 
-- Where sceneConfiguration has the following interface:
+- Where `sceneConfiguration` has the following interface:
 
 ```typescript
 export interface ISceneConfig {
@@ -54,7 +56,7 @@ export interface ISceneConfig {
 }
 ```
 
-- And hotspot has the following interface:
+- And `hotspot` has the following interface:
 
 ```typescript
 export interface IHotspot {
@@ -72,7 +74,7 @@ export interface IHotspot {
 
 - Configure the scene following the interface `ISceneConfig`. For example, for a simple scene:
 
-```json
+```javascript
 sceneConfig: ISceneConfig = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true}
 }
@@ -81,7 +83,7 @@ sceneConfig: ISceneConfig = {
 - This example is more complex, with several scenes and hotspots with on click event handlers to navigate between
 scenes:
 
-```json
+```javascript
 sceneConfig: ISceneConfig = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
   hotspots: [
@@ -100,14 +102,42 @@ sceneConfig: ISceneConfig = {
 }
 ```
 
-You can also define an arbitrary funcion for a hotspot on click event:
+And pass the scence configuration as props:
 
-```json
+```typescript
+<Vrview {...sceneConfig} />
+```
+
+- You can also define an arbitrary function for a hotspot on click event:
+
+```javascript
 {
   scene: {image: '../images/walrus.jpg', is_stereo: true},
   hotspots: [
     {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
   ]
+}
+```
+
+- The state of the scene must be managed in <Vrview/> component. So for change the scene programatically you must get
+a reference to <Vrview/> and set the new state:
+
+```typescript
+changeScene = (): void => {
+  this.vrviewCmp.setState({
+    scene: {image: '../images/walrus.jpg', is_stereo: true},
+    hotspots: [
+      {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
+    ]
+  })
+}
+
+render(){
+  return(
+    <div>
+      <Vrview {...this.sceneConfig} ref={(vrview: Vrview) => {this.vrviewCmp = vrview}} />
+    </div>
+  );
 }
 ```
 
