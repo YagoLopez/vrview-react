@@ -1,6 +1,6 @@
-# VRVIEW. Virtual Reality React Component
+# <p align="center">VRVIEW React</p>
 
-## React Component for viewing photospheres and 360º videos
+## Virtual Reality React Component to view equirectangular photospheres and 360º videos
 
 - It wraps <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points or hotspots to navigate between scenes
