@@ -13,7 +13,7 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Installation
 
-This project uses create-react-app with typscript support. Clone the repository or:
+This project uses create-react-app with Typscript support. Clone the repository or:
 
 ```shell
 npm install YagoLopez/vrview-react
@@ -73,6 +73,7 @@ export interface IHotspot {
 ## Use
 
 - Important: images and videos must go in `public` directory
+- If you don't use Typescript you will have to erase all types in code
 - Configure the scene following the interface `ISceneConfig`. For example, for a simple scene:
 
 ```javascript
