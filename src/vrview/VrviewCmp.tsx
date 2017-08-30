@@ -1,26 +1,31 @@
+//todo: material design para react
+//todo: favicon
+//todo: loader
 //todo: is_debug on/off (usar parametros url?)
-//todo: buscar e incluir tipos (@type) para vrview
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
-//todo: favicon
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
 //todo: revisar hotspot id en vrview.js
-//todo: material design para react
-//todo: hacer scene container responsivo
 //todo: hotspot editor (user creates hotspots when clicking on scene)
+//todo: revisar IVrview
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
-import {ISceneConfig} from "./ISceneConfig";
-import {IHotspot} from "./IHotspot";
+import {ISceneConfig} from "./interfaces/ISceneConfig";
+import {IHotspot} from "./interfaces/IHotspot";
+import {IVrview} from "./interfaces/IVrview";
 
+/**
+ * Vrview component creates a 3d scene with optional hotspots
+ * @Props: ISceneConfig
+ * @State: ISceneConfig
+ */
 export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> {
 
-  //todo: definir tipo/interfaz para vrview
   // Vrview object (or scene object)
-  vrview: any;
+  vrview: IVrview;
 
   // Initial state id defined by parent's props
   state: ISceneConfig = this.props;
@@ -90,19 +95,19 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
 
   clearHotspotsClickHandlers(): void {
     if(this.vrview._events){
-      if(this.vrview._events.click){
-        this.vrview._events.click.length = 0;
+      if((this.vrview._events as any).click){
+        (this.vrview._events as any).click.length = 0;
       }
     }
   }
 
   /**
-   * Get iframe window where is 3d canvas scene
+   * Get window object from iframe where 3d canvas scene exists
    * @param iframe_object
    * @returns {Window}
    */
   getIframeWindow = (iframe_object: any): Window => {
-    let result: any = undefined;
+    let result: Window | any = undefined;
     if (iframe_object.contentWindow) {
       result = iframe_object.contentWindow;
     }
@@ -118,19 +123,21 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
 
   /**
    * Toggle Canvas Debug Mode
-   * To enable/disable debug mode it is needed to create a new VRView object.
-   * It is not enough to change state field 'is_debug'
+   * To enable/disable debug mode it is needed to create a new VRVirew object.
+   * It is not enough to change 'is_debug' field in the state
    */
   toggleDebugMode(): void {
     this.clearHotspotsClickHandlers();
     const scene = this.state.scene;
     const iframe: HTMLIFrameElement = document.querySelector('iframe') as HTMLIFrameElement;
-    const parentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
+    const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
+    // To know debug state it is needed to search for a dom element with debug info
+    // (not to use component 'state: scene.is_debug')
     scene.is_debug = !this.isDebugEnabled(iframe);
     scene.width = iframe.width;
     scene.height = iframe.height;
     this.setState(scene as any);
-    parentElement.removeChild(iframe);
+    iframeParentElement.removeChild(iframe);
     this.vrview = new VRView.Player('vrview', this.state.scene);
   }
 

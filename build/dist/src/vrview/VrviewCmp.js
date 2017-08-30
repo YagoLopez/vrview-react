@@ -1,16 +1,16 @@
 "use strict";
+//todo: material design para react
+//todo: favicon
+//todo: loader
 //todo: is_debug on/off (usar parametros url?)
-//todo: buscar e incluir tipos (@type) para vrview
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
-//todo: favicon
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
 //todo: revisar hotspot id en vrview.js
-//todo: material design para react
-//todo: hacer scene container responsivo
 //todo: hotspot editor (user creates hotspots when clicking on scene)
+//todo: revisar IVrview
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -24,6 +24,11 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var VRView = require("./vrview.js");
+/**
+ * Vrview component creates a 3d scene with optional hotspots
+ * @Props: ISceneConfig
+ * @State: ISceneConfig
+ */
 var Vrview = (function (_super) {
     __extends(Vrview, _super);
     function Vrview() {
@@ -31,7 +36,7 @@ var Vrview = (function (_super) {
         // Initial state id defined by parent's props
         _this.state = _this.props;
         /**
-         * Get iframe window where is 3d canvas scene
+         * Get window object from iframe where 3d canvas scene exists
          * @param iframe_object
          * @returns {Window}
          */
@@ -123,19 +128,21 @@ var Vrview = (function (_super) {
     };
     /**
      * Toggle Canvas Debug Mode
-     * To enable/disable debug mode it is needed to create a new VRView object.
-     * It is not enough to change state field 'is_debug'
+     * To enable/disable debug mode it is needed to create a new VRVirew object.
+     * It is not enough to change 'is_debug' field in the state
      */
     Vrview.prototype.toggleDebugMode = function () {
         this.clearHotspotsClickHandlers();
         var scene = this.state.scene;
         var iframe = document.querySelector('iframe');
-        var parentElement = iframe.parentElement;
+        var iframeParentElement = iframe.parentElement;
+        // To know debug state it is needed to search for a dom element with debug info
+        // (not to use component 'state: scene.is_debug')
         scene.is_debug = !this.isDebugEnabled(iframe);
         scene.width = iframe.width;
         scene.height = iframe.height;
         this.setState(scene);
-        parentElement.removeChild(iframe);
+        iframeParentElement.removeChild(iframe);
         this.vrview = new VRView.Player('vrview', this.state.scene);
     };
     Vrview.prototype.render = function () {

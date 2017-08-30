@@ -24,7 +24,9 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.initialProps = {
+        // Scene configuration with images, hotspots and navigation
+        // It is passed to <Vrview/> as props
+        _this.sceneConfig = {
             scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -41,34 +43,40 @@ var App = (function (_super) {
                 { name: 'hotspot2', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }
             ]
         };
+        /**
+         * Change scene programatically.
+         * State is only mantained in <Vrview/>, not in this <App/> parent component
+         * This is to manage rendering of <Vrview/> with life-cycle methods
+         */
         _this.changeScene = function () {
-            _this.refs.vrview.setState({
+            _this.vrviewCmp.setState({
                 scene: { image: '../images/walrus.jpg', is_stereo: true },
                 hotspots: [
                     { name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: function () { return alert('Function executed'); } }
                 ]
             });
         };
+        /**
+         * To reset scene is needed to clear hotspot click handlers
+         */
         _this.resetScene = function () {
-            // Important clean onClick event when reset scene
-            var vrview = _this.refs.vrview;
-            vrview.clearHotspotsClickHandlers();
-            vrview.setState(_this.initialProps);
+            _this.vrviewCmp.clearHotspotsClickHandlers();
+            _this.vrviewCmp.setState(_this.sceneConfig);
         };
+        /**
+         * In debug mode a small window indicates FPS (frames per second) in canvas
+         */
         _this.toggleDebugMode = function () {
-            _this.refs.vrview.toggleDebugMode();
+            _this.vrviewCmp.toggleDebugMode();
         };
         return _this;
     }
-    App.prototype.componentDidMount = function () {
-        // State is only mantained in Vrview Component not in this parent component
-        this.refs.vrview.setState(this.initialProps);
-    };
     App.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", null,
             React.createElement("h1", null, "Virtual Reality View"),
-            React.createElement(VrviewCmp_1.default, __assign({}, this.initialProps, { ref: "vrview" })),
-            React.createElement("button", { onClick: this.changeScene }, "Change Scene"),
+            React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
+            React.createElement("button", { onClick: this.changeScene }, "Change Scene Programatically"),
             "\u00A0",
             React.createElement("button", { onClick: this.resetScene }, "Reset Scene"),
             "\u00A0",

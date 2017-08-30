@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Vrview from './vrview/VrviewCmp';
-import {ISceneConfig} from "./vrview/ISceneConfig";
+import {ISceneConfig} from "./vrview/interfaces/ISceneConfig";
 
 const scene: ISceneConfig = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
