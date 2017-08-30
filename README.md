@@ -11,14 +11,19 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
   target="_blank">Demo in simulator (for desktop)</a>
 
+## Requirements
+- ReactJs
+- Typescript. If you don't use Typescript you will have to erase all type information in the code
+
 ## Installation
 
-This project uses create-react-app with Typscript support. Clone the repository or:
+Clone the repository or:
 
 ```shell
-npm install YagoLopez/vrview-react
+npm install YagoLopez/vrview-react --save
 cd vrview-react
 npm install
+npm start
 ```
 
 ## Application Programming Interface
@@ -73,7 +78,8 @@ export interface IHotspot {
 ## Use
 
 - Important: images and videos must go in `public` directory
-- If you don't use Typescript you will have to erase all types in code
+- Copy `public/vrview` folder to your project
+- Import `Vrview` component from `node_modules/vrview-react/src/vrview`
 - Configure the scene following the interface `ISceneConfig`. For example, for a simple scene:
 
 ```javascript

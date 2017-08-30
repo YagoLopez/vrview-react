@@ -57,14 +57,14 @@ var App = (function (_super) {
             });
         };
         /**
-         * To reset the scene is needed to clear hotspot click handlers
+         * To reset the scene to the initial config is needed to clear hotspot click handlers
          */
         _this.resetScene = function () {
             _this.vrviewCmp.clearHotspotsClickHandlers();
             _this.vrviewCmp.setState(_this.sceneConfig);
         };
         /**
-         * In debug mode a small window indicates FPS (frames per second) in canvas
+         * Debug mode: a small window indicates FPS (frames per second) in canvas
          */
         _this.toggleDebugMode = function () {
             _this.vrviewCmp.toggleDebugMode();

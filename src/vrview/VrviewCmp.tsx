@@ -10,6 +10,7 @@
 //todo: revisar hotspot id en vrview.js
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
+//todo: test con browser stack
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
@@ -24,7 +25,7 @@ import {IVrview} from "./interfaces/IVrview";
  */
 export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> {
 
-  // Vrview object (or scene object)
+  // Vrview object. Do not confuse with <Vrview/> component
   vrview: IVrview;
 
   // Initial state id defined by parent's props

@@ -41,7 +41,7 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * To reset the scene is needed to clear hotspot click handlers
+   * To reset the scene to the initial config is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
     this.vrviewCmp.clearHotspotsClickHandlers();
@@ -49,7 +49,7 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * In debug mode a small window indicates FPS (frames per second) in canvas
+   * Debug mode: a small window indicates FPS (frames per second) in canvas
    */
   toggleDebugMode = (): void => {
     this.vrviewCmp.toggleDebugMode()

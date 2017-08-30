@@ -11,6 +11,7 @@
 //todo: revisar hotspot id en vrview.js
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
+//todo: test con browser stack
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
