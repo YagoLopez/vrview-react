@@ -7,7 +7,7 @@ export class App extends React.Component<{}, {}> {
   // Reference to Vrview component
   vrviewCmp: Vrview;
 
-  // Scene configuration with images, hotspots and navigation
+  // Scene configuration with images, hotspots and navigation between scenes
   // It is passed to <Vrview/> as props
   sceneConfig: ISceneConfig = {
     scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
@@ -29,7 +29,7 @@ export class App extends React.Component<{}, {}> {
   /**
    * Change scene programatically.
    * State is only mantained in <Vrview/>, not in this <App/> parent component
-   * This is to manage rendering of <Vrview/> with life-cycle methods
+   * This is to manage the rendering of <Vrview/> with life-cycle methods
    */
   changeScene = (): void => {
     this.vrviewCmp.setState({
@@ -41,7 +41,7 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * To reset scene is needed to clear hotspot click handlers
+   * To reset the scene is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
     this.vrviewCmp.clearHotspotsClickHandlers();
