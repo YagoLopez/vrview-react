@@ -1,9 +1,9 @@
 # <p align="center">VRVIEW React</p>
 
-## <p align="center">Virtual Reality React Component to view equirectangular photospheres and 360º videos</p>
+<h2><p align="center">Virtual Reality React Component to view equirectangular photospheres and 360º videos</p></h2>
 
 - It wraps <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
-- It is posible to define points or hotspots to navigate between scenes
+- It is posible to define points (aka hotspots) to navigate between images/videos
 - It is posible to assign arbitrary function to hotspot on click
 - Using a mobile and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
 or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
@@ -13,7 +13,7 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Installation
 
-FYI this project uses create-react-app with typscript support. Clone the repository or:
+This project uses create-react-app with typscript support. Clone the repository or:
 
 ```shell
 npm install YagoLopez/vrview-react
@@ -143,3 +143,5 @@ render(){
 ```
 
 License MIT
+
+<a href="#">Return to top</a>
