@@ -24,7 +24,7 @@ npm install
 ## Application Programming Interface
 
 ```reactjs
-<Vrview {sceneConfiguration} />
+<Vrview {...sceneConfiguration} />
 ```
 
 - Where `sceneConfiguration` has the following interface:
@@ -56,7 +56,7 @@ export interface ISceneConfig {
 }
 ```
 
-- And `hotspot` has the following interface:
+- And `IHotspot` has the following shape:
 
 ```typescript
 export interface IHotspot {
@@ -72,6 +72,7 @@ export interface IHotspot {
 
 ## Use
 
+- Important: images and videos must go in `public` directory
 - Configure the scene following the interface `ISceneConfig`. For example, for a simple scene:
 
 ```javascript
@@ -80,8 +81,7 @@ sceneConfig: ISceneConfig = {
 }
 ```
 
-- This example is more complex, with several scenes and hotspots with on click event handlers to navigate between
-scenes:
+- Or for a more complex scene with several images and hotspots to navigate between images:
 
 ```javascript
 sceneConfig: ISceneConfig = {
@@ -102,13 +102,14 @@ sceneConfig: ISceneConfig = {
 }
 ```
 
-And pass the scence configuration as props:
+- After the scene is configured, pass the configuration object as props to the component:
 
 ```typescript
 <Vrview {...sceneConfig} />
 ```
 
-- You can also define an arbitrary function for a hotspot on click event:
+- You can also define an arbitrary function for a hotspot click event. In this case the click event on the hotspot has no
+effect and just the function passed is executed:
 
 ```javascript
 {
@@ -119,15 +120,15 @@ And pass the scence configuration as props:
 }
 ```
 
-- The state of the scene must be managed in <Vrview/> component. So for change the scene programatically you must get
-a reference to <Vrview/> and set the new state:
+- The state of the scene must be managed in the Vrview component. So for change the scene programatically you must get
+a reference to Vrview and set the new state:
 
 ```typescript
 changeScene = (): void => {
   this.vrviewCmp.setState({
     scene: {image: '../images/walrus.jpg', is_stereo: true},
     hotspots: [
-      {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
+      {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2}
     ]
   })
 }
@@ -141,4 +142,4 @@ render(){
 }
 ```
 
-- License MIT
+License MIT
