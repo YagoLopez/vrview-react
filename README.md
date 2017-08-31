@@ -109,14 +109,14 @@ sceneConfig: ISceneConfig = {
 }
 ```
 
-- After the scene is configured, pass the configuration object as props to the component:
+- After the scene object is defined, pass it as props to the component:
 
 ```typescript
 <Vrview {...sceneConfig} />
 ```
 
-- You can also define an arbitrary function for a hotspot click event. In this case the click event on the hotspot has no
-effect and just the function passed is executed:
+- You can also define an arbitrary function for a hotspot click event. In this case instead define a `newScene` object
+just define the `clickFn` property:
 
 ```javascript
 {
@@ -127,7 +127,7 @@ effect and just the function passed is executed:
 }
 ```
 
-- The state of the scene must be managed in the Vrview component. So for change the scene programatically you must get
+- The state of the scene must be managed in the Vrview component. So, for change the scene programatically you must get
 a reference to Vrview and set the new state:
 
 ```typescript
@@ -148,6 +148,9 @@ render(){
   );
 }
 ```
+
+# Disclaimer
+At the moment it seems IE and Chrome for IOS are not supported.
 
 License MIT
 
