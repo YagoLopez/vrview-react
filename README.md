@@ -150,7 +150,7 @@ render(){
 ```
 
 # Disclaimer
-At the moment it seems IE and Chrome for IOS are not supported.
+At the moment it seems IE and Chrome for IOS are not supported. Work in progress.
 
 License MIT
 
