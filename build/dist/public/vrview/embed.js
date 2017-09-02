@@ -12544,6 +12544,7 @@
                 //     this.emit('click', id);
                 //   }, 1200 )
                 // }
+                // modification
                 if (this.worldRenderer.isVRMode()) {
                     this.timeForHospotClick = setTimeout(function () {
                         this.emit('click', id);
