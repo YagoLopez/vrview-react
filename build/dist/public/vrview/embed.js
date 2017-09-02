@@ -6596,11 +6596,22 @@
                 var event = new CustomEvent('vrdisplaypresentchange', { detail: { display: this } });
                 window.dispatchEvent(event);
             };
+            // VRDisplay.prototype.fireVRDisplayConnect_ = function() {
+            //   // Important: unfortunately we cannot have full spec compliance here.
+            //   // CustomEvent custom fields all go under e.detail (so the VRDisplay ends up
+            //   // being e.detail.display, instead of e.display as per WebVR spec).
+            //   var event = new CustomEvent('vrdisplayconnect', {detail: {display: this}});
+            //   window.dispatchEvent(event);
+            // };
             VRDisplay.prototype.fireVRDisplayConnect_ = function () {
-                // Important: unfortunately we cannot have full spec compliance here.
-                // CustomEvent custom fields all go under e.detail (so the VRDisplay ends up
-                // being e.detail.display, instead of e.display as per WebVR spec).
-                var event = new CustomEvent('vrdisplayconnect', { detail: { display: this } });
+                if (typeof (Event) === 'function') {
+                    var event = new Event('vrdisplayconnect', { detail: { display: this } });
+                    // var event = new CustomEvent('vrdisplayconnect', {detail: {display: this}});
+                }
+                else {
+                    var event = document.createEvent('Event');
+                    event.initEvent('vrdisplayconnect', true, true);
+                }
                 window.dispatchEvent(event);
             };
             VRDisplay.prototype.addFullscreenListeners_ = function (element, changeHandler, errorHandler) {
@@ -12523,15 +12534,19 @@
                 }
             };
             HotspotRenderer.prototype.focus_ = function (id) {
-                var _this = this;
                 var hotspot = this.hotspots[id];
                 // Tween scale of hotspot.
                 this.tween = new TWEEN.Tween(hotspot.scale).to(FOCUS_SCALE, FOCUS_DURATION)
                     .easing(TWEEN.Easing.Quadratic.InOut)
                     .start();
+                // if (this.worldRenderer.isVRMode()) {
+                //   this.timeForHospotClick = setTimeout(() => {
+                //     this.emit('click', id);
+                //   }, 1200 )
+                // }
                 if (this.worldRenderer.isVRMode()) {
                     this.timeForHospotClick = setTimeout(function () {
-                        _this.emit('click', id);
+                        this.emit('click', id);
                     }, 1200);
                 }
             };

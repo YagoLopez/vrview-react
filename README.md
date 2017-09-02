@@ -2,7 +2,7 @@
 
 <b><p align="center">Virtual Reality React Component to view equirectangular photospheres and 360º videos</p></b>
 
-- It wraps <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
+- It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points (aka hotspots) to navigate between images/videos
 - It is posible to assign an arbitrary function to a hotspot click event
 - Using a mobile and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
@@ -17,11 +17,10 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Installation
 
-Clone the repository or:
+- Clone the repository :
 
 ```shell
-npm install YagoLopez/vrview-react --save
-cd vrview-react
+cd dir_name
 npm install
 npm start
 ```
@@ -150,7 +149,7 @@ render(){
 ```
 
 # Disclaimer
-At the moment it seems IE and Chrome for IOS are not supported. Work in progress.
+At the moment it seems IE < 11 and some IOS can experiment malfunction with three.js library. Feel free to open an issue
 
 License MIT
 
