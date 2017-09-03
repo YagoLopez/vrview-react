@@ -30,7 +30,7 @@ type information manually.
 <Vrview {...sceneConfiguration} />
 ```
 
-- Where `sceneConfiguration` has the following interface:
+Where `sceneConfiguration` has the following interface:
 
 ```typescript
 export interface ISceneConfig {
@@ -59,7 +59,7 @@ export interface ISceneConfig {
 }
 ```
 
-- And `IHotspot` has the following shape:
+And `IHotspot` has the following shape:
 
 ```typescript
 export interface IHotspot {
