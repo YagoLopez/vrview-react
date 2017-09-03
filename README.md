@@ -12,20 +12,20 @@ or other specialized hardware it is posible to have a full and inmersive virtual
   target="_blank">Demo in simulator (for desktop)</a>
 
 ## Requirements
-- ReactJs
-- Typescript. If you don't use Typescript you will have to erase all type information in the code
+- Node/npm/yarn
+- A project created with Create-React-App for Typescript
 
 ## Installation
 
 1. Using Node/Npm/Yarn:
 
-1.1 In a existing Create-React-App project, run `nmp install --save YagoLopez/vrview-react`
-2.2 Install dependencies with `npm install`
+1.1. In a existing Create-React-App project, run `nmp install --save YagoLopez/vrview-react`
+2.2. Install dependencies with `npm install`
 
 2. Cloning/Forking and running the app:
 
-2.1 Install dependencies with `npm install`
-2.2 Run the application with `npm run start`
+2.1. Install dependencies with `npm install`
+2.2. Run the application with `npm run start`
 
 
 ## Application Programming Interface
