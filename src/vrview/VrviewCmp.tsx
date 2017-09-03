@@ -1,3 +1,4 @@
+//todo: probar en una rama nueva con polyfill create custom event
 //todo: material design para react
 //todo: favicon
 //todo: loader
@@ -11,6 +12,7 @@
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
 //todo: test con browser stack
+//todo: hacer instalacion de prueba siguiendo pasos de readme.md
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";

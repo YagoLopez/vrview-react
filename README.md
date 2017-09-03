@@ -17,13 +17,16 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Installation
 
-- Clone the repository :
+1. Using Node/Npm/Yarn:
 
-```shell
-cd dir_name
-npm install
-npm start
-```
+1.1 In a existing Create-React-App project, run `nmp install --save YagoLopez/vrview-react`
+2.2 Install dependencies with `npm install`
+
+2. Cloning/Forking and running the app:
+
+2.1 Install dependencies with `npm install`
+2.2 Run the application with `npm run start`
+
 
 ## Application Programming Interface
 

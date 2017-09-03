@@ -1,4 +1,5 @@
 "use strict";
+//todo: probar en una rama nueva con polyfill create custom event
 //todo: material design para react
 //todo: favicon
 //todo: loader
@@ -12,6 +13,7 @@
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
 //todo: test con browser stack
+//todo: hacer instalacion de prueba siguiendo pasos de readme.md
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
