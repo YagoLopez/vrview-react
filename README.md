@@ -13,18 +13,14 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Requirements
 - Node/npm/yarn
-- A project created with Create-React-App for Typescript
+- A project created with Create-React-App for Typescript. If you don't want to use Typescript you just have to erase all
+type information manually.
 
 ## Installation
 
-1. Using Node/Npm/Yarn:
-
-- In a existing Create-React-App project, run `nmp install --save YagoLopez/vrview-react`
-- Install dependencies with `npm install`
-
-2. Cloning/Forking and running the app:
-
-- Install dependencies with `npm install`
+- To install in a existing `Create-React-App` project, run `nmp install --save YagoLopez/vrview-react`
+- To copy and run this project: clone or fork this repository
+- Install dependencies running `npm install` inside your local directory project
 - Run the application with `npm run start`
 
 
@@ -129,7 +125,7 @@ just define the `clickFn` property:
 }
 ```
 
-- The state of the scene must be managed in the Vrview component. So, for change the scene programatically you must get
+- The state of the scene must be managed in the Vrview component. So, for changing the scene programatically you must get
 a reference to Vrview and set the new state:
 
 ```typescript

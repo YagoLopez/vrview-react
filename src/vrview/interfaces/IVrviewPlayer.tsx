@@ -4,7 +4,7 @@
  * Interface for Vrview Object
  * This object is responsible for creation and handling of 3d scene
  */
-export interface IVrview {
+export interface IVrviewPlayer {
   _events: Object,
   iframe: HTMLIFrameElement,
   isPaused: boolean,

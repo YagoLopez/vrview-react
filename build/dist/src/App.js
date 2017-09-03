@@ -24,7 +24,7 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Scene configuration with images, hotspots and navigation between scenes
+        // Scene configuration contains images, hotspots and navigation between scenes
         // It is passed to <Vrview/> as props
         _this.sceneConfig = {
             scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
@@ -64,7 +64,7 @@ var App = (function (_super) {
             _this.vrviewCmp.setState(_this.sceneConfig);
         };
         /**
-         * Debug mode: a small window indicates FPS (frames per second) in canvas
+         * Debug mode: a small window shows FPS (frames per second) in canvas
          */
         _this.toggleDebugMode = function () {
             _this.vrviewCmp.toggleDebugMode();

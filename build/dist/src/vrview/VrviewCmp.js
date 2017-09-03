@@ -36,7 +36,7 @@ var Vrview = (function (_super) {
     __extends(Vrview, _super);
     function Vrview() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Initial state id defined by parent's props
+        // Initial state is defined by props passed by parent component
         _this.state = _this.props;
         /**
          * Get window object from iframe where 3d canvas scene exists
@@ -61,7 +61,7 @@ var Vrview = (function (_super) {
         hotspots && hotspots.forEach(function (hotspot) {
             console.log('adding hotspot', hotspot);
             // console.log('adding hotspots, event', this.vrview._events.click);
-            _this.vrview.addHotspot(hotspot.name, {
+            _this.vrviewPlayer.addHotspot(hotspot.name, {
                 pitch: hotspot.pitch,
                 yaw: hotspot.yaw,
                 radius: hotspot.radius,
@@ -73,8 +73,7 @@ var Vrview = (function (_super) {
         var _this = this;
         var hotspots = this.state.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
-            // Hotspot clicked
-            _this.vrview.on('click', function (event) {
+            _this.vrviewPlayer.on('click', function (event) {
                 if (event.id === hotspot.name) {
                     // If there is function defined by the user for the click event, run it
                     if (hotspot.clickFn) {
@@ -100,9 +99,9 @@ var Vrview = (function (_super) {
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
         var onVrViewLoad = function () {
-            // Vrview object creation
-            _this.vrview = new VRView.Player('vrview', _this.state.scene);
-            _this.vrview.on('ready', function () {
+            // Vrview Player object creation
+            _this.vrviewPlayer = new VRView.Player('vrview', _this.state.scene);
+            _this.vrviewPlayer.on('ready', function () {
                 _this.loadHotspots();
             });
             _this.addHotspotsClickHandlers();
@@ -113,16 +112,16 @@ var Vrview = (function (_super) {
      * Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
-        if (this.vrview) {
-            this.vrview.setContent(this.state.scene);
+        if (this.vrviewPlayer) {
+            this.vrviewPlayer.setContent(this.state.scene);
             this.loadHotspots();
             this.addHotspotsClickHandlers();
         }
     };
     Vrview.prototype.clearHotspotsClickHandlers = function () {
-        if (this.vrview._events) {
-            if (this.vrview._events.click) {
-                this.vrview._events.click.length = 0;
+        if (this.vrviewPlayer._events) {
+            if (this.vrviewPlayer._events.click) {
+                this.vrviewPlayer._events.click.length = 0;
             }
         }
     };
@@ -131,7 +130,7 @@ var Vrview = (function (_super) {
     };
     /**
      * Toggle Canvas Debug Mode
-     * To enable/disable debug mode it is needed to create a new VRVirew object.
+     * To enable/disable debug mode it is needed to create a new Vrview Player object.
      * It is not enough to change 'is_debug' field in the state
      */
     Vrview.prototype.toggleDebugMode = function () {
@@ -139,14 +138,14 @@ var Vrview = (function (_super) {
         var scene = this.state.scene;
         var iframe = document.querySelector('iframe');
         var iframeParentElement = iframe.parentElement;
-        // To know debug state it is needed to search for a dom element with debug info
-        // (not to use component 'state: scene.is_debug')
+        // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
+        // (not to use "state: scene.is_debug")
         scene.is_debug = !this.isDebugEnabled(iframe);
         scene.width = iframe.width;
         scene.height = iframe.height;
         this.setState(scene);
         iframeParentElement.removeChild(iframe);
-        this.vrview = new VRView.Player('vrview', this.state.scene);
+        this.vrviewPlayer = new VRView.Player('vrview', this.state.scene);
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));

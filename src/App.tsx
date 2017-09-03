@@ -7,7 +7,7 @@ export class App extends React.Component<{}, {}> {
   // Reference to Vrview component
   vrviewCmp: Vrview;
 
-  // Scene configuration with images, hotspots and navigation between scenes
+  // Scene configuration contains images, hotspots and navigation between scenes
   // It is passed to <Vrview/> as props
   sceneConfig: ISceneConfig = {
     scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
@@ -49,7 +49,7 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * Debug mode: a small window indicates FPS (frames per second) in canvas
+   * Debug mode: a small window shows FPS (frames per second) in canvas
    */
   toggleDebugMode = (): void => {
     this.vrviewCmp.toggleDebugMode()
