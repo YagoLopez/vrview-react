@@ -117,7 +117,7 @@ sceneConfig: ISceneConfig = {
 <Vrview {...sceneConfig} />
 ```
 
-- You can also define an arbitrary function for a hotspot click event. In this case instead define a `newScene` object
+- You can also define an arbitrary function for a hotspot click event. In this case instead of defining a `newScene` object
 just define the `clickFn` property:
 
 ```javascript
