@@ -76,18 +76,23 @@ var App = (function (_super) {
             _this.vrviewCmp.toggleDebugMode();
         };
         /**
-         * When <Panel> is closed, state changes and this produces vrview subcomponent to re-render
-         * This is not the desired behaviour.
-         * This life-cylce method avoids re-renderings when <Panel> it is closed
+         * This function is used to close Left Menu Panel when clicking overlay (outside panel).
+         * Left Menu Panel is created and deleted dynamically.
+         * To get a reference to the overlay renderPanelFooter() is used
          */
-        _this.showPanel = function () {
-            _this.refs.panel.open();
-        };
         _this.renderPanelFooter = function () {
             var overlay = document.querySelector('.ms-Overlay');
-            overlay && overlay.addEventListener('click', function () {
-                alert('hola');
-            });
+            if (overlay) {
+                overlay.addEventListener('mousedown', function () {
+                    _this.hideLeftPanel();
+                });
+            }
+        };
+        _this.showLeftPanel = function () {
+            _this.refs.panel.open();
+        };
+        _this.hideLeftPanel = function () {
+            _this.refs.panel.dismiss();
         };
         return _this;
     }
@@ -97,7 +102,7 @@ var App = (function (_super) {
             {
                 key: 'menuBtn',
                 icon: 'CollapseMenu',
-                onClick: this.showPanel,
+                onClick: this.showLeftPanel,
                 title: 'Left Menu'
             },
             {
@@ -126,7 +131,7 @@ var App = (function (_super) {
                 title: 'Change Scene by Code'
             }
         ];
-        var navGroups = [{
+        var leftMenuNavGroups = [{
                 links: [
                     {
                         name: 'Home',
@@ -135,7 +140,7 @@ var App = (function (_super) {
                                 name: 'Show Panel',
                                 url: '',
                                 key: 'key1',
-                                onClick: this.showPanel
+                                onClick: this.showLeftPanel
                             },
                             {
                                 name: 'News',
@@ -161,7 +166,7 @@ var App = (function (_super) {
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: comandBarItems, className: "command-bar" }),
             React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: 'Panel - Small, left-aligned, fixed' },
                 React.createElement("div", { className: 'ms-NavExample-LeftPane' },
-                    React.createElement(Nav_1.Nav, { groups: navGroups, expandedStateText: 'expanded', collapsedStateText: 'collapsed', selectedKey: 'key3' }))),
+                    React.createElement(Nav_1.Nav, { groups: leftMenuNavGroups, selectedKey: 'key3' }))),
             React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),

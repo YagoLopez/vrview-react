@@ -14,7 +14,7 @@ import {DocumentCard, DocumentCardTitle, DocumentCardActivity}
 
 export class App extends React.Component<{}, {}> {
 
-  // Reference to Vrview component
+  // Reference to Vrview Component
   vrviewCmp: Vrview;
 
   // Scene configuration contains images, hotspots and navigation between scenes
@@ -66,20 +66,25 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * When <Panel> is closed, state changes and this produces vrview subcomponent to re-render
-   * This is not the desired behaviour.
-   * This life-cylce method avoids re-renderings when <Panel> it is closed
+   * This function is used to close Left Menu Panel when clicking overlay (outside panel).
+   * Left Menu Panel is created and deleted dynamically.
+   * To get a reference to the overlay renderPanelFooter() is used
    */
+  renderPanelFooter = (): any => {
+    const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
+    if (overlay){
+      overlay.addEventListener('mousedown', () => {
+        this.hideLeftPanel();
+      })
+    }
+  };
 
-  showPanel = (): void => {
+  showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
   };
 
-  renderPanelFooter = (): any => {
-    const overlay: HTMLElement = document.querySelector('.ms-Overlay') as HTMLElement;
-    overlay && overlay.addEventListener('click', function(){
-      alert('hola');
-    });
+  hideLeftPanel = (): void => {
+    (this.refs.panel as Panel).dismiss();
   };
 
   render(){
@@ -88,7 +93,7 @@ export class App extends React.Component<{}, {}> {
       {
         key: 'menuBtn',
         icon: 'CollapseMenu',
-        onClick: this.showPanel,
+        onClick: this.showLeftPanel,
         title: 'Left Menu'
       },
       {
@@ -118,7 +123,7 @@ export class App extends React.Component<{}, {}> {
       }
     ];
 
-    const navGroups: INavLinkGroup[] = [{
+    const leftMenuNavGroups: INavLinkGroup[] = [{
       links:
         [
           {
@@ -128,7 +133,7 @@ export class App extends React.Component<{}, {}> {
               name: 'Show Panel',
               url: '',
               key: 'key1',
-              onClick: this.showPanel
+              onClick: this.showLeftPanel
             },
               {
                 name: 'News',
@@ -161,8 +166,11 @@ export class App extends React.Component<{}, {}> {
           onRenderFooter={ this.renderPanelFooter }
           headerText='Panel - Small, left-aligned, fixed'>
           <div className='ms-NavExample-LeftPane'>
-            <Nav groups={ navGroups } expandedStateText={ 'expanded' } collapsedStateText={ 'collapsed' }
+{/*
+            <Nav groups={ leftMenuNavGroups } expandedStateText={ 'expanded' } collapsedStateText={ 'collapsed' }
               selectedKey={ 'key3' } />
+*/}
+            <Nav groups={ leftMenuNavGroups } selectedKey={ 'key3' } />
           </div>
         </Panel>
 
