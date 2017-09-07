@@ -1,3 +1,4 @@
+<!--todo: fichero para css-->
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +7,34 @@
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <style>#root {margin: auto; text-align: center}</style>
+    <style>
+      .centered {text-align: center}
+      .shadow {box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.75)}
+      .layout {display: block; margin: auto}
+      .command-bar {display: block; margin: auto}
+      @media (min-width: 720px) {
+        .command-bar {
+          max-width: 100% !important;
+        }
+      }
+      @media (min-width: 720px) {
+        .command-bar {
+          max-width: 80% !important;
+        }
+      }
+      @media (min-width: 720px) {
+        .layout {
+          min-width: 80% !important
+        }
+      }
+      @media (max-width: 720px) {
+        .layout {
+          min-width: 100% !important
+        }
+      }
+    </style>
+    <!--<link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/4.1.0/css/fabric.min.css">-->
+    <!--<link rel="stylesheet" href="css/fabric.min.css">-->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

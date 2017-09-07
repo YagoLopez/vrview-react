@@ -20,6 +20,12 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var VrviewCmp_1 = require("./vrview/VrviewCmp");
+var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
+var CommandBar_1 = require("office-ui-fabric-react/lib/CommandBar");
+var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
+var Panel_1 = require("office-ui-fabric-react/lib/Panel");
+var Nav_1 = require("office-ui-fabric-react/lib/Nav");
+var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
@@ -27,7 +33,7 @@ var App = (function (_super) {
         // Scene configuration contains images, hotspots and navigation between scenes
         // It is passed to <Vrview/> as props
         _this.sceneConfig = {
-            scene: { width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
+            scene: { width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
                         scene: { image: '../images/1.jpg', is_stereo: false },
@@ -69,18 +75,98 @@ var App = (function (_super) {
         _this.toggleDebugMode = function () {
             _this.vrviewCmp.toggleDebugMode();
         };
+        /**
+         * When <Panel> is closed, state changes and this produces vrview subcomponent to re-render
+         * This is not the desired behaviour.
+         * This life-cylce method avoids re-renderings when <Panel> it is closed
+         */
+        _this.showPanel = function () {
+            _this.refs.panel.open();
+        };
+        _this.renderPanelFooter = function () {
+            var overlay = document.querySelector('.ms-Overlay');
+            overlay && overlay.addEventListener('click', function () {
+                alert('hola');
+            });
+        };
         return _this;
     }
     App.prototype.render = function () {
         var _this = this;
-        return (React.createElement("div", null,
-            React.createElement("h1", null, "Virtual Reality View"),
-            React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
-            React.createElement("button", { onClick: this.changeScene }, "Change Scene Programatically"),
-            "\u00A0",
-            React.createElement("button", { onClick: this.resetScene }, "Reset Scene"),
-            "\u00A0",
-            React.createElement("button", { onClick: this.toggleDebugMode }, "Toggle Debug Mode")));
+        var comandBarItems = [
+            {
+                key: 'menuBtn',
+                icon: 'CollapseMenu',
+                onClick: this.showPanel,
+                title: 'Left Menu'
+            },
+            {
+                key: 'divider',
+                itemType: ContextualMenu_1.ContextualMenuItemType.Divider
+            },
+            {
+                key: 'resetScene',
+                name: 'Reset Scene',
+                icon: 'RevToggleKey',
+                onClick: this.resetScene,
+                title: 'Return to Initial Scene'
+            },
+            {
+                key: 'toggleDebugMode',
+                name: 'Toggle Debug Mode',
+                icon: 'PowerBILogo',
+                onClick: this.toggleDebugMode,
+                title: 'Change Debug Mode State'
+            },
+            {
+                key: 'changeScene',
+                name: 'Change Scene Programatically',
+                icon: 'Org',
+                onClick: this.changeScene,
+                title: 'Change Scene by Code'
+            }
+        ];
+        var navGroups = [{
+                links: [
+                    {
+                        name: 'Home',
+                        url: '',
+                        links: [{
+                                name: 'Show Panel',
+                                url: '',
+                                key: 'key1',
+                                onClick: this.showPanel
+                            },
+                            {
+                                name: 'News',
+                                url: 'http://msn.com',
+                                key: 'key2'
+                            }],
+                        isExpanded: true
+                    },
+                    { name: 'Documents', url: 'http://example.com', key: 'key3', isExpanded: true },
+                    { name: 'Pages', url: 'http://msn.com', key: 'key4' },
+                    { name: 'Notebook', url: 'http://msn.com', key: 'key5' },
+                    { name: 'Long Name Test for elipse', url: 'http://msn.com', key: 'key6' },
+                    {
+                        name: 'Edit',
+                        url: 'http://cnn.com',
+                        onClick: function () { alert('on click'); },
+                        icon: 'Edit',
+                        key: 'key8'
+                    }
+                ]
+            }];
+        return (React.createElement(Fabric_1.Fabric, null,
+            React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: comandBarItems, className: "command-bar" }),
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: 'Panel - Small, left-aligned, fixed' },
+                React.createElement("div", { className: 'ms-NavExample-LeftPane' },
+                    React.createElement(Nav_1.Nav, { groups: navGroups, expandedStateText: 'expanded', collapsedStateText: 'collapsed', selectedKey: 'key3' }))),
+            React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
+            React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
+                React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
+                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' }),
+                React.createElement(DocumentCard_1.DocumentCardActivity, { activity: 'Created Feb 23, 2016', people: [{ name: 'Kat Larrson', profileImageSrc: require('./img/avatarkat.png') }] }))));
     };
     return App;
 }(React.Component));

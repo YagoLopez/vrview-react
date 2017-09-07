@@ -7,6 +7,7 @@
     "@types/node": "^8.0.14",
     "@types/react": "^15.0.38",
     "@types/react-dom": "^15.5.1",
+    "office-ui-fabric-react": "^4.40.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts-ts": "2.4.0",

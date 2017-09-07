@@ -1,4 +1,6 @@
 "use strict";
+//todo: añadir campos "título" y "descripcion" en ISceneConfig
+//todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event
 //todo: material design para react
 //todo: favicon

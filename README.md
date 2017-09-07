@@ -7,9 +7,10 @@
 - It is posible to assign an arbitrary function to a hotspot click event
 - Using a mobile and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
 or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
-- <a href="https://yagolopez.js.org/vrview-react/build/" target="_blank">Demo full screen (for mobile)</a>
+- <a href="https://yagolopez.js.org/vrview-react/build/" target="_blank">DEMO full screen (for mobile)</a>
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
-  target="_blank">Demo in simulator (for desktop)</a>
+  target="_blank">DEMO in simulator (for desktop)</a> <b>Warning: </b> Javascript in external iframes might have restrictions
+  for security reasons. Run the full scren demo to avoid restrictions.
 
 ## Requirements
 - Node/npm/yarn
@@ -76,7 +77,7 @@ export interface IHotspot {
 ## Use
 
 - Important: images and videos must go in `public` directory
-- Copy `public/vrview` folder to your project
+- Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
 - Configure the scene following the interface `ISceneConfig`. For example, for a simple scene:
 
