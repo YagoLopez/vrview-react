@@ -1,3 +1,5 @@
+//todo: usar callback function con "refs"
+
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import {ISceneConfig} from "./vrview/interfaces/ISceneConfig";
@@ -10,7 +12,7 @@ import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard, DocumentCardTitle, DocumentCardActivity}
   from 'office-ui-fabric-react/lib/DocumentCard';
 
-
+export const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
 export class App extends React.Component<{}, {}> {
 
@@ -38,8 +40,8 @@ export class App extends React.Component<{}, {}> {
 
   /**
    * Change scene programatically.
-   * State is only mantained in <Vrview/>, not in this <App/> parent component
-   * This is to manage the rendering of <Vrview/> with life-cycle methods
+   * State is only mantained in <Vrview>, not in <App> component
+   * This is to manage the rendering of <Vrview> with life-cycle methods
    */
   changeScene = (): void => {
     this.vrviewCmp.setState({
@@ -51,7 +53,7 @@ export class App extends React.Component<{}, {}> {
   };
 
   /**
-   * To reset the scene to the initial config is needed to clear hotspot click handlers
+   * To reset the scene to the initial state is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
     this.vrviewCmp.clearHotspotsClickHandlers();
@@ -87,9 +89,24 @@ export class App extends React.Component<{}, {}> {
     (this.refs.panel as Panel).dismiss();
   };
 
+  resetSceneHideLeftMenu = (): void => {
+    this.resetScene();
+    this.hideLeftPanel();
+  };
+
+  changeSceneHideLeftMenu = (): void => {
+    this.changeScene();
+    this.hideLeftPanel()
+  };
+
+  toggleDebugModeHideLeftMenu = (): void => {
+    this.toggleDebugMode();
+    this.hideLeftPanel();
+  };
+
   render(){
 
-    const comandBarItems: IContextualMenuItem[] = [
+    const topMenuItems: IContextualMenuItem[] = [
       {
         key: 'menuBtn',
         icon: 'CollapseMenu',
@@ -115,62 +132,69 @@ export class App extends React.Component<{}, {}> {
         title: 'Change Debug Mode State'
       },
       {
-        key: 'changeScene',
-        name: 'Change Scene Programatically',
+        key: 'more',
+        name: 'Change Scene',
         icon: 'Org',
-        onClick: this.changeScene,
-        title: 'Change Scene by Code'
+        items: [
+          {
+            key: 'changeScene',
+            name: 'Change Scene Programatically',
+            icon: 'DecreaseIndentLegacy',
+            onClick: this.changeScene,
+            title: 'Scene changed by code',
+          },
+          {
+            key: 'viewCode',
+            name: 'View Code',
+            icon: 'IncreaseIndentLegacy',
+            href: URL_CODE,
+            target: '_blank'
+          }
+        ]
       }
     ];
 
-    const leftMenuNavGroups: INavLinkGroup[] = [{
+    const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
+          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneHideLeftMenu },
+          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeHideLeftMenu},
           {
-            name: 'Home',
+            name: 'Change Scene',
             url: '',
             links: [{
-              name: 'Show Panel',
+              name: 'Programatically',
               url: '',
-              key: 'key1',
-              onClick: this.showLeftPanel
+              key: 'changeScene',
+              onClick: this.changeSceneHideLeftMenu
             },
-              {
-                name: 'News',
-                url: 'http://msn.com',
-                key: 'key2'
-              }],
+            {
+              name: 'View Code',
+              key: 'viewCode',
+              url: URL_CODE,
+              target: '_blank'
+            }],
             isExpanded: true
           },
-          { name: 'Documents', url: 'http://example.com', key: 'key3', isExpanded: true },
-          { name: 'Pages', url: 'http://msn.com', key: 'key4' },
-          { name: 'Notebook', url: 'http://msn.com', key: 'key5' },
-          { name: 'Long Name Test for elipse', url: 'http://msn.com', key: 'key6' },
-          {
-            name: 'Edit',
-            url: 'http://cnn.com',
-            onClick: () => {alert('on click')},
-            icon: 'Edit',
-            key: 'key8'
-          }
+          { name: 'Documents', url: '', key: 'key3' },
+          { name: 'Pages', url: '', key: 'key4' },
+          { name: 'Notebook', url: '', key: 'key5' },
+          { name: 'Long Name Test for elipse', url: '', key: 'key6' },
+          { name: 'Edit', url: '', onClick: () => {alert('on click')}, icon: 'Edit', key: 'key8'}
         ]
     }];
 
     return(
       <Fabric>
 
-        <CommandBar isSearchBoxVisible={ false } items={ comandBarItems } className="command-bar" />
+        <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
 
         <Panel ref="panel"
           type={ PanelType.smallFixedNear }
           onRenderFooter={ this.renderPanelFooter }
-          headerText='Panel - Small, left-aligned, fixed'>
-          <div className='ms-NavExample-LeftPane'>
-{/*
-            <Nav groups={ leftMenuNavGroups } expandedStateText={ 'expanded' } collapsedStateText={ 'collapsed' }
-              selectedKey={ 'key3' } />
-*/}
-            <Nav groups={ leftMenuNavGroups } selectedKey={ 'key3' } />
+          headerText="React Component Based on Google's Vrview Library">
+          <div>
+            <Nav groups={ leftMenuItems } selectedKey={ 'resetScene' } />
           </div>
         </Panel>
 

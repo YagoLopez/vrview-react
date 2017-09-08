@@ -1,4 +1,5 @@
 "use strict";
+//todo: usar callback function con "refs"
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -26,6 +27,7 @@ var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
 var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
+exports.URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
@@ -51,8 +53,8 @@ var App = (function (_super) {
         };
         /**
          * Change scene programatically.
-         * State is only mantained in <Vrview/>, not in this <App/> parent component
-         * This is to manage the rendering of <Vrview/> with life-cycle methods
+         * State is only mantained in <Vrview>, not in <App> component
+         * This is to manage the rendering of <Vrview> with life-cycle methods
          */
         _this.changeScene = function () {
             _this.vrviewCmp.setState({
@@ -63,7 +65,7 @@ var App = (function (_super) {
             });
         };
         /**
-         * To reset the scene to the initial config is needed to clear hotspot click handlers
+         * To reset the scene to the initial state is needed to clear hotspot click handlers
          */
         _this.resetScene = function () {
             _this.vrviewCmp.clearHotspotsClickHandlers();
@@ -94,11 +96,23 @@ var App = (function (_super) {
         _this.hideLeftPanel = function () {
             _this.refs.panel.dismiss();
         };
+        _this.resetSceneHideLeftMenu = function () {
+            _this.resetScene();
+            _this.hideLeftPanel();
+        };
+        _this.changeSceneHideLeftMenu = function () {
+            _this.changeScene();
+            _this.hideLeftPanel();
+        };
+        _this.toggleDebugModeHideLeftMenu = function () {
+            _this.toggleDebugMode();
+            _this.hideLeftPanel();
+        };
         return _this;
     }
     App.prototype.render = function () {
         var _this = this;
-        var comandBarItems = [
+        var topMenuItems = [
             {
                 key: 'menuBtn',
                 icon: 'CollapseMenu',
@@ -124,49 +138,60 @@ var App = (function (_super) {
                 title: 'Change Debug Mode State'
             },
             {
-                key: 'changeScene',
-                name: 'Change Scene Programatically',
+                key: 'more',
+                name: 'Change Scene',
                 icon: 'Org',
-                onClick: this.changeScene,
-                title: 'Change Scene by Code'
+                items: [
+                    {
+                        key: 'changeScene',
+                        name: 'Change Scene Programatically',
+                        icon: 'DecreaseIndentLegacy',
+                        onClick: this.changeScene,
+                        title: 'Scene changed by code',
+                    },
+                    {
+                        key: 'viewCode',
+                        name: 'View Code',
+                        icon: 'IncreaseIndentLegacy',
+                        href: exports.URL_CODE,
+                        target: '_blank'
+                    }
+                ]
             }
         ];
-        var leftMenuNavGroups = [{
+        var leftMenuItems = [{
                 links: [
+                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneHideLeftMenu },
+                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeHideLeftMenu },
                     {
-                        name: 'Home',
+                        name: 'Change Scene',
                         url: '',
                         links: [{
-                                name: 'Show Panel',
+                                name: 'Programatically',
                                 url: '',
-                                key: 'key1',
-                                onClick: this.showLeftPanel
+                                key: 'changeScene',
+                                onClick: this.changeSceneHideLeftMenu
                             },
                             {
-                                name: 'News',
-                                url: 'http://msn.com',
-                                key: 'key2'
+                                name: 'View Code',
+                                key: 'viewCode',
+                                url: exports.URL_CODE,
+                                target: '_blank'
                             }],
                         isExpanded: true
                     },
-                    { name: 'Documents', url: 'http://example.com', key: 'key3', isExpanded: true },
-                    { name: 'Pages', url: 'http://msn.com', key: 'key4' },
-                    { name: 'Notebook', url: 'http://msn.com', key: 'key5' },
-                    { name: 'Long Name Test for elipse', url: 'http://msn.com', key: 'key6' },
-                    {
-                        name: 'Edit',
-                        url: 'http://cnn.com',
-                        onClick: function () { alert('on click'); },
-                        icon: 'Edit',
-                        key: 'key8'
-                    }
+                    { name: 'Documents', url: '', key: 'key3' },
+                    { name: 'Pages', url: '', key: 'key4' },
+                    { name: 'Notebook', url: '', key: 'key5' },
+                    { name: 'Long Name Test for elipse', url: '', key: 'key6' },
+                    { name: 'Edit', url: '', onClick: function () { alert('on click'); }, icon: 'Edit', key: 'key8' }
                 ]
             }];
         return (React.createElement(Fabric_1.Fabric, null,
-            React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: comandBarItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: 'Panel - Small, left-aligned, fixed' },
-                React.createElement("div", { className: 'ms-NavExample-LeftPane' },
-                    React.createElement(Nav_1.Nav, { groups: leftMenuNavGroups, selectedKey: 'key3' }))),
+            React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "React Component Based on Google's Vrview Library" },
+                React.createElement("div", null,
+                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
             React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
