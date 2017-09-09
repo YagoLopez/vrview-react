@@ -1,4 +1,6 @@
 "use strict";
+//todo: scene description
+//todo: loader
 //todo: usar callback function con "refs"
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -27,24 +29,27 @@ var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
 var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
-exports.URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
+// import {Image, IImageProps} from 'office-ui-fabric-react/lib/Image';
+var URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Scene configuration contains images, hotspots and navigation between scenes
-        // It is passed to <Vrview/> as props
+        /**
+         * Scene configuration. Contains images, hotspots and navigation between scenes
+         * It is passed to <Vrview/> as props
+         */
         _this.sceneConfig = {
             scene: { width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                        scene: { image: '../images/1.jpg', is_stereo: false },
+                        scene: { image: '../images/landscape1.jpg', is_stereo: false },
                         hotspots: [
                             { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
-                                    scene: { image: '../images/petra.jpg', is_stereo: false }
+                                    scene: { image: '../images/palmbeach.jpg', is_stereo: false }
                                 } },
                             { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                                    scene: { image: '../images/2.jpg', is_stereo: false }
+                                    scene: { image: '../images/landscape2.jpg', is_stereo: false }
                                 } }
                         ]
                     } },
@@ -53,8 +58,8 @@ var App = (function (_super) {
         };
         /**
          * Change scene programatically.
-         * State is only mantained in <Vrview>, not in <App> component
-         * This is to manage the rendering of <Vrview> with life-cycle methods
+         * To change scene just set state with new data. State is only mantained in <Vrview>, not in <App> component
+         * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
          */
         _this.changeScene = function () {
             _this.vrviewCmp.setState({
@@ -96,21 +101,26 @@ var App = (function (_super) {
         _this.hideLeftPanel = function () {
             _this.refs.panel.dismiss();
         };
-        _this.resetSceneHideLeftMenu = function () {
+        _this.resetSceneAndHideLeftMenu = function () {
             _this.resetScene();
             _this.hideLeftPanel();
         };
-        _this.changeSceneHideLeftMenu = function () {
+        _this.changeSceneAndHideLeftMenu = function () {
             _this.changeScene();
             _this.hideLeftPanel();
         };
-        _this.toggleDebugModeHideLeftMenu = function () {
+        _this.toggleDebugModeAndHideLeftMenu = function () {
             _this.toggleDebugMode();
             _this.hideLeftPanel();
         };
         return _this;
     }
     App.prototype.render = function () {
+        // let imageProps: IImageProps = {
+        //   src: 'http://placehold.it/500x250',
+        //   width: 350,
+        //   height: 150
+        // };
         var _this = this;
         var topMenuItems = [
             {
@@ -153,7 +163,7 @@ var App = (function (_super) {
                         key: 'viewCode',
                         name: 'View Code',
                         icon: 'IncreaseIndentLegacy',
-                        href: exports.URL_CODE,
+                        href: URL_CODE,
                         target: '_blank'
                     }
                 ]
@@ -161,30 +171,23 @@ var App = (function (_super) {
         ];
         var leftMenuItems = [{
                 links: [
-                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneHideLeftMenu },
-                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeHideLeftMenu },
-                    {
-                        name: 'Change Scene',
-                        url: '',
+                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
+                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+                    { name: 'Change Scene', url: '',
                         links: [{
                                 name: 'Programatically',
-                                url: '',
                                 key: 'changeScene',
-                                onClick: this.changeSceneHideLeftMenu
+                                url: '',
+                                onClick: this.changeSceneAndHideLeftMenu
                             },
                             {
                                 name: 'View Code',
                                 key: 'viewCode',
-                                url: exports.URL_CODE,
+                                url: URL_CODE,
                                 target: '_blank'
                             }],
                         isExpanded: true
-                    },
-                    { name: 'Documents', url: '', key: 'key3' },
-                    { name: 'Pages', url: '', key: 'key4' },
-                    { name: 'Notebook', url: '', key: 'key5' },
-                    { name: 'Long Name Test for elipse', url: '', key: 'key6' },
-                    { name: 'Edit', url: '', onClick: function () { alert('on click'); }, icon: 'Edit', key: 'key8' }
+                    }
                 ]
             }];
         return (React.createElement(Fabric_1.Fabric, null,
@@ -195,8 +198,10 @@ var App = (function (_super) {
             React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
-                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' }),
-                React.createElement(DocumentCard_1.DocumentCardActivity, { activity: 'Created Feb 23, 2016', people: [{ name: 'Kat Larrson', profileImageSrc: require('./img/avatarkat.png') }] }))));
+                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' })),
+            React.createElement("p", null,
+                React.createElement("a", { href: "javascript:void(0)" },
+                    React.createElement("img", { src: "http://placehold.it/500x250", onClick: this.changeScene })))));
     };
     return App;
 }(React.Component));

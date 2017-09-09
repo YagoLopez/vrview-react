@@ -1,3 +1,5 @@
+//todo: scene description
+//todo: loader
 //todo: usar callback function con "refs"
 
 import * as React from 'react';
@@ -9,29 +11,32 @@ import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
-import {DocumentCard, DocumentCardTitle, DocumentCardActivity}
-  from 'office-ui-fabric-react/lib/DocumentCard';
+import {DocumentCard, DocumentCardTitle} from 'office-ui-fabric-react/lib/DocumentCard';
+// import {Image, IImageProps} from 'office-ui-fabric-react/lib/Image';
 
-export const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
+
+const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
 export class App extends React.Component<{}, {}> {
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
 
-  // Scene configuration contains images, hotspots and navigation between scenes
-  // It is passed to <Vrview/> as props
+  /**
+   * Scene configuration. Contains images, hotspots and navigation between scenes
+   * It is passed to <Vrview/> as props
+   */
   sceneConfig: ISceneConfig = {
     scene: {width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
     hotspots: [
       {name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-        scene: {image: '../images/1.jpg', is_stereo: false},
+        scene: {image: '../images/landscape1.jpg', is_stereo: false},
         hotspots: [
           {name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
-            scene: {image: '../images/petra.jpg', is_stereo: false}
+            scene: {image: '../images/palmbeach.jpg', is_stereo: false}
           }},
           {name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-            scene: {image: '../images/2.jpg', is_stereo: false}}}
+            scene: {image: '../images/landscape2.jpg', is_stereo: false}}}
         ]
       }},
       {name: 'hotspot2', pitch: 0, yaw: -35, radius: 0.05, distance: 2}
@@ -40,8 +45,8 @@ export class App extends React.Component<{}, {}> {
 
   /**
    * Change scene programatically.
-   * State is only mantained in <Vrview>, not in <App> component
-   * This is to manage the rendering of <Vrview> with life-cycle methods
+   * To change scene just set state with new data. State is only mantained in <Vrview>, not in <App> component
+   * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
    */
   changeScene = (): void => {
     this.vrviewCmp.setState({
@@ -89,22 +94,28 @@ export class App extends React.Component<{}, {}> {
     (this.refs.panel as Panel).dismiss();
   };
 
-  resetSceneHideLeftMenu = (): void => {
+  resetSceneAndHideLeftMenu = (): void => {
     this.resetScene();
     this.hideLeftPanel();
   };
 
-  changeSceneHideLeftMenu = (): void => {
+  changeSceneAndHideLeftMenu = (): void => {
     this.changeScene();
     this.hideLeftPanel()
   };
 
-  toggleDebugModeHideLeftMenu = (): void => {
+  toggleDebugModeAndHideLeftMenu = (): void => {
     this.toggleDebugMode();
     this.hideLeftPanel();
   };
 
   render(){
+
+    // let imageProps: IImageProps = {
+    //   src: 'http://placehold.it/500x250',
+    //   width: 350,
+    //   height: 150
+    // };
 
     const topMenuItems: IContextualMenuItem[] = [
       {
@@ -157,16 +168,14 @@ export class App extends React.Component<{}, {}> {
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
-          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneHideLeftMenu },
-          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeHideLeftMenu},
-          {
-            name: 'Change Scene',
-            url: '',
+          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
+          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+          { name: 'Change Scene', url: '',
             links: [{
               name: 'Programatically',
-              url: '',
               key: 'changeScene',
-              onClick: this.changeSceneHideLeftMenu
+              url: '',
+              onClick: this.changeSceneAndHideLeftMenu
             },
             {
               name: 'View Code',
@@ -175,12 +184,7 @@ export class App extends React.Component<{}, {}> {
               target: '_blank'
             }],
             isExpanded: true
-          },
-          { name: 'Documents', url: '', key: 'key3' },
-          { name: 'Pages', url: '', key: 'key4' },
-          { name: 'Notebook', url: '', key: 'key5' },
-          { name: 'Long Name Test for elipse', url: '', key: 'key6' },
-          { name: 'Edit', url: '', onClick: () => {alert('on click')}, icon: 'Edit', key: 'key8'}
+          }
         ]
     }];
 
@@ -189,13 +193,12 @@ export class App extends React.Component<{}, {}> {
 
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
 
-        <Panel ref="panel"
+        <Panel
+          ref="panel"
           type={ PanelType.smallFixedNear }
           onRenderFooter={ this.renderPanelFooter }
           headerText="React Component Based on Google's Vrview Library">
-          <div>
-            <Nav groups={ leftMenuItems } selectedKey={ 'resetScene' } />
-          </div>
+          <div><Nav groups={ leftMenuItems } selectedKey={ 'resetScene' } /></div>
         </Panel>
 
         <h1 className="centered">Virtual Reality View</h1>
@@ -205,10 +208,17 @@ export class App extends React.Component<{}, {}> {
           <Vrview {...this.sceneConfig} ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} } />
           {/* /Vrview Component ------------------------------------------------------------ */}
           <DocumentCardTitle title='Revenue stream proposal fiscal year 2016 version02.pptx'/>
-          <DocumentCardActivity
-            activity='Created Feb 23, 2016'
-            people={ [{name: 'Kat Larrson', profileImageSrc: require('./img/avatarkat.png')}] } />
         </DocumentCard>
+
+{/*
+        <p>
+          <Image  { ...imageProps as any } onClick={ () => {alert('click')} } />
+        </p>
+*/}
+
+        <p>
+          <a href="javascript:void(0)"><img src="http://placehold.it/500x250" onClick={ this.changeScene } /></a>
+        </p>
 
       </Fabric>
     );
