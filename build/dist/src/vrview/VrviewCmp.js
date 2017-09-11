@@ -31,6 +31,7 @@ var React = require("react");
 var VRView = require("./vrview.js");
 /**
  * Vrview component creates a 3d scene with optional hotspots
+ *
  * @Props: ISceneConfig
  * @State: ISceneConfig
  */
@@ -42,6 +43,7 @@ var Vrview = (function (_super) {
         _this.state = _this.props;
         /**
          * Get window object from iframe where 3d canvas scene exists
+         *
          * @param iframe_object
          * @returns {Window}
          */
@@ -77,7 +79,7 @@ var Vrview = (function (_super) {
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrviewPlayer.on('click', function (event) {
                 if (event.id === hotspot.name) {
-                    // If there is function defined by the user for the click event, run it
+                    // If there is a function defined by the user for the click event, run it
                     if (hotspot.clickFn) {
                         hotspot.clickFn();
                     }
@@ -86,6 +88,9 @@ var Vrview = (function (_super) {
                         if (hotspot.newScene) {
                             console.log('click event for hotspot: ', hotspot);
                             _this.setState({ scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots });
+                            // (this as any)._reactInternalInstance._currentElement._owner._instance.setState({description: 'jare'});
+                            // (this as any)._reactInternalInstance._currentElement._owner._instance.setState(this.state);
+                            _this.props.updateParent();
                         }
                         else {
                             alert('No Scene defined for hotspot');
@@ -96,7 +101,7 @@ var Vrview = (function (_super) {
         });
     };
     /**
-     * Executed after dom load
+     * Component initialization. Executed after dom load
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
@@ -111,7 +116,7 @@ var Vrview = (function (_super) {
         window.addEventListener('load', onVrViewLoad);
     };
     /**
-     * Executed after state changed
+     * On change event. Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
         if (this.vrviewPlayer) {

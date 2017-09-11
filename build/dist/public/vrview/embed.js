@@ -2094,22 +2094,7 @@
                     function n(a, b) { var c = a.split("."), d = aa; c[0] in d || !d.execScript || d.execScript("var " + c[0]); for (var e; c.length && (e = c.shift());)
                         c.length || void 0 === b ? d[e] ? d = d[e] : d = d[e] = {} : d[e] = b; }
                     function ba(a) { var b = p; function c() { } c.prototype = b.prototype; a.Be = b.prototype; a.prototype = new c; a.prototype.constructor = a; a.ye = function (a, c, f) { return b.prototype[c].apply(a, Array.prototype.slice.call(arguments, 2)); }; }
-                    ; /*
-                    
-                     Copyright 2016 Google Inc.
-                    
-                     Licensed under the Apache License, Version 2.0 (the "License");
-                     you may not use this file except in compliance with the License.
-                     You may obtain a copy of the License at
-                    
-                         http://www.apache.org/licenses/LICENSE-2.0
-                    
-                     Unless required by applicable law or agreed to in writing, software
-                     distributed under the License is distributed on an "AS IS" BASIS,
-                     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                     See the License for the specific language governing permissions and
-                     limitations under the License.
-                    */
+                    ;
                     function ca(a) { this.c = Math.exp(Math.log(.5) / a); this.b = this.a = 0; }
                     function da(a, b, c) { var d = Math.pow(a.c, b); c = c * (1 - d) + d * a.a; isNaN(c) || (a.a = c, a.b += b); }
                     function ea(a) { return a.a / (1 - Math.pow(a.c, a.b)); }
@@ -5723,20 +5708,6 @@
                         t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e); }, l, l.exports, e, t, n, r);
                     } return n[o].exports; } var i = typeof _dereq_ == "function" && _dereq_; for (var o = 0; o < r.length; o++)
                         s(r[o]); return s; })({ 1: [function (_dereq_, module, exports) {
-                                /*
-                                 * Copyright 2015 Google Inc. All Rights Reserved.
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *     http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
                                 var Emitter = _dereq_('./emitter.js');
                                 var Modes = _dereq_('./modes.js');
                                 var Util = _dereq_('./util.js');
@@ -5852,20 +5823,6 @@
                                 };
                                 module.exports = ButtonManager;
                             }, { "./emitter.js": 2, "./modes.js": 3, "./util.js": 4 }], 2: [function (_dereq_, module, exports) {
-                                /*
-                                 * Copyright 2015 Google Inc. All Rights Reserved.
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *     http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
                                 function Emitter() {
                                     this.callbacks = {};
                                 }
@@ -5892,20 +5849,6 @@
                                 };
                                 module.exports = Emitter;
                             }, {}], 3: [function (_dereq_, module, exports) {
-                                /*
-                                 * Copyright 2015 Google Inc. All Rights Reserved.
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *     http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
                                 var Modes = {
                                     UNKNOWN: 0,
                                     // Not fullscreen, just tracking.
@@ -5917,20 +5860,6 @@
                                 };
                                 module.exports = Modes;
                             }, {}], 4: [function (_dereq_, module, exports) {
-                                /*
-                                 * Copyright 2015 Google Inc. All Rights Reserved.
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *     http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
                                 var Util = {};
                                 Util.base64 = function (mimeType, base64) {
                                     return 'data:' + mimeType + ';base64,' + base64;
@@ -5980,20 +5909,6 @@
                                 };
                                 module.exports = Util;
                             }, {}], 5: [function (_dereq_, module, exports) {
-                                /*
-                                 * Copyright 2015 Google Inc. All Rights Reserved.
-                                 * Licensed under the Apache License, Version 2.0 (the "License");
-                                 * you may not use this file except in compliance with the License.
-                                 * You may obtain a copy of the License at
-                                 *
-                                 *     http://www.apache.org/licenses/LICENSE-2.0
-                                 *
-                                 * Unless required by applicable law or agreed to in writing, software
-                                 * distributed under the License is distributed on an "AS IS" BASIS,
-                                 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                                 * See the License for the specific language governing permissions and
-                                 * limitations under the License.
-                                 */
                                 var ButtonManager = _dereq_('./button-manager.js');
                                 var Emitter = _dereq_('./emitter.js');
                                 var Modes = _dereq_('./modes.js');
@@ -6301,20 +6216,6 @@
                 "version": "0.9.35"
             };
         }, {}], 9: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             var WakeLock = _dereq_('./wakelock.js');
             // Start at a higher number to reduce chance of conflict.
@@ -6713,20 +6614,6 @@
             module.exports.HMDVRDevice = HMDVRDevice;
             module.exports.PositionSensorVRDevice = PositionSensorVRDevice;
         }, { "./util.js": 29, "./wakelock.js": 31 }], 10: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var CardboardUI = _dereq_('./cardboard-ui.js');
             var Util = _dereq_('./util.js');
             var WGLUPreserveGLState = _dereq_('./deps/wglu-preserve-state.js');
@@ -7299,20 +7186,6 @@
             };
             module.exports = CardboardDistorter;
         }, { "./cardboard-ui.js": 11, "./deps/wglu-preserve-state.js": 13, "./util.js": 29 }], 11: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             var WGLUPreserveGLState = _dereq_('./deps/wglu-preserve-state.js');
             var uiVS = [
@@ -7524,20 +7397,6 @@
             };
             module.exports = CardboardUI;
         }, { "./deps/wglu-preserve-state.js": 13, "./util.js": 29 }], 12: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var CardboardDistorter = _dereq_('./cardboard-distorter.js');
             var CardboardUI = _dereq_('./cardboard-ui.js');
             var DeviceInfo = _dereq_('./device-info.js');
@@ -7877,20 +7736,6 @@
             }
             module.exports = WGLUPreserveGLState;
         }, {}], 14: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Distortion = _dereq_('./distortion/distortion.js');
             var MathUtil = _dereq_('./math-util.js');
             var Util = _dereq_('./util.js');
@@ -8196,20 +8041,6 @@
             DeviceInfo.Viewers = Viewers;
             module.exports = DeviceInfo;
         }, { "./distortion/distortion.js": 16, "./math-util.js": 20, "./util.js": 29 }], 15: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var VRDisplay = _dereq_('./base.js').VRDisplay;
             var HMDVRDevice = _dereq_('./base.js').HMDVRDevice;
             var PositionSensorVRDevice = _dereq_('./base.js').PositionSensorVRDevice;
@@ -9843,20 +9674,6 @@
                 ]
             };
         }, {}], 18: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             // Offline cache of the DPDB, to be used until we load the online one (and
             // as a fallback in case we can't load the online one).
             var DPDB_CACHE = _dereq_('./dpdb.json');
@@ -10006,20 +9823,6 @@
             }
             module.exports = Dpdb;
         }, { "../util.js": 29, "./dpdb.json": 17 }], 19: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             var WebVRPolyfill = _dereq_('./webvr-polyfill.js').WebVRPolyfill;
             // Initialize a WebVRConfig just in case.
@@ -10083,20 +9886,6 @@
             }
             window.WebVRPolyfill = WebVRPolyfill;
         }, { "./util.js": 29, "./webvr-polyfill.js": 32 }], 20: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var MathUtil = window.MathUtil || {};
             MathUtil.degToRad = Math.PI / 180;
             MathUtil.radToDeg = 180 / Math.PI;
@@ -10363,20 +10152,6 @@
             };
             module.exports = MathUtil;
         }, {}], 21: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var VRDisplay = _dereq_('./base.js').VRDisplay;
             var MathUtil = _dereq_('./math-util.js');
             var Util = _dereq_('./util.js');
@@ -10531,20 +10306,6 @@
                 _dereq_('./main');
             }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
         }, { "./main": 19 }], 23: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             function RotateInstructions() {
                 this.loadIcon_();
@@ -10657,20 +10418,6 @@
             };
             module.exports = RotateInstructions;
         }, { "./util.js": 29 }], 24: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var SensorSample = _dereq_('./sensor-sample.js');
             var MathUtil = _dereq_('../math-util.js');
             var Util = _dereq_('../util.js');
@@ -10790,20 +10537,6 @@
             };
             module.exports = ComplementaryFilter;
         }, { "../math-util.js": 20, "../util.js": 29, "./sensor-sample.js": 27 }], 25: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var ComplementaryFilter = _dereq_('./complementary-filter.js');
             var PosePredictor = _dereq_('./pose-predictor.js');
             var TouchPanner = _dereq_('../touch-panner.js');
@@ -10982,20 +10715,6 @@
             };
             module.exports = FusionPoseSensor;
         }, { "../math-util.js": 20, "../touch-panner.js": 28, "../util.js": 29, "./complementary-filter.js": 24, "./pose-predictor.js": 26 }], 26: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var MathUtil = _dereq_('../math-util');
             var Util = _dereq_('../util');
             /**
@@ -11063,20 +10782,6 @@
             };
             module.exports = SensorSample;
         }, {}], 28: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var MathUtil = _dereq_('./math-util.js');
             var Util = _dereq_('./util.js');
             var ROTATE_SPEED = 0.5;
@@ -11131,20 +10836,6 @@
             };
             module.exports = TouchPanner;
         }, { "./math-util.js": 20, "./util.js": 29 }], 29: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = window.Util || {};
             Util.MIN_TIMESTEP = 0.001;
             Util.MAX_TIMESTEP = 1;
@@ -11525,20 +11216,6 @@
             };
             module.exports = Util;
         }, {}], 30: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var DeviceInfo = _dereq_('./device-info.js');
             var Util = _dereq_('./util.js');
             var DEFAULT_VIEWER = 'CardboardV1';
@@ -11707,20 +11384,6 @@
             };
             module.exports = ViewerSelector;
         }, { "./device-info.js": 14, "./util.js": 29 }], 31: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             /**
              * Android and iOS compatible wakelock implementation.
@@ -11775,20 +11438,6 @@
             }
             module.exports = getWakeLock();
         }, { "./util.js": 29 }], 32: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2015 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('./util.js');
             var CardboardVRDisplay = _dereq_('./cardboard-vr-display.js');
             var MouseKeyboardVRDisplay = _dereq_('./mouse-keyboard-vr-display.js');
@@ -12022,20 +11671,6 @@
             WebVRPolyfill.version = version;
             module.exports.WebVRPolyfill = WebVRPolyfill;
         }, { "../package.json": 8, "./base.js": 9, "./cardboard-vr-display.js": 12, "./display-wrappers.js": 15, "./mouse-keyboard-vr-display.js": 21, "./util.js": 29 }], 33: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var EventEmitter = _dereq_('eventemitter3');
             var shaka = _dereq_('shaka-player');
             var Types = _dereq_('../video-type');
@@ -12153,20 +11788,6 @@
             module.exports = AdaptivePlayer;
         }, { "../util": 47, "../video-type": 48, "eventemitter3": 3, "shaka-player": 5 }], 34: [function (_dereq_, module, exports) {
             /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
-            /*
             function Analytics() {
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -12210,40 +11831,12 @@
             window.analytics = new Analytics();
             */
         }, {}], 35: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Eyes = {
                 LEFT: 1,
                 RIGHT: 2
             };
             module.exports = Eyes;
         }, {}], 36: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var EventEmitter = _dereq_('eventemitter3');
             var TWEEN = _dereq_('@tweenjs/tween.js');
             var Util = _dereq_('../util');
@@ -12583,20 +12176,6 @@
             };
             module.exports = HotspotRenderer;
         }, { "../util": 47, "@tweenjs/tween.js": 1, "eventemitter3": 3 }], 37: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var EventEmitter = _dereq_('eventemitter3');
             var Message = _dereq_('../message');
             var Util = _dereq_('../util');
@@ -12646,20 +12225,6 @@
             };
             module.exports = IFrameMessageReceiver;
         }, { "../message": 46, "../util": 47, "eventemitter3": 3 }], 38: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             /**
              * Shows a 2D loading indicator while various pieces of EmbedVR load.
              */
@@ -12695,20 +12260,6 @@
             };
             module.exports = LoadingIndicator;
         }, {}], 39: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             // Initialize the loading indicator as quickly as possible to give the user
             // immediate feedback.
             var LoadingIndicator = _dereq_('./loading-indicator');
@@ -13006,20 +12557,6 @@
                 });
             }
         }, { "../../node_modules/stats-js/build/stats.min": 6, "../message": 46, "../util": 47, "./iframe-message-receiver": 37, "./loading-indicator": 38, "./scene-info": 41, "./world-renderer": 45, "es6-promise": 2, "webvr-polyfill": 22 }], 40: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             function ReticleRenderer(camera) {
                 this.camera = camera;
                 this.reticle = this.createReticle_();
@@ -13041,20 +12578,6 @@
             };
             module.exports = ReticleRenderer;
         }, {}], 41: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('../util');
             var CAMEL_TO_UNDERSCORE = {
                 video: 'video',
@@ -13159,20 +12682,6 @@
             };
             module.exports = SceneInfo;
         }, { "../util": 47 }], 42: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Eyes = _dereq_('./eyes');
             var TWEEN = _dereq_('@tweenjs/tween.js');
             var Util = _dereq_('../util');
@@ -13339,20 +12848,6 @@
             };
             module.exports = SphereRenderer;
         }, { "../util": 47, "../video-type": 48, "./eyes": 35, "@tweenjs/tween.js": 1 }], 43: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = _dereq_('../util');
             /**
              * A proxy class for working around the fact that as soon as a video is play()ed
@@ -13459,39 +12954,11 @@
             };
             module.exports = VideoProxy;
         }, { "../util": 47 }], 44: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             // Load EmbedVR.
             _dereq_('./main');
             // Load Analytics for EmbedVR.
             _dereq_('./analytics');
         }, { "./analytics": 34, "./main": 39 }], 45: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var AdaptivePlayer = _dereq_('./adaptive-player');
             var EventEmitter = _dereq_('eventemitter3');
             var Eyes = _dereq_('./eyes');
@@ -13799,20 +13266,6 @@
             };
             module.exports = WorldRenderer;
         }, { "../util": 47, "./adaptive-player": 33, "./eyes": 35, "./hotspot-renderer": 36, "./reticle-renderer": 40, "./sphere-renderer": 42, "./video-proxy": 43, "@tweenjs/tween.js": 1, "eventemitter3": 3, "webvr-boilerplate": 7 }], 46: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             /**
              * Messages from the API to the embed.
              */
@@ -13831,20 +13284,6 @@
             };
             module.exports = Message;
         }, {}], 47: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             var Util = window.Util || {};
             Util.isDataURI = function (src) {
                 return src && src.indexOf('data:') == 0;
@@ -14051,20 +13490,6 @@
             };
             module.exports = Util;
         }, {}], 48: [function (_dereq_, module, exports) {
-            /*
-             * Copyright 2016 Google Inc. All Rights Reserved.
-             * Licensed under the Apache License, Version 2.0 (the "License");
-             * you may not use this file except in compliance with the License.
-             * You may obtain a copy of the License at
-             *
-             *     http://www.apache.org/licenses/LICENSE-2.0
-             *
-             * Unless required by applicable law or agreed to in writing, software
-             * distributed under the License is distributed on an "AS IS" BASIS,
-             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-             * See the License for the specific language governing permissions and
-             * limitations under the License.
-             */
             /**
              * Video Types
              */

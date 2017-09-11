@@ -24,10 +24,11 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
 /**
  * Vrview component creates a 3d scene with optional hotspots
+ *
  * @Props: ISceneConfig
  * @State: ISceneConfig
  */
-export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> {
+export default class Vrview extends React.Component<any, ISceneConfig> {
 
   // Vrview Player object. Do not confuse with <Vrview/> component
   vrviewPlayer: IVrviewPlayer;
@@ -54,7 +55,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
       this.vrviewPlayer.on( 'click', (event: {id: string}) => {
         if(event.id === hotspot.name){
-          // If there is function defined by the user for the click event, run it
+          // If there is a function defined by the user for the click event, run it
           if(hotspot.clickFn){
             hotspot.clickFn();
           } else {
@@ -62,6 +63,9 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
             if(hotspot.newScene){
               console.log('click event for hotspot: ', hotspot);
               this.setState({scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots});
+              // (this as any)._reactInternalInstance._currentElement._owner._instance.setState({description: 'jare'});
+              // (this as any)._reactInternalInstance._currentElement._owner._instance.setState(this.state);
+              this.props.updateParent();
             } else {
               alert('No Scene defined for hotspot');
             }
@@ -72,7 +76,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
   }
 
   /**
-   * Executed after dom load
+   * Component initialization. Executed after dom load
    */
   componentDidMount() {
     const onVrViewLoad = () => {
@@ -87,7 +91,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
   }
 
   /**
-   * Executed after state changed
+   * On change event. Executed after state changed
    */
   componentDidUpdate() {
     if(this.vrviewPlayer){
@@ -107,6 +111,7 @@ export default class Vrview extends React.Component<ISceneConfig, ISceneConfig> 
 
   /**
    * Get window object from iframe where 3d canvas scene exists
+   *
    * @param iframe_object
    * @returns {Window}
    */

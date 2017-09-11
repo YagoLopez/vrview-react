@@ -2,6 +2,8 @@
 //todo: scene description
 //todo: loader
 //todo: usar callback function con "refs"
+//todo: a lo mejor en vez de tener anidadas las escenas era mejor tener un listado (array) de escenas
+//todo: y cargar la nueva escena por su id
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -29,27 +31,54 @@ var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
 var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
-// import {Image, IImageProps} from 'office-ui-fabric-react/lib/Image';
 var URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {};
         /**
          * Scene configuration. Contains images, hotspots and navigation between scenes
          * It is passed to <Vrview/> as props
          */
         _this.sceneConfig = {
-            scene: { width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true },
+            scene: {
+                id: 1,
+                width: '100%',
+                height: 400,
+                image: '../images/coral.jpg',
+                is_stereo: true,
+                is_debug: true,
+                title: 'Title scene 1',
+                description: 'Description scene 1'
+            },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                        scene: { image: '../images/landscape1.jpg', is_stereo: false },
+                        scene: {
+                            id: 2,
+                            image: '../images/landscape1.jpg',
+                            is_stereo: false,
+                            title: 'Title scene 2',
+                            description: 'Description scene 2'
+                        },
                         hotspots: [
                             { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
-                                    scene: { image: '../images/palmbeach.jpg', is_stereo: false }
+                                    scene: {
+                                        id: 3,
+                                        image: '../images/palmbeach.jpg',
+                                        is_stereo: false,
+                                        title: 'Title scene 2',
+                                        description: 'Description scene 3'
+                                    }
                                 } },
                             { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                                    scene: { image: '../images/landscape2.jpg', is_stereo: false }
+                                    scene: {
+                                        id: 4,
+                                        image: '../images/landscape2.jpg',
+                                        is_stereo: false,
+                                        title: 'Title scene 4',
+                                        description: 'Description scene 4'
+                                    }
                                 } }
                         ]
                     } },
@@ -63,7 +92,7 @@ var App = (function (_super) {
          */
         _this.changeScene = function () {
             _this.vrviewCmp.setState({
-                scene: { image: '../images/walrus.jpg', is_stereo: true },
+                scene: { id: 5, image: '../images/walrus.jpg', is_stereo: true },
                 hotspots: [
                     { name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: function () { return alert('Function executed'); } }
                 ]
@@ -113,14 +142,23 @@ var App = (function (_super) {
             _this.toggleDebugMode();
             _this.hideLeftPanel();
         };
+        _this.updateState = function () {
+            // debugger
+            _this.setState(_this.vrviewCmp.state.scene);
+            // this.setState({description: this.vrviewCmp.state.scene.description});
+            console.clear();
+            console.log('updateState', _this.state);
+        };
         return _this;
     }
+    App.prototype.componentDidMount = function () {
+        // debugger
+        // this.setState({description: this.vrviewCmp.state.scene.description});
+        this.setState(this.vrviewCmp.state.scene);
+        console.clear();
+        console.log('app component did mount', this.vrviewCmp.state);
+    };
     App.prototype.render = function () {
-        // let imageProps: IImageProps = {
-        //   src: 'http://placehold.it/500x250',
-        //   width: 350,
-        //   height: 150
-        // };
         var _this = this;
         var topMenuItems = [
             {
@@ -192,16 +230,16 @@ var App = (function (_super) {
             }];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "React Component Based on Google's Vrview Library" },
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "React Component based on Google's Vrview Library" },
                 React.createElement("div", null,
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
             React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
-            React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
-                React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; } })),
-                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' })),
             React.createElement("p", null,
-                React.createElement("a", { href: "javascript:void(0)" },
-                    React.createElement("img", { src: "http://placehold.it/500x250", onClick: this.changeScene })))));
+                "description: ",
+                this.state.description),
+            React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
+                React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
+                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' }))));
     };
     return App;
 }(React.Component));
