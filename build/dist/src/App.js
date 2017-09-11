@@ -31,13 +31,14 @@ var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
 var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
+var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
 require("./App.css");
 var URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = {};
+        _this.state = { scene: {}, hotspots: [] };
         /**
          * Scene configuration. Contains images, hotspots and navigation between scenes
          * It is passed to <Vrview/> as props
@@ -92,12 +93,14 @@ var App = (function (_super) {
          * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
          */
         _this.changeScene = function () {
-            _this.vrviewCmp.setState({
-                scene: { id: 5, image: '../images/walrus.jpg', is_stereo: true },
+            var newScene = {
+                scene: { id: 5, image: '../images/walrus.jpg', is_stereo: true, title: 'New Scene', description: 'New Description' },
                 hotspots: [
                     { name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: function () { return alert('Function executed'); } }
                 ]
-            });
+            };
+            _this.vrviewCmp.setState(newScene);
+            _this.setState(newScene);
         };
         /**
          * To reset the scene to the initial state is needed to clear hotspot click handlers
@@ -105,7 +108,7 @@ var App = (function (_super) {
         _this.resetScene = function () {
             _this.vrviewCmp.clearHotspotsClickHandlers();
             _this.vrviewCmp.setState(_this.sceneConfig);
-            _this.setState(_this.sceneConfig.scene);
+            _this.setState(_this.sceneConfig);
         };
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
@@ -115,8 +118,8 @@ var App = (function (_super) {
         };
         /**
          * This function is used to close Left Menu Panel when clicking overlay (outside panel).
-         * Left Menu Panel is created and deleted dynamically.
-         * To get a reference to the overlay renderPanelFooter() is used
+         * The left Menu Panel is created and deleted dynamically.
+         * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
          */
         _this.renderPanelFooter = function () {
             var overlay = document.querySelector('.ms-Overlay');
@@ -145,12 +148,20 @@ var App = (function (_super) {
             _this.hideLeftPanel();
         };
         _this.updateState = function () {
-            _this.setState(_this.vrviewCmp.state.scene);
+            _this.setState(_this.vrviewCmp.state);
+        };
+        /**
+         * For future use
+         *
+         * @param scene
+         * @param id
+         */
+        _this.findSceneById = function (scene, id) {
         };
         return _this;
     }
     App.prototype.componentDidMount = function () {
-        this.setState(this.vrviewCmp.state.scene);
+        this.setState(this.vrviewCmp.state);
     };
     App.prototype.render = function () {
         var _this = this;
@@ -222,18 +233,50 @@ var App = (function (_super) {
                     }
                 ]
             }];
+        var changeSceneOptions = [
+            {
+                key: '1',
+                iconProps: { iconName: 'Photo2' },
+                text: 'Scene 1',
+                checked: this.state.scene.id == 1,
+                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+            },
+            {
+                key: '2',
+                iconProps: { iconName: 'Photo2' },
+                text: 'Scene 2',
+                checked: this.state.scene.id == 2,
+                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+            },
+            {
+                key: '3',
+                iconProps: { iconName: 'Photo2' },
+                text: 'Scene 3',
+                checked: this.state.scene.id == 3,
+                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+            },
+            {
+                key: '4',
+                iconProps: { iconName: 'Photo2' },
+                text: 'Scene 4',
+                checked: this.state.scene.id == 4,
+                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+            }
+        ];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
             React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "Vrview React" },
                 React.createElement("div", null,
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
-            React.createElement("h2", { className: "centered" }, "Vrview React"),
-            React.createElement("p", { className: "centered" }, "React Component based on Google's Vrview Library"),
+            React.createElement("div", { className: "pad15" },
+                React.createElement("div", { className: "centered header" }, "Vrview React"),
+                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
-                React.createElement("div", { className: "card-footer" },
-                    React.createElement("div", { className: "card-title" }, this.state.title),
-                    React.createElement("div", null, this.state.description)))));
+                React.createElement("div", { className: "pad15" },
+                    React.createElement("div", { className: "card-title" }, this.state.scene.title),
+                    React.createElement("div", null, this.state.scene.description))),
+            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: changeSceneOptions, className: "centered pad15", style: { padding: '10px' } })));
     };
     return App;
 }(React.Component));

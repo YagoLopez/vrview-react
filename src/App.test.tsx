@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Vrview from './vrview/VrviewCmp';
-import {ISceneConfig} from "./vrview/interfaces/ISceneConfig";
+import {IScene} from "./vrview/interfaces/IScene";
 
-const scene: ISceneConfig = {
+const scene: IScene = {
   scene: {id: 1, width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true},
   hotspots: [
     {name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {

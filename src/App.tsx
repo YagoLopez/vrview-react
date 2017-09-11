@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
-import {ISceneConfig} from "./vrview/interfaces/ISceneConfig";
+import {IScene} from "./vrview/interfaces/IScene";
 
 import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
@@ -14,14 +14,16 @@ import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-reac
 import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
+import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 import './App.css';
+
 
 
 const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
-export class App extends React.Component<{}, {}> {
+export class App extends React.Component<{}, IScene> {
 
-  state: any = {};
+  state: IScene = {scene: {}, hotspots: []};
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -30,7 +32,7 @@ export class App extends React.Component<{}, {}> {
    * Scene configuration. Contains images, hotspots and navigation between scenes
    * It is passed to <Vrview/> as props
    */
-  sceneConfig: ISceneConfig = {
+  sceneConfig: IScene = {
     scene:
       {
         id: 1,
@@ -85,12 +87,14 @@ export class App extends React.Component<{}, {}> {
    * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
    */
   changeScene = (): void => {
-    this.vrviewCmp.setState({
-      scene: {id: 5, image: '../images/walrus.jpg', is_stereo: true},
+    const newScene: IScene = {
+      scene: {id: 5, image: '../images/walrus.jpg', is_stereo: true, title: 'New Scene', description: 'New Description'},
       hotspots: [
         {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
       ]
-    })
+    };
+    this.vrviewCmp.setState(newScene);
+    this.setState(newScene);
   };
 
   /**
@@ -99,7 +103,7 @@ export class App extends React.Component<{}, {}> {
   resetScene = (): void => {
     this.vrviewCmp.clearHotspotsClickHandlers();
     this.vrviewCmp.setState(this.sceneConfig);
-    this.setState(this.sceneConfig.scene);
+    this.setState(this.sceneConfig);
   };
 
   /**
@@ -111,8 +115,8 @@ export class App extends React.Component<{}, {}> {
 
   /**
    * This function is used to close Left Menu Panel when clicking overlay (outside panel).
-   * Left Menu Panel is created and deleted dynamically.
-   * To get a reference to the overlay renderPanelFooter() is used
+   * The left Menu Panel is created and deleted dynamically.
+   * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
    */
   renderPanelFooter = (): any => {
     const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
@@ -147,11 +151,21 @@ export class App extends React.Component<{}, {}> {
   };
 
   componentDidMount(){
-    this.setState(this.vrviewCmp.state.scene);
+    this.setState(this.vrviewCmp.state);
   }
 
   updateState = (): void => {
-    this.setState(this.vrviewCmp.state.scene);
+    this.setState(this.vrviewCmp.state);
+  };
+
+  /**
+   * For future use
+   *
+   * @param scene
+   * @param id
+   */
+  findSceneById = (scene: IScene, id: number | string) => {
+
   };
 
   render(){
@@ -227,6 +241,37 @@ export class App extends React.Component<{}, {}> {
         ]
     }];
 
+    const changeSceneOptions: IChoiceGroupOption[] = [
+      {
+        key: '1',
+        iconProps: { iconName: 'Photo2' },
+        text: 'Scene 1',
+        checked: this.state.scene.id == 1,
+        onClick: () => alert('this.state.scene.id: ' + this.state.scene.id)
+      },
+      {
+        key: '2',
+        iconProps: { iconName: 'Photo2' },
+        text: 'Scene 2',
+        checked: this.state.scene.id == 2,
+        onClick: () => alert('this.state.scene.id: ' + this.state.scene.id)
+      },
+      {
+        key: '3',
+        iconProps: { iconName: 'Photo2' },
+        text: 'Scene 3',
+        checked: this.state.scene.id == 3,
+        onClick: () => alert('this.state.scene.id: ' + this.state.scene.id)
+      },
+      {
+        key: '4',
+        iconProps: { iconName: 'Photo2' },
+        text: 'Scene 4',
+        checked: this.state.scene.id == 4,
+        onClick: () => alert('this.state.scene.id: ' + this.state.scene.id)
+      }
+    ];
+
     return(
       <Fabric>
 
@@ -240,8 +285,10 @@ export class App extends React.Component<{}, {}> {
           <div><Nav groups={ leftMenuItems } selectedKey={ 'resetScene' } /></div>
         </Panel>
 
-        <h2 className="centered">Vrview React</h2>
-        <p className="centered">React Component based on Google's Vrview Library</p>
+        <div className="pad15">
+          <div className="centered header">Vrview React</div>
+          <div className="centered subheader">React Component based on Google&apos;s Vrview</div>
+        </div>
 
         <DocumentCard className="layout shadow">
           {/* Vrview Component ----------------------------------------------------------- */}
@@ -249,16 +296,14 @@ export class App extends React.Component<{}, {}> {
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             updateParent={ this.updateState } />
           {/* /Vrview Component ---------------------------------------------------------- */}
-          <div className="card-footer">
-            <div className="card-title">{ (this.state as any).title }</div>
-            <div>{ (this.state as any).description }</div>
+          <div className="pad15">
+            <div className="card-title">{this.state.scene.title}</div>
+            <div>{this.state.scene.description}</div>
           </div>
         </DocumentCard>
-{/*
-        <p>
-          <a href="javascript:void(0)"><img src="http://placehold.it/500x250" onClick={ this.changeScene } /></a>
-        </p>
-*/}
+
+        <ChoiceGroup label='Change Scene Programatically' options={ changeSceneOptions }
+          className="centered pad15" style={ {padding: '10px'} } />
 
       </Fabric>
     );

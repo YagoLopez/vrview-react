@@ -18,7 +18,7 @@
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
-import {ISceneConfig} from "./interfaces/ISceneConfig";
+import {IScene} from "./interfaces/IScene";
 import {IHotspot} from "./interfaces/IHotspot";
 import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
@@ -28,13 +28,13 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
  * @Props: ISceneConfig
  * @State: ISceneConfig
  */
-export default class Vrview extends React.Component<any, ISceneConfig> {
+export default class Vrview extends React.Component<any, IScene> {
 
   // Vrview Player object. Do not confuse with <Vrview/> component
   vrviewPlayer: IVrviewPlayer;
 
   // Initial state is defined by props passed by parent component
-  state: ISceneConfig = this.props;
+  state: IScene = this.props;
 
   loadHotspots(): void {
     const hotspots = this.state.hotspots as IHotspot[];

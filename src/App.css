@@ -2,8 +2,11 @@
 .shadow {box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.75)}
 .layout {display: block; margin: auto}
 .command-bar {display: block; margin: auto}
-.card-title {font-size: 17px; color: #0179fd}
+.card-title {font-size: 17px; color: dodgerblue}
 .card-footer {padding: 15px}
+.pad15 {padding: 15px}
+.header {font-size: 1.5em; font-weight: bold}
+.subheader {font-size: 12px; color: darkgray}
 
 @media (min-width: 720px) {
   .command-bar {

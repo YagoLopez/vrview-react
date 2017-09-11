@@ -5,9 +5,9 @@ import {IHotspot} from "./IHotspot";
 /**
  * VrView scene configuration with optional hotspots
  */
-export interface ISceneConfig {
+export interface IScene {
   scene: {
-    id: number,
+    id?: number | string,
     description?: string,
     title?: string,
     video?: string,               // URL pointing to a 360° video file or an adaptive streaming manifest file (.mpd or .m3u8).

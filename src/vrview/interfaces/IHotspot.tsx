@@ -1,4 +1,4 @@
-import {ISceneConfig} from "./ISceneConfig";
+import {IScene} from "./IScene";
 
 /**
  * Hotspot: clickable point in scene
@@ -12,6 +12,6 @@ export interface IHotspot {
   yaw: number,             // The longitude of center, specified in degrees, between -180 and 180, with 0 at the image center.
   radius: number,          // The radius of the hotspot, specified in meters.
   distance: number         // The distance of the hotspot from camera, specified in meters.
-  newScene?: ISceneConfig  // Destination scene on click event
+  newScene?: IScene  // Destination scene on click event
   clickFn?: Function       // Arbitrary function to run on hotspot click event
 }
