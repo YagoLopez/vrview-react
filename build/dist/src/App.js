@@ -143,20 +143,12 @@ var App = (function (_super) {
             _this.hideLeftPanel();
         };
         _this.updateState = function () {
-            // debugger
             _this.setState(_this.vrviewCmp.state.scene);
-            // this.setState({description: this.vrviewCmp.state.scene.description});
-            console.clear();
-            console.log('updateState', _this.state);
         };
         return _this;
     }
     App.prototype.componentDidMount = function () {
-        // debugger
-        // this.setState({description: this.vrviewCmp.state.scene.description});
         this.setState(this.vrviewCmp.state.scene);
-        console.clear();
-        console.log('app component did mount', this.vrviewCmp.state);
     };
     App.prototype.render = function () {
         var _this = this;
@@ -237,6 +229,9 @@ var App = (function (_super) {
             React.createElement("p", null,
                 "description: ",
                 this.state.description),
+            React.createElement("p", null,
+                "id: ",
+                this.state.id),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
                 React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' }))));

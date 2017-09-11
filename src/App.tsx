@@ -16,6 +16,7 @@ import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard, DocumentCardTitle} from 'office-ui-fabric-react/lib/DocumentCard';
 
 
+
 const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
 export class App extends React.Component<{}, {}> {
@@ -145,19 +146,11 @@ export class App extends React.Component<{}, {}> {
   };
 
   componentDidMount(){
-    // debugger
-    // this.setState({description: this.vrviewCmp.state.scene.description});
     this.setState(this.vrviewCmp.state.scene);
-    console.clear();
-    console.log('app component did mount', this.vrviewCmp.state);
   }
 
   updateState = (): void => {
-    // debugger
     this.setState(this.vrviewCmp.state.scene);
-    // this.setState({description: this.vrviewCmp.state.scene.description});
-    console.clear();
-    console.log('updateState', this.state);
   };
 
   render(){
@@ -248,18 +241,16 @@ export class App extends React.Component<{}, {}> {
 
         <h1 className="centered">Virtual Reality View</h1>
 
-        {/*{this.state ? console.log('STATE', (this.state as any).scene.description) : 'state no exists'}*/}
-        {/*<p>{(this.state as any).scene.description}</p>*/}
         <p>description: {(this.state as any).description}</p>
-        {/*<p>id: {(this.state as any).id}</p>*/}
+        <p>id: {(this.state as any).id}</p>
 
 
         <DocumentCard className="layout shadow">
-          {/* Vrview Component ------------------------------------------------------------- */}
+          {/* Vrview Component ----------------------------------------------------------- */}
           <Vrview {...this.sceneConfig}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             updateParent={ this.updateState } />
-          {/* /Vrview Component ------------------------------------------------------------ */}
+          {/* /Vrview Component ---------------------------------------------------------- */}
           <DocumentCardTitle title='Revenue stream proposal fiscal year 2016 version02.pptx'/>
         </DocumentCard>
 {/*
