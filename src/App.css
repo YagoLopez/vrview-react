@@ -1,0 +1,27 @@
+.centered {text-align: center}
+.shadow {box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.75)}
+.layout {display: block; margin: auto}
+.command-bar {display: block; margin: auto}
+.card-title {font-size: 17px; color: #0179fd}
+.card-footer {padding: 15px}
+
+@media (min-width: 720px) {
+  .command-bar {
+    max-width: 100% !important;
+  }
+}
+@media (min-width: 720px) {
+  .command-bar {
+    max-width: 80% !important;
+  }
+}
+@media (min-width: 720px) {
+  .layout {
+    min-width: 80% !important
+  }
+}
+@media (max-width: 720px) {
+  .layout {
+    min-width: 100% !important
+  }
+}

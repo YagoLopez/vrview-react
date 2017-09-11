@@ -63,8 +63,6 @@ export default class Vrview extends React.Component<any, ISceneConfig> {
             if(hotspot.newScene){
               console.log('click event for hotspot: ', hotspot);
               this.setState({scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots});
-              // (this as any)._reactInternalInstance._currentElement._owner._instance.setState({description: 'jare'});
-              // (this as any)._reactInternalInstance._currentElement._owner._instance.setState(this.state);
               this.props.updateParent();
             } else {
               alert('No Scene defined for hotspot');

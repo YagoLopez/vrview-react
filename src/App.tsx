@@ -13,8 +13,8 @@ import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
-import {DocumentCard, DocumentCardTitle} from 'office-ui-fabric-react/lib/DocumentCard';
-
+import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
+import './App.css';
 
 
 const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
@@ -39,8 +39,8 @@ export class App extends React.Component<{}, {}> {
         image: '../images/coral.jpg',
         is_stereo: true,
         is_debug: true,
-        title: 'Title scene 1',
-        description: 'Description scene 1'
+        title: 'Title Scene 1',
+        description: 'Underwater panorama with divers and coral reefs'
       },
     hotspots: [
       {name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -49,8 +49,8 @@ export class App extends React.Component<{}, {}> {
             id: 2,
             image: '../images/landscape1.jpg',
             is_stereo: false,
-            title: 'Title scene 2',
-            description: 'Description scene 2'
+            title: 'Title Scene 2',
+            description: 'This is the description of scene 2'
           },
         hotspots: [
           {name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
@@ -59,8 +59,8 @@ export class App extends React.Component<{}, {}> {
                 id: 3,
                 image: '../images/palmbeach.jpg',
                 is_stereo: false,
-                title: 'Title scene 2',
-                description: 'Description scene 3'
+                title: 'Title Scene 3',
+                description: 'Tropical beach with palm trees'
               }
           }},
           {name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -69,8 +69,8 @@ export class App extends React.Component<{}, {}> {
                 id: 4,
                 image: '../images/landscape2.jpg',
                 is_stereo: false,
-                title: 'Title scene 4',
-                description: 'Description scene 4'
+                title: 'Title Scene 4',
+                description: 'This is the description of scene 4'
               }
           }}
         ]
@@ -99,6 +99,7 @@ export class App extends React.Component<{}, {}> {
   resetScene = (): void => {
     this.vrviewCmp.clearHotspotsClickHandlers();
     this.vrviewCmp.setState(this.sceneConfig);
+    this.setState(this.sceneConfig.scene);
   };
 
   /**
@@ -235,15 +236,12 @@ export class App extends React.Component<{}, {}> {
           ref="panel"
           type={ PanelType.smallFixedNear }
           onRenderFooter={ this.renderPanelFooter }
-          headerText="React Component based on Google's Vrview Library">
+          headerText="Vrview React">
           <div><Nav groups={ leftMenuItems } selectedKey={ 'resetScene' } /></div>
         </Panel>
 
-        <h1 className="centered">Virtual Reality View</h1>
-
-        <p>description: {(this.state as any).description}</p>
-        <p>id: {(this.state as any).id}</p>
-
+        <h2 className="centered">Vrview React</h2>
+        <p className="centered">React Component based on Google's Vrview Library</p>
 
         <DocumentCard className="layout shadow">
           {/* Vrview Component ----------------------------------------------------------- */}
@@ -251,7 +249,10 @@ export class App extends React.Component<{}, {}> {
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             updateParent={ this.updateState } />
           {/* /Vrview Component ---------------------------------------------------------- */}
-          <DocumentCardTitle title='Revenue stream proposal fiscal year 2016 version02.pptx'/>
+          <div className="card-footer">
+            <div className="card-title">{ (this.state as any).title }</div>
+            <div>{ (this.state as any).description }</div>
+          </div>
         </DocumentCard>
 {/*
         <p>

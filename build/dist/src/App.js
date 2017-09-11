@@ -31,6 +31,7 @@ var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
 var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
+require("./App.css");
 var URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 var App = (function (_super) {
     __extends(App, _super);
@@ -49,8 +50,8 @@ var App = (function (_super) {
                 image: '../images/coral.jpg',
                 is_stereo: true,
                 is_debug: true,
-                title: 'Title scene 1',
-                description: 'Description scene 1'
+                title: 'Title Scene 1',
+                description: 'Underwater panorama with divers and coral reefs'
             },
             hotspots: [
                 { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -58,8 +59,8 @@ var App = (function (_super) {
                             id: 2,
                             image: '../images/landscape1.jpg',
                             is_stereo: false,
-                            title: 'Title scene 2',
-                            description: 'Description scene 2'
+                            title: 'Title Scene 2',
+                            description: 'This is the description of scene 2'
                         },
                         hotspots: [
                             { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
@@ -67,8 +68,8 @@ var App = (function (_super) {
                                         id: 3,
                                         image: '../images/palmbeach.jpg',
                                         is_stereo: false,
-                                        title: 'Title scene 2',
-                                        description: 'Description scene 3'
+                                        title: 'Title Scene 3',
+                                        description: 'Tropical beach with palm trees'
                                     }
                                 } },
                             { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
@@ -76,8 +77,8 @@ var App = (function (_super) {
                                         id: 4,
                                         image: '../images/landscape2.jpg',
                                         is_stereo: false,
-                                        title: 'Title scene 4',
-                                        description: 'Description scene 4'
+                                        title: 'Title Scene 4',
+                                        description: 'This is the description of scene 4'
                                     }
                                 } }
                         ]
@@ -104,6 +105,7 @@ var App = (function (_super) {
         _this.resetScene = function () {
             _this.vrviewCmp.clearHotspotsClickHandlers();
             _this.vrviewCmp.setState(_this.sceneConfig);
+            _this.setState(_this.sceneConfig.scene);
         };
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
@@ -222,19 +224,16 @@ var App = (function (_super) {
             }];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "React Component based on Google's Vrview Library" },
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "Vrview React" },
                 React.createElement("div", null,
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
-            React.createElement("h1", { className: "centered" }, "Virtual Reality View"),
-            React.createElement("p", null,
-                "description: ",
-                this.state.description),
-            React.createElement("p", null,
-                "id: ",
-                this.state.id),
+            React.createElement("h2", { className: "centered" }, "Vrview React"),
+            React.createElement("p", { className: "centered" }, "React Component based on Google's Vrview Library"),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
-                React.createElement(DocumentCard_1.DocumentCardTitle, { title: 'Revenue stream proposal fiscal year 2016 version02.pptx' }))));
+                React.createElement("div", { className: "card-footer" },
+                    React.createElement("div", { className: "card-title" }, this.state.title),
+                    React.createElement("div", null, this.state.description)))));
     };
     return App;
 }(React.Component));
