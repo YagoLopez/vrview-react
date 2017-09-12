@@ -40,7 +40,7 @@ var App = (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = { scene: {}, hotspots: [] };
         /**
-         * Scene configuration. Contains images, hotspots and navigation between scenes
+         * Scene configuration. It contains images, hotspots and navigation between scenes
          * It is passed to <Vrview/> as props
          */
         _this.sceneConfig = {
@@ -151,12 +151,26 @@ var App = (function (_super) {
             _this.setState(_this.vrviewCmp.state);
         };
         /**
-         * For future use
+         * Find Scene By Id
          *
-         * @param scene
-         * @param id
+         * @param scene {IScene}
+         * @param id {number | string}
          */
         _this.findSceneById = function (scene, id) {
+            debugger;
+            var result;
+            if (scene.hasOwnProperty("id") && scene["id"] == id) {
+                result = scene;
+            }
+            for (var i = 0; i < Object.keys(scene).length; i++) {
+                if (typeof scene[Object.keys(scene)[i]] == "object") {
+                    var obj = _this.findSceneById(scene[Object.keys(scene)[i]], id);
+                    if (obj != null) {
+                        result = obj;
+                    }
+                }
+            }
+            return result;
         };
         return _this;
     }
@@ -270,13 +284,13 @@ var App = (function (_super) {
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
-                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview")),
+                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
                 React.createElement("div", { className: "pad15" },
                     React.createElement("div", { className: "card-title" }, this.state.scene.title),
                     React.createElement("div", null, this.state.scene.description))),
-            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: changeSceneOptions, className: "centered pad15", style: { padding: '10px' } })));
+            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: changeSceneOptions, className: "centered pad15" })));
     };
     return App;
 }(React.Component));

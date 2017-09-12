@@ -19,6 +19,7 @@ import './App.css';
 
 
 
+
 const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
 export class App extends React.Component<{}, IScene> {
@@ -29,7 +30,7 @@ export class App extends React.Component<{}, IScene> {
   vrviewCmp: Vrview;
 
   /**
-   * Scene configuration. Contains images, hotspots and navigation between scenes
+   * Scene configuration. It contains images, hotspots and navigation between scenes
    * It is passed to <Vrview/> as props
    */
   sceneConfig: IScene = {
@@ -159,13 +160,27 @@ export class App extends React.Component<{}, IScene> {
   };
 
   /**
-   * For future use
+   * Find Scene By Id
    *
-   * @param scene
-   * @param id
+   * @param scene {IScene}
+   * @param id {number | string}
    */
-  findSceneById = (scene: IScene, id: number | string) => {
+  findSceneById = (scene: IScene, id: number | string): any => {
+    debugger
+    let result: any;
+    if(scene.hasOwnProperty("id") && scene["id"] == id){
+      result = scene;
+    }
 
+    for( let i = 0; i < Object.keys(scene).length; i++ ){
+      if( typeof scene[Object.keys(scene)[i]] == "object" ){
+        let obj: any = this.findSceneById( scene[Object.keys(scene)[i]], id );
+        if(obj != null){
+          result = obj;
+        }
+      }
+    }
+    return result;
   };
 
   render(){
@@ -287,7 +302,7 @@ export class App extends React.Component<{}, IScene> {
 
         <div className="pad15">
           <div className="centered header">Vrview React</div>
-          <div className="centered subheader">React Component based on Google&apos;s Vrview</div>
+          <div className="centered subheader">React Component based on Google&apos;s Vrview Library</div>
         </div>
 
         <DocumentCard className="layout shadow">
@@ -302,8 +317,7 @@ export class App extends React.Component<{}, IScene> {
           </div>
         </DocumentCard>
 
-        <ChoiceGroup label='Change Scene Programatically' options={ changeSceneOptions }
-          className="centered pad15" style={ {padding: '10px'} } />
+        <ChoiceGroup label='Change Scene Programatically' options={ changeSceneOptions } className="centered pad15" />
 
       </Fabric>
     );
