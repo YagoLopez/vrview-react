@@ -1,9 +1,7 @@
 "use strict";
 //todo: revisar tipos de props y state
-//todo: añadir campos "título" y "descripcion" en ISceneConfig
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event
-//todo: material design para react
 //todo: favicon
 //todo: loader
 //todo: is_debug on/off (usar parametros url?)
@@ -102,14 +100,31 @@ var Vrview = (function (_super) {
         var hotspots = this.props.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             console.log('adding hotspot', hotspot);
-            console.log('events: ', _this.vrviewPlayer._events.click);
+            // Hotspot creation
             _this.vrviewPlayer.addHotspot(hotspot.name, {
                 pitch: hotspot.pitch,
                 yaw: hotspot.yaw,
                 radius: hotspot.radius,
                 distance: hotspot.distance
             });
+            // debugger
+            // Onclick event handler creation
+            _this.vrviewPlayer.on('click', function (event) {
+                if (event.id === hotspot.name) {
+                    // If there is a function defined by the user for the click event, run it
+                    hotspot.clickFn && hotspot.clickFn();
+                    // If there is newSecene defined for this hotspot, set state to new scene
+                    if (hotspot.idScene) {
+                        console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
+                        _this.props.updateParent(hotspot.idScene);
+                    }
+                    else {
+                        alert('No Scene defined for hotspot');
+                    }
+                }
+            });
         });
+        console.log('events: ', this.vrviewPlayer._events.click);
     };
     Vrview.prototype.addHotspotsClickHandlers = function () {
         var _this = this;
@@ -141,14 +156,14 @@ var Vrview = (function (_super) {
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
-        console.log('component did mount');
+        // console.log('component did mount');
         var onVrViewLoad = function () {
             // Vrview Player object creation
             _this.vrviewPlayer = new VRView.Player('vrview', _this.props.scene);
             _this.vrviewPlayer.on('ready', function () {
                 _this.loadHotspots();
             });
-            _this.addHotspotsClickHandlers();
+            // this.addHotspotsClickHandlers();
         };
         window.addEventListener('load', onVrViewLoad);
     };
@@ -156,27 +171,22 @@ var Vrview = (function (_super) {
      * On change event. Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
-        // console.log('component did update');
-        // debugger
-        // this.clearHotspotsClickHandlers();
-        if (this.vrviewPlayer) {
-            this.vrviewPlayer.setContent(this.props.scene);
-            this.loadHotspots();
-            this.addHotspotsClickHandlers();
-        }
-        // if(this.vrviewPlayer){
-        //   this.vrviewPlayer.setContent(this.props.scene);
-        //   if(this.props.hotspots){
-        //     this.loadHotspots();
-        //     this.addHotspotsClickHandlers();
-        //   }
-        // }
+        var _this = this;
+        // setContent() must be executed asynchronously
+        // This hack is due to Vrview way of working
+        setTimeout(function () {
+            _this.clearHotspotsClickHandlers();
+            if (_this.vrviewPlayer) {
+                _this.vrviewPlayer.setContent(_this.props.scene);
+                _this.loadHotspots();
+            }
+        }, 0);
     };
     // componentWillReceiveProps(){
     //   console.log('component will receive props');
     // }
     Vrview.prototype.clearHotspotsClickHandlers = function () {
-        debugger;
+        // debugger
         if (this.vrviewPlayer._events) {
             if (this.vrviewPlayer._events.click) {
                 this.vrviewPlayer._events.click.length = 0;

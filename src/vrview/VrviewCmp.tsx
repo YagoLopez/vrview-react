@@ -1,8 +1,6 @@
 //todo: revisar tipos de props y state
-//todo: añadir campos "título" y "descripcion" en ISceneConfig
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event
-//todo: material design para react
 //todo: favicon
 //todo: loader
 //todo: is_debug on/off (usar parametros url?)
@@ -33,7 +31,7 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
  */
 export default class Vrview extends React.Component<any, {}> {
 
-  // Vrview Player object. Do not confuse with <Vrview/> component
+  // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;
 
 
@@ -42,14 +40,36 @@ export default class Vrview extends React.Component<any, {}> {
     const hotspots = this.props.hotspots as IHotspot[];
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
       console.log('adding hotspot', hotspot);
-      console.log('events: ', (this.vrviewPlayer as any)._events.click);
+
+      // Hotspot creation
       this.vrviewPlayer.addHotspot(hotspot.name, {
         pitch:    hotspot.pitch,
         yaw:      hotspot.yaw,
         radius:   hotspot.radius,
         distance: hotspot.distance
       });
+
+      // debugger
+
+      // Onclick event handler creation
+      this.vrviewPlayer.on( 'click', (event: {id: string}) => {
+        if(event.id === hotspot.name){
+          // If there is a function defined by the user for the click event, run it
+          hotspot.clickFn && hotspot.clickFn();
+
+          // If there is newSecene defined for this hotspot, set state to new scene
+          if(hotspot.idScene){
+            console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
+            this.props.updateParent(hotspot.idScene);
+          } else {
+            alert('No Scene defined for hotspot');
+          }
+        }
+      })
+
     });
+
+    console.log('events: ', (this.vrviewPlayer as any)._events.click);
   }
 
   addHotspotsClickHandlers(): void {
@@ -79,14 +99,14 @@ export default class Vrview extends React.Component<any, {}> {
    * Component initialization. Executed after dom load
    */
   componentDidMount() {
-    console.log('component did mount');
+    // console.log('component did mount');
     const onVrViewLoad = () => {
       // Vrview Player object creation
       this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
       this.vrviewPlayer.on('ready', () => {
         this.loadHotspots();
       });
-      this.addHotspotsClickHandlers();
+      // this.addHotspotsClickHandlers();
     };
     window.addEventListener('load', onVrViewLoad);
   }
@@ -95,34 +115,23 @@ export default class Vrview extends React.Component<any, {}> {
    * On change event. Executed after state changed
    */
   componentDidUpdate() {
-    // console.log('component did update');
-    // debugger
-    // this.clearHotspotsClickHandlers();
-
-    if(this.vrviewPlayer){
-      this.vrviewPlayer.setContent(this.props.scene);
-      this.loadHotspots();
-      this.addHotspotsClickHandlers()
-    }
-
-    // if(this.vrviewPlayer){
-    //   this.vrviewPlayer.setContent(this.props.scene);
-    //   if(this.props.hotspots){
-    //     this.loadHotspots();
-    //     this.addHotspotsClickHandlers();
-    //   }
-    // }
-
+    // setContent() must be executed asynchronously
+    // This hack is due to Vrview way of working
+    setTimeout( () => {
+      this.clearHotspotsClickHandlers();
+      if(this.vrviewPlayer){
+        this.vrviewPlayer.setContent(this.props.scene);
+        this.loadHotspots();
+      }
+    }, 0);
   }
-
-
 
   // componentWillReceiveProps(){
   //   console.log('component will receive props');
   // }
 
   clearHotspotsClickHandlers(): void {
-    debugger
+    // debugger
     if(this.vrviewPlayer._events){
       if((this.vrviewPlayer._events as any).click){
         (this.vrviewPlayer._events as any).click.length = 0;

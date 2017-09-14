@@ -81,7 +81,10 @@ var App = (function (_super) {
                     "is_stereo": false,
                     "title": "Title Scene 3",
                     "description": "Tropical beach with palm trees"
-                }
+                },
+                "hotspots": [
+                    { "name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 4 },
+                ]
             },
             {
                 "scene": {
@@ -106,7 +109,6 @@ var App = (function (_super) {
          * Reset scene to the initial state. It is needed to clear hotspot click handlers
          */
         _this.resetScene = function () {
-            // this.vrviewCmp.clearHotspotsClickHandlers();
             _this.setState({ scene: _this.scenes[0].scene, hotspots: _this.scenes[0].hotspots });
         };
         /**
@@ -147,8 +149,6 @@ var App = (function (_super) {
             _this.hideLeftPanel();
         };
         _this.updateState = function (idScene) {
-            // debugger
-            // this.vrviewCmp.clearHotspotsClickHandlers();
             var newSceneObj = _this.vrviewCmp.findSceneBydId(_this.scenes, idScene);
             if (!newSceneObj.hotspots) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: undefined });

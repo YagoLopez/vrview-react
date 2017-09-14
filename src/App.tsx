@@ -69,7 +69,10 @@ export class App extends React.Component<{}, IScene> {
           "is_stereo": false,
           "title": "Title Scene 3",
           "description": "Tropical beach with palm trees"
-        }
+        },
+      "hotspots": [
+        {"name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 4},
+      ]
     },
     {
       "scene":
@@ -101,7 +104,6 @@ export class App extends React.Component<{}, IScene> {
    * Reset scene to the initial state. It is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
-    // this.vrviewCmp.clearHotspotsClickHandlers();
     this.setState({scene: this.scenes[0].scene, hotspots: this.scenes[0].hotspots})
   };
 
@@ -150,8 +152,6 @@ export class App extends React.Component<{}, IScene> {
   };
 
   updateState = (idScene: number | string): void => {
-    // debugger
-    // this.vrviewCmp.clearHotspotsClickHandlers();
     const newSceneObj: IScene = this.vrviewCmp.findSceneBydId(this.scenes, idScene) as IScene;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
@@ -159,7 +159,6 @@ export class App extends React.Component<{}, IScene> {
       this.setState({scene: newSceneObj.scene, hotspots: newSceneObj.hotspots});
     }
   };
-
 
   render(){
 
