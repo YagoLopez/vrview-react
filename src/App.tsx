@@ -1,8 +1,11 @@
-//todo: scene description
+//todo: click on scene icon load scene in viewer
+//todo: load scenes from scenes.json file
 //todo: loader
 //todo: usar callback function con "refs"
 //todo: a lo mejor en vez de tener anidadas las escenas era mejor tener un listado (array) de escenas
 //todo: y cargar la nueva escena por su id
+//todo: usar fade-in en pie de imagen
+//todo: text to speech?
 
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
@@ -43,7 +46,7 @@ export class App extends React.Component<{}, IScene> {
           "description": "Underwater panorama with divers and coral reefs"
         },
       "hotspots": [
-        {"name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 2},
+        {"name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 2},
         {"name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2}
       ]
     },
@@ -57,8 +60,10 @@ export class App extends React.Component<{}, IScene> {
           "description": "This is the description of scene 2"
         },
       "hotspots": [
-        {"name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 3},
-        {"name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idScene": 4}
+        {"name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3},
+        {"name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 4},
+        {"name": "scene2-hotspot5", "pitch": -20, "yaw": -45, "radius": 0.05, "distance": 2,
+          "clickFn": () => alert('Function executed')}
       ]
     },
     {
@@ -71,7 +76,7 @@ export class App extends React.Component<{}, IScene> {
           "description": "Tropical beach with palm trees"
         },
       "hotspots": [
-        {"name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 4},
+        {"name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4},
       ]
     },
     {
@@ -151,7 +156,7 @@ export class App extends React.Component<{}, IScene> {
     this.hideLeftPanel();
   };
 
-  updateState = (idScene: number | string): void => {
+  handleClickHotspot = (idScene: number | string): void => {
     const newSceneObj: IScene = this.vrviewCmp.findSceneBydId(this.scenes, idScene) as IScene;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
@@ -284,10 +289,9 @@ export class App extends React.Component<{}, IScene> {
 
         <DocumentCard className="layout shadow">
           {/* Vrview Component ----------------------------------------------------------- */}
-          {/*todo: change names, updateParent -> onClickHotspot, updateState -> handleClickHotspot */}
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
-            updateParent={ this.updateState } />
+            onClickHotspot={ this.handleClickHotspot } />
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{this.state.scene.title}</div>

@@ -146,7 +146,6 @@ else {
                     else {
                         var length = listeners.length, j;
                         for (i = 0; i < length; i++) {
-                            // debugger
                             if (listeners[i].once)
                                 this.removeListener(event, listeners[i].fn, undefined, true);
                             switch (len) {

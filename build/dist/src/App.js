@@ -1,9 +1,12 @@
 "use strict";
-//todo: scene description
+//todo: click on scene icon load scene in viewer
+//todo: load scenes from scenes.json file
 //todo: loader
 //todo: usar callback function con "refs"
 //todo: a lo mejor en vez de tener anidadas las escenas era mejor tener un listado (array) de escenas
 //todo: y cargar la nueva escena por su id
+//todo: usar fade-in en pie de imagen
+//todo: text to speech?
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -57,7 +60,7 @@ var App = (function (_super) {
                     "description": "Underwater panorama with divers and coral reefs"
                 },
                 "hotspots": [
-                    { "name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 2 },
+                    { "name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 2 },
                     { "name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2 }
                 ]
             },
@@ -70,8 +73,10 @@ var App = (function (_super) {
                     "description": "This is the description of scene 2"
                 },
                 "hotspots": [
-                    { "name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 3 },
-                    { "name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idScene": 4 }
+                    { "name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3 },
+                    { "name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 4 },
+                    { "name": "scene2-hotspot5", "pitch": -20, "yaw": -45, "radius": 0.05, "distance": 2,
+                        "clickFn": function () { return alert('Function executed'); } }
                 ]
             },
             {
@@ -83,7 +88,7 @@ var App = (function (_super) {
                     "description": "Tropical beach with palm trees"
                 },
                 "hotspots": [
-                    { "name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 4 },
+                    { "name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4 },
                 ]
             },
             {
@@ -148,7 +153,7 @@ var App = (function (_super) {
             _this.toggleDebugMode();
             _this.hideLeftPanel();
         };
-        _this.updateState = function (idScene) {
+        _this.handleClickHotspot = function (idScene) {
             var newSceneObj = _this.vrviewCmp.findSceneBydId(_this.scenes, idScene);
             if (!newSceneObj.hotspots) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: undefined });
@@ -268,7 +273,7 @@ var App = (function (_super) {
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
                 React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
-                React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
+                React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },
                     React.createElement("div", { className: "card-title" }, this.state.scene.title),
                     React.createElement("div", null, this.state.scene.description))),

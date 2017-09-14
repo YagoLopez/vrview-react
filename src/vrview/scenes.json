@@ -12,7 +12,7 @@
       "description": "Underwater panorama with divers and coral reefs"
     },
     "hotspots": [
-      {"name": "hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 1},
+      {"name": "hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 1},
       {"name": "hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2}
     ]
   },
@@ -26,8 +26,8 @@
       "description": "This is the description of scene 2"
     },
   "hotspots": [
-      {"name": "hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idScene": 2},
-      {"name": "hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 3}
+      {"name": "hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 2},
+      {"name": "hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3}
     ]
   },
   {

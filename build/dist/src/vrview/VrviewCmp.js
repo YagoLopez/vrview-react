@@ -55,30 +55,6 @@ var Vrview = (function (_super) {
             return result;
         };
         /**
-         * Find Scene By Id
-         *
-         * @param scenes {IScene}
-         * @param id {number | string}
-         */
-        /*
-          findSceneById = (scenes: IScene[], id: number | string): any => {
-            let result: any;
-            if(scenes.hasOwnProperty("id") && scenes["id"] == id){
-              result = scenes;
-            }
-        
-            for( let i = 0; i < Object.keys(scenes).length; i++ ){
-              if( typeof scenes[Object.keys(scenes)[i]] == "object" ){
-                let obj: any = this.findSceneById( scenes[Object.keys(scenes)[i]], id );
-                if(obj != null){
-                  result = obj;
-                }
-              }
-            }
-            return result;
-          };
-        */
-        /**
          * Helper function to find scene by id
          *
          * @param scenes {IScene[]} Array of scenes
@@ -94,61 +70,44 @@ var Vrview = (function (_super) {
         };
         return _this;
     }
-    //todo: creacion de hotspot y click event handler individualmente para cada hotspot
     Vrview.prototype.loadHotspots = function () {
         var _this = this;
         var hotspots = this.props.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
-            console.log('adding hotspot', hotspot);
-            // Hotspot creation
-            _this.vrviewPlayer.addHotspot(hotspot.name, {
-                pitch: hotspot.pitch,
-                yaw: hotspot.yaw,
-                radius: hotspot.radius,
-                distance: hotspot.distance
-            });
-            // debugger
-            // Onclick event handler creation
-            _this.vrviewPlayer.on('click', function (event) {
-                if (event.id === hotspot.name) {
-                    // If there is a function defined by the user for the click event, run it
-                    hotspot.clickFn && hotspot.clickFn();
+            // console.log('adding hotspot', hotspot);
+            _this.createHotspot(hotspot);
+            _this.addClickHandler(hotspot);
+        });
+        // console.log('events: ', (this.vrviewPlayer as any)._events.click);
+    };
+    Vrview.prototype.createHotspot = function (hotspot) {
+        this.vrviewPlayer.addHotspot(hotspot.name, {
+            pitch: hotspot.pitch,
+            yaw: hotspot.yaw,
+            radius: hotspot.radius,
+            distance: hotspot.distance
+        });
+    };
+    Vrview.prototype.addClickHandler = function (hotspot) {
+        var _this = this;
+        this.vrviewPlayer.on('click', function (event) {
+            if (event.id === hotspot.name) {
+                // If there is a function defined by the user for the click event, run it
+                hotspot.clickFn && hotspot.clickFn();
+                if (hotspot.clickFn) {
+                    hotspot.clickFn();
+                }
+                else {
                     // If there is newSecene defined for this hotspot, set state to new scene
-                    if (hotspot.idScene) {
-                        console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
-                        _this.props.updateParent(hotspot.idScene);
+                    if (hotspot.idNewScene) {
+                        // console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
+                        _this.props.onClickHotspot(hotspot.idNewScene);
                     }
                     else {
                         alert('No Scene defined for hotspot');
                     }
                 }
-            });
-        });
-        console.log('events: ', this.vrviewPlayer._events.click);
-    };
-    Vrview.prototype.addHotspotsClickHandlers = function () {
-        var _this = this;
-        var hotspots = this.props.hotspots;
-        hotspots && hotspots.forEach(function (hotspot) {
-            _this.vrviewPlayer.on('click', function (event) {
-                if (event.id === hotspot.name) {
-                    // debugger
-                    // If there is a function defined by the user for the click event, run it
-                    if (hotspot.clickFn) {
-                        hotspot.clickFn();
-                    }
-                    else {
-                        // If there is newSecene defined for this hotspot, set state to new scene
-                        if (hotspot.idScene) {
-                            console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
-                            _this.props.updateParent(hotspot.idScene);
-                        }
-                        else {
-                            alert('No Scene defined for hotspot');
-                        }
-                    }
-                }
-            });
+            }
         });
     };
     /**
@@ -156,24 +115,22 @@ var Vrview = (function (_super) {
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
-        // console.log('component did mount');
         var onVrViewLoad = function () {
             // Vrview Player object creation
             _this.vrviewPlayer = new VRView.Player('vrview', _this.props.scene);
             _this.vrviewPlayer.on('ready', function () {
                 _this.loadHotspots();
             });
-            // this.addHotspotsClickHandlers();
         };
         window.addEventListener('load', onVrViewLoad);
     };
     /**
      * On change event. Executed after state changed
+     * Function setContent() must be executed asynchronously
+     * This hack is due to how Vrview and EventEmmitters works in vrview.js
      */
     Vrview.prototype.componentDidUpdate = function () {
         var _this = this;
-        // setContent() must be executed asynchronously
-        // This hack is due to Vrview way of working
         setTimeout(function () {
             _this.clearHotspotsClickHandlers();
             if (_this.vrviewPlayer) {
@@ -182,9 +139,6 @@ var Vrview = (function (_super) {
             }
         }, 0);
     };
-    // componentWillReceiveProps(){
-    //   console.log('component will receive props');
-    // }
     Vrview.prototype.clearHotspotsClickHandlers = function () {
         // debugger
         if (this.vrviewPlayer._events) {
