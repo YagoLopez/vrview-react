@@ -38,77 +38,76 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = { scene: {}, hotspots: [] };
         /**
-         * Scene configuration. It contains images, hotspots and navigation between scenes
-         * It is passed to <Vrview/> as props
+         * List of scenes.
+         *
+         * Each scene object contains contains configuration information like: path to images/videos,
+         * optional hotspots, navigation between scenes and other parameters. (See IScene interfaz definition)
          */
-        _this.sceneConfig = {
-            scene: {
-                id: 1,
-                width: '100%',
-                height: 400,
-                image: '../images/coral.jpg',
-                is_stereo: true,
-                is_debug: true,
-                title: 'Title Scene 1',
-                description: 'Underwater panorama with divers and coral reefs'
+        _this.scenes = [
+            {
+                "scene": {
+                    "id": 1,
+                    "width": "100%",
+                    "height": 400,
+                    "image": "../images/coral.jpg",
+                    "is_stereo": true,
+                    "is_debug": true,
+                    "title": "Title Scene 1",
+                    "description": "Underwater panorama with divers and coral reefs"
+                },
+                "hotspots": [
+                    { "name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 2 },
+                    { "name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2 }
+                ]
             },
-            hotspots: [
-                { name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                        scene: {
-                            id: 2,
-                            image: '../images/landscape1.jpg',
-                            is_stereo: false,
-                            title: 'Title Scene 2',
-                            description: 'This is the description of scene 2'
-                        },
-                        hotspots: [
-                            { name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
-                                    scene: {
-                                        id: 3,
-                                        image: '../images/palmbeach.jpg',
-                                        is_stereo: false,
-                                        title: 'Title Scene 3',
-                                        description: 'Tropical beach with palm trees'
-                                    }
-                                } },
-                            { name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-                                    scene: {
-                                        id: 4,
-                                        image: '../images/landscape2.jpg',
-                                        is_stereo: false,
-                                        title: 'Title Scene 4',
-                                        description: 'This is the description of scene 4'
-                                    }
-                                } }
-                        ]
-                    } },
-                { name: 'hotspot2', pitch: 0, yaw: -35, radius: 0.05, distance: 2 }
-            ]
-        };
+            {
+                "scene": {
+                    "id": 2,
+                    "image": "../images/landscape1.jpg",
+                    "is_stereo": false,
+                    "title": "Title Scene 2",
+                    "description": "This is the description of scene 2"
+                },
+                "hotspots": [
+                    { "name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 3 },
+                    { "name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idScene": 4 }
+                ]
+            },
+            {
+                "scene": {
+                    "id": 3,
+                    "image": "../images/palmbeach.jpg",
+                    "is_stereo": false,
+                    "title": "Title Scene 3",
+                    "description": "Tropical beach with palm trees"
+                }
+            },
+            {
+                "scene": {
+                    "id": 4,
+                    "image": "../images/landscape2.jpg",
+                    "is_stereo": false,
+                    "title": "Title Scene 4",
+                    "description": "This is the description of scene 4"
+                }
+            }
+        ];
+        _this.state = _this.scenes[0];
         /**
          * Change scene programatically.
          * To change scene just set state with new data. State is only mantained in <Vrview>, not in <App> component
          * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
          */
         _this.changeScene = function () {
-            var newScene = {
-                scene: { id: 5, image: '../images/walrus.jpg', is_stereo: true, title: 'New Scene', description: 'New Description' },
-                hotspots: [
-                    { name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: function () { return alert('Function executed'); } }
-                ]
-            };
-            _this.vrviewCmp.setState(newScene);
-            _this.setState(newScene);
+            _this.setState({ scene: _this.scenes[2].scene, hotspots: _this.scenes[2].hotspots });
         };
         /**
-         * To reset the scene to the initial state is needed to clear hotspot click handlers
+         * Reset scene to the initial state. It is needed to clear hotspot click handlers
          */
         _this.resetScene = function () {
-            _this.vrviewCmp.clearHotspotsClickHandlers();
-            _this.vrviewCmp.setState(_this.sceneConfig);
-            _this.setState(_this.sceneConfig);
+            // this.vrviewCmp.clearHotspotsClickHandlers();
+            _this.setState({ scene: _this.scenes[0].scene, hotspots: _this.scenes[0].hotspots });
         };
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
@@ -147,36 +146,19 @@ var App = (function (_super) {
             _this.toggleDebugMode();
             _this.hideLeftPanel();
         };
-        _this.updateState = function () {
-            _this.setState(_this.vrviewCmp.state);
-        };
-        /**
-         * Find Scene By Id
-         *
-         * @param scene {IScene}
-         * @param id {number | string}
-         */
-        _this.findSceneById = function (scene, id) {
-            debugger;
-            var result;
-            if (scene.hasOwnProperty("id") && scene["id"] == id) {
-                result = scene;
+        _this.updateState = function (idScene) {
+            // debugger
+            // this.vrviewCmp.clearHotspotsClickHandlers();
+            var newSceneObj = _this.vrviewCmp.findSceneBydId(_this.scenes, idScene);
+            if (!newSceneObj.hotspots) {
+                _this.setState({ scene: newSceneObj.scene, hotspots: undefined });
             }
-            for (var i = 0; i < Object.keys(scene).length; i++) {
-                if (typeof scene[Object.keys(scene)[i]] == "object") {
-                    var obj = _this.findSceneById(scene[Object.keys(scene)[i]], id);
-                    if (obj != null) {
-                        result = obj;
-                    }
-                }
+            else {
+                _this.setState({ scene: newSceneObj.scene, hotspots: newSceneObj.hotspots });
             }
-            return result;
         };
         return _this;
     }
-    App.prototype.componentDidMount = function () {
-        this.setState(this.vrviewCmp.state);
-    };
     App.prototype.render = function () {
         var _this = this;
         var topMenuItems = [
@@ -247,7 +229,7 @@ var App = (function (_super) {
                     }
                 ]
             }];
-        var changeSceneOptions = [
+        var choiceGroup = [
             {
                 key: '1',
                 iconProps: { iconName: 'Photo2' },
@@ -286,11 +268,11 @@ var App = (function (_super) {
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
                 React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
-                React.createElement(VrviewCmp_1.default, __assign({}, this.sceneConfig, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
+                React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, updateParent: this.updateState })),
                 React.createElement("div", { className: "pad15" },
                     React.createElement("div", { className: "card-title" }, this.state.scene.title),
                     React.createElement("div", null, this.state.scene.description))),
-            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: changeSceneOptions, className: "centered pad15" })));
+            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
     };
     return App;
 }(React.Component));

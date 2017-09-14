@@ -19,68 +19,74 @@ import './App.css';
 
 
 
-
 const URL_CODE: string = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
 
 export class App extends React.Component<{}, IScene> {
 
-  state: IScene = {scene: {}, hotspots: []};
+  /**
+   * List of scenes.
+   *
+   * Each scene object contains contains configuration information like: path to images/videos,
+   * optional hotspots, navigation between scenes and other parameters. (See IScene interfaz definition)
+   */
+  scenes: IScene[] = [
+    {
+      "scene":
+        {
+          "id": 1,
+          "width": "100%",
+          "height": 400,
+          "image": "../images/coral.jpg",
+          "is_stereo": true,
+          "is_debug": true,
+          "title": "Title Scene 1",
+          "description": "Underwater panorama with divers and coral reefs"
+        },
+      "hotspots": [
+        {"name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 2},
+        {"name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2}
+      ]
+    },
+    {
+      "scene":
+        {
+          "id": 2,
+          "image": "../images/landscape1.jpg",
+          "is_stereo": false,
+          "title": "Title Scene 2",
+          "description": "This is the description of scene 2"
+        },
+      "hotspots": [
+        {"name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idScene": 3},
+        {"name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idScene": 4}
+      ]
+    },
+    {
+      "scene":
+        {
+          "id": 3,
+          "image": "../images/palmbeach.jpg",
+          "is_stereo": false,
+          "title": "Title Scene 3",
+          "description": "Tropical beach with palm trees"
+        }
+    },
+    {
+      "scene":
+        {
+          "id": 4,
+          "image": "../images/landscape2.jpg",
+          "is_stereo": false,
+          "title": "Title Scene 4",
+          "description": "This is the description of scene 4"
+        }
+    }
+  ];
+
+  state: IScene = this.scenes[0];
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
-
-  /**
-   * Scene configuration. It contains images, hotspots and navigation between scenes
-   * It is passed to <Vrview/> as props
-   */
-  sceneConfig: IScene = {
-    scene:
-      {
-        id: 1,
-        width: '100%',
-        height: 400,
-        image: '../images/coral.jpg',
-        is_stereo: true,
-        is_debug: true,
-        title: 'Title Scene 1',
-        description: 'Underwater panorama with divers and coral reefs'
-      },
-    hotspots: [
-      {name: 'hotspot1', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-        scene:
-          {
-            id: 2,
-            image: '../images/landscape1.jpg',
-            is_stereo: false,
-            title: 'Title Scene 2',
-            description: 'This is the description of scene 2'
-          },
-        hotspots: [
-          {name: 'hotspot3', pitch: 0, yaw: -35, radius: 0.05, distance: 2, newScene: {
-            scene:
-              {
-                id: 3,
-                image: '../images/palmbeach.jpg',
-                is_stereo: false,
-                title: 'Title Scene 3',
-                description: 'Tropical beach with palm trees'
-              }
-          }},
-          {name: 'hotspot4', pitch: 0, yaw: 0, radius: 0.05, distance: 2, newScene: {
-            scene:
-              {
-                id: 4,
-                image: '../images/landscape2.jpg',
-                is_stereo: false,
-                title: 'Title Scene 4',
-                description: 'This is the description of scene 4'
-              }
-          }}
-        ]
-      }},
-      {name: 'hotspot2', pitch: 0, yaw: -35, radius: 0.05, distance: 2}
-    ]
-  };
 
   /**
    * Change scene programatically.
@@ -88,23 +94,15 @@ export class App extends React.Component<{}, IScene> {
    * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
    */
   changeScene = (): void => {
-    const newScene: IScene = {
-      scene: {id: 5, image: '../images/walrus.jpg', is_stereo: true, title: 'New Scene', description: 'New Description'},
-      hotspots: [
-        {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
-      ]
-    };
-    this.vrviewCmp.setState(newScene);
-    this.setState(newScene);
+    this.setState({scene: this.scenes[2].scene, hotspots: this.scenes[2].hotspots})
   };
 
   /**
-   * To reset the scene to the initial state is needed to clear hotspot click handlers
+   * Reset scene to the initial state. It is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
-    this.vrviewCmp.clearHotspotsClickHandlers();
-    this.vrviewCmp.setState(this.sceneConfig);
-    this.setState(this.sceneConfig);
+    // this.vrviewCmp.clearHotspotsClickHandlers();
+    this.setState({scene: this.scenes[0].scene, hotspots: this.scenes[0].hotspots})
   };
 
   /**
@@ -151,37 +149,17 @@ export class App extends React.Component<{}, IScene> {
     this.hideLeftPanel();
   };
 
-  componentDidMount(){
-    this.setState(this.vrviewCmp.state);
-  }
-
-  updateState = (): void => {
-    this.setState(this.vrviewCmp.state);
+  updateState = (idScene: number | string): void => {
+    // debugger
+    // this.vrviewCmp.clearHotspotsClickHandlers();
+    const newSceneObj: IScene = this.vrviewCmp.findSceneBydId(this.scenes, idScene) as IScene;
+    if(!newSceneObj.hotspots){
+      this.setState({scene: newSceneObj.scene, hotspots: undefined});
+    } else {
+      this.setState({scene: newSceneObj.scene, hotspots: newSceneObj.hotspots});
+    }
   };
 
-  /**
-   * Find Scene By Id
-   *
-   * @param scene {IScene}
-   * @param id {number | string}
-   */
-  findSceneById = (scene: IScene, id: number | string): any => {
-    debugger
-    let result: any;
-    if(scene.hasOwnProperty("id") && scene["id"] == id){
-      result = scene;
-    }
-
-    for( let i = 0; i < Object.keys(scene).length; i++ ){
-      if( typeof scene[Object.keys(scene)[i]] == "object" ){
-        let obj: any = this.findSceneById( scene[Object.keys(scene)[i]], id );
-        if(obj != null){
-          result = obj;
-        }
-      }
-    }
-    return result;
-  };
 
   render(){
 
@@ -256,7 +234,7 @@ export class App extends React.Component<{}, IScene> {
         ]
     }];
 
-    const changeSceneOptions: IChoiceGroupOption[] = [
+    const choiceGroup: IChoiceGroupOption[] = [
       {
         key: '1',
         iconProps: { iconName: 'Photo2' },
@@ -307,7 +285,8 @@ export class App extends React.Component<{}, IScene> {
 
         <DocumentCard className="layout shadow">
           {/* Vrview Component ----------------------------------------------------------- */}
-          <Vrview {...this.sceneConfig}
+          {/*todo: change names, updateParent -> onClickHotspot, updateState -> handleClickHotspot */}
+          <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             updateParent={ this.updateState } />
           {/* /Vrview Component ---------------------------------------------------------- */}
@@ -317,7 +296,7 @@ export class App extends React.Component<{}, IScene> {
           </div>
         </DocumentCard>
 
-        <ChoiceGroup label='Change Scene Programatically' options={ changeSceneOptions } className="centered pad15" />
+        <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
 
       </Fabric>
     );

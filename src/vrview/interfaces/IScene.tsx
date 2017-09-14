@@ -7,7 +7,7 @@ import {IHotspot} from "./IHotspot";
  */
 export interface IScene {
   scene: {
-    id?: number | string,
+    id: number | string,
     description?: string,
     title?: string,
     video?: string,               // URL pointing to a 360° video file or an adaptive streaming manifest file (.mpd or .m3u8).

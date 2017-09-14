@@ -1,4 +1,5 @@
 "use strict";
+//todo: revisar tipos de props y state
 //todo: añadir campos "título" y "descripcion" en ISceneConfig
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event
@@ -39,8 +40,6 @@ var Vrview = (function (_super) {
     __extends(Vrview, _super);
     function Vrview() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Initial state is defined by props passed by parent component
-        _this.state = _this.props;
         /**
          * Get window object from iframe where 3d canvas scene exists
          *
@@ -57,14 +56,53 @@ var Vrview = (function (_super) {
             }
             return result;
         };
+        /**
+         * Find Scene By Id
+         *
+         * @param scenes {IScene}
+         * @param id {number | string}
+         */
+        /*
+          findSceneById = (scenes: IScene[], id: number | string): any => {
+            let result: any;
+            if(scenes.hasOwnProperty("id") && scenes["id"] == id){
+              result = scenes;
+            }
+        
+            for( let i = 0; i < Object.keys(scenes).length; i++ ){
+              if( typeof scenes[Object.keys(scenes)[i]] == "object" ){
+                let obj: any = this.findSceneById( scenes[Object.keys(scenes)[i]], id );
+                if(obj != null){
+                  result = obj;
+                }
+              }
+            }
+            return result;
+          };
+        */
+        /**
+         * Helper function to find scene by id
+         *
+         * @param scenes {IScene[]} Array of scenes
+         * @param id {number | string} Scene id
+         * @returns {IScene} Scene searched
+         */
+        _this.findSceneBydId = function (scenes, id) {
+            for (var i = 0; i < scenes.length; i++) {
+                if (scenes[i].scene.id === id) {
+                    return scenes[i];
+                }
+            }
+        };
         return _this;
     }
+    //todo: creacion de hotspot y click event handler individualmente para cada hotspot
     Vrview.prototype.loadHotspots = function () {
         var _this = this;
-        var hotspots = this.state.hotspots;
+        var hotspots = this.props.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             console.log('adding hotspot', hotspot);
-            // console.log('adding hotspots, event', this.vrview._events.click);
+            console.log('events: ', _this.vrviewPlayer._events.click);
             _this.vrviewPlayer.addHotspot(hotspot.name, {
                 pitch: hotspot.pitch,
                 yaw: hotspot.yaw,
@@ -75,20 +113,20 @@ var Vrview = (function (_super) {
     };
     Vrview.prototype.addHotspotsClickHandlers = function () {
         var _this = this;
-        var hotspots = this.state.hotspots;
+        var hotspots = this.props.hotspots;
         hotspots && hotspots.forEach(function (hotspot) {
             _this.vrviewPlayer.on('click', function (event) {
                 if (event.id === hotspot.name) {
+                    // debugger
                     // If there is a function defined by the user for the click event, run it
                     if (hotspot.clickFn) {
                         hotspot.clickFn();
                     }
                     else {
                         // If there is newSecene defined for this hotspot, set state to new scene
-                        if (hotspot.newScene) {
-                            console.log('click event for hotspot: ', hotspot);
-                            _this.setState({ scene: hotspot.newScene.scene, hotspots: hotspot.newScene.hotspots });
-                            _this.props.updateParent();
+                        if (hotspot.idScene) {
+                            console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
+                            _this.props.updateParent(hotspot.idScene);
                         }
                         else {
                             alert('No Scene defined for hotspot');
@@ -103,9 +141,10 @@ var Vrview = (function (_super) {
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
+        console.log('component did mount');
         var onVrViewLoad = function () {
             // Vrview Player object creation
-            _this.vrviewPlayer = new VRView.Player('vrview', _this.state.scene);
+            _this.vrviewPlayer = new VRView.Player('vrview', _this.props.scene);
             _this.vrviewPlayer.on('ready', function () {
                 _this.loadHotspots();
             });
@@ -117,13 +156,27 @@ var Vrview = (function (_super) {
      * On change event. Executed after state changed
      */
     Vrview.prototype.componentDidUpdate = function () {
+        // console.log('component did update');
+        // debugger
+        // this.clearHotspotsClickHandlers();
         if (this.vrviewPlayer) {
-            this.vrviewPlayer.setContent(this.state.scene);
+            this.vrviewPlayer.setContent(this.props.scene);
             this.loadHotspots();
             this.addHotspotsClickHandlers();
         }
+        // if(this.vrviewPlayer){
+        //   this.vrviewPlayer.setContent(this.props.scene);
+        //   if(this.props.hotspots){
+        //     this.loadHotspots();
+        //     this.addHotspotsClickHandlers();
+        //   }
+        // }
     };
+    // componentWillReceiveProps(){
+    //   console.log('component will receive props');
+    // }
     Vrview.prototype.clearHotspotsClickHandlers = function () {
+        debugger;
         if (this.vrviewPlayer._events) {
             if (this.vrviewPlayer._events.click) {
                 this.vrviewPlayer._events.click.length = 0;
@@ -140,7 +193,7 @@ var Vrview = (function (_super) {
      */
     Vrview.prototype.toggleDebugMode = function () {
         this.clearHotspotsClickHandlers();
-        var scene = this.state.scene;
+        var scene = this.props.scene;
         var iframe = document.querySelector('iframe');
         var iframeParentElement = iframe.parentElement;
         // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
@@ -150,7 +203,7 @@ var Vrview = (function (_super) {
         scene.height = iframe.height;
         this.setState(scene);
         iframeParentElement.removeChild(iframe);
-        this.vrviewPlayer = new VRView.Player('vrview', this.state.scene);
+        this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
     };
     Vrview.prototype.render = function () {
         return (React.createElement("div", { id: 'vrview' }));
