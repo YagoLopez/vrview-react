@@ -1,19 +1,23 @@
-//todo: revisar tipos de props y state
+//todo: revisar hotspot id en vrview.js
+//todo: dismiss left menu panel on click overlay
 //todo: usar mapa (leaflet) y markers
-//todo: probar en una rama nueva con polyfill create custom event
+//todo: probar en una rama nueva con polyfill create custom event for browser compatibility
 //todo: favicon
 //todo: loader
-//todo: is_debug on/off (usar parametros url?)
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
-//todo: revisar hotspot id en vrview.js
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
+//todo: usar callback function con "refs"
+//todo: usar fade-in en pie de imagen
+//todo: text to speech?
+//todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
+// no imperativamente como ahora
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
@@ -25,11 +29,11 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
 /**
  * Vrview component creates a 3d scene with optional hotspots
+ * It receives the data of the scene as props
  *
  * @Props: ISceneConfig
- * @State: ISceneConfig
  */
-export default class Vrview extends React.Component<any, {}> {
+export default class Vrview extends React.Component<IScene, {}> {
 
   // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;
@@ -41,7 +45,6 @@ export default class Vrview extends React.Component<any, {}> {
       this.createHotspot(hotspot);
       this.addClickHandler(hotspot);
     });
-    // console.log('events: ', (this.vrviewPlayer as any)._events.click);
   }
 
   createHotspot(hotspot: IHotspot): void {
@@ -55,16 +58,14 @@ export default class Vrview extends React.Component<any, {}> {
 
   addClickHandler(hotspot: IHotspot): void {
     this.vrviewPlayer.on( 'click', (event: {id: string}) => {
-      debugger
       if(event.id === hotspot.name){
         // If there is a function defined by the user for the click event, run it
         if(hotspot.clickFn){
-          hotspot.clickFn();
+          eval(hotspot.clickFn);
         } else {
           // If there is newSecene defined for this hotspot, set state to new scene
           if(hotspot.idNewScene){
-            // console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
-            this.props.onClickHotspot(hotspot.idNewScene);
+            this.props.onClickHotspot && this.props.onClickHotspot(hotspot.idNewScene);
           } else {
             alert('No Scene defined for hotspot');
           }
@@ -103,10 +104,9 @@ export default class Vrview extends React.Component<any, {}> {
   }
 
   clearHotspotsClickHandlers(): void {
-    // debugger
     if(this.vrviewPlayer._events){
-      if((this.vrviewPlayer._events as any).click){
-        (this.vrviewPlayer._events as any).click.length = 0;
+      if(this.vrviewPlayer._events.click){
+        this.vrviewPlayer._events.click.length = 0;
       }
     }
   }
@@ -140,14 +140,13 @@ export default class Vrview extends React.Component<any, {}> {
   toggleDebugMode(): void {
     this.clearHotspotsClickHandlers();
     const scene = this.props.scene;
-    const iframe: HTMLIFrameElement = document.querySelector('iframe') as HTMLIFrameElement;
+    const iframe = document.querySelector('iframe') as HTMLIFrameElement;
     const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
     // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
     // (not to use "state: scene.is_debug")
     scene.is_debug = !this.isDebugEnabled(iframe);
     scene.width = iframe.width;
     scene.height = iframe.height;
-    this.setState(scene as any);
     iframeParentElement.removeChild(iframe);
     this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
   }

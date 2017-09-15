@@ -1,20 +1,24 @@
 "use strict";
-//todo: revisar tipos de props y state
+//todo: revisar hotspot id en vrview.js
+//todo: dismiss left menu panel on click overlay
 //todo: usar mapa (leaflet) y markers
-//todo: probar en una rama nueva con polyfill create custom event
+//todo: probar en una rama nueva con polyfill create custom event for browser compatibility
 //todo: favicon
 //todo: loader
-//todo: is_debug on/off (usar parametros url?)
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
-//todo: revisar hotspot id en vrview.js
 //todo: hotspot editor (user creates hotspots when clicking on scene)
 //todo: revisar IVrview
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
+//todo: usar callback function con "refs"
+//todo: usar fade-in en pie de imagen
+//todo: text to speech?
+//todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
+// no imperativamente como ahora
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -30,9 +34,9 @@ var React = require("react");
 var VRView = require("./vrview.js");
 /**
  * Vrview component creates a 3d scene with optional hotspots
+ * It receives the data of the scene as props
  *
  * @Props: ISceneConfig
- * @State: ISceneConfig
  */
 var Vrview = (function (_super) {
     __extends(Vrview, _super);
@@ -78,7 +82,6 @@ var Vrview = (function (_super) {
             _this.createHotspot(hotspot);
             _this.addClickHandler(hotspot);
         });
-        // console.log('events: ', (this.vrviewPlayer as any)._events.click);
     };
     Vrview.prototype.createHotspot = function (hotspot) {
         this.vrviewPlayer.addHotspot(hotspot.name, {
@@ -91,17 +94,15 @@ var Vrview = (function (_super) {
     Vrview.prototype.addClickHandler = function (hotspot) {
         var _this = this;
         this.vrviewPlayer.on('click', function (event) {
-            debugger;
             if (event.id === hotspot.name) {
                 // If there is a function defined by the user for the click event, run it
                 if (hotspot.clickFn) {
-                    hotspot.clickFn();
+                    eval(hotspot.clickFn);
                 }
                 else {
                     // If there is newSecene defined for this hotspot, set state to new scene
                     if (hotspot.idNewScene) {
-                        // console.log('hotspot clicked: ', hotspot, 'load new scene, id: ', hotspot.idScene);
-                        _this.props.onClickHotspot(hotspot.idNewScene);
+                        _this.props.onClickHotspot && _this.props.onClickHotspot(hotspot.idNewScene);
                     }
                     else {
                         alert('No Scene defined for hotspot');
@@ -140,7 +141,6 @@ var Vrview = (function (_super) {
         }, 0);
     };
     Vrview.prototype.clearHotspotsClickHandlers = function () {
-        // debugger
         if (this.vrviewPlayer._events) {
             if (this.vrviewPlayer._events.click) {
                 this.vrviewPlayer._events.click.length = 0;
@@ -165,7 +165,6 @@ var Vrview = (function (_super) {
         scene.is_debug = !this.isDebugEnabled(iframe);
         scene.width = iframe.width;
         scene.height = iframe.height;
-        this.setState(scene);
         iframeParentElement.removeChild(iframe);
         this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
     };

@@ -30,5 +30,6 @@ export interface IScene {
                                   // be hidden. This parameter is useful if the user wants to use VR View's fullscreen
                                   // workflow (via vrView.setFullscreen() callback) with an element outside the iframe.
   },
+  onClickHotspot?: Function,      // Click event handler for a hotspot
   hotspots?: Array<IHotspot>      // Array of clickable points on scene
 }

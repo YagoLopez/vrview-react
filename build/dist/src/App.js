@@ -1,12 +1,4 @@
 "use strict";
-//todo: click on scene icon load scene in viewer
-//todo: load scenes from scenes.json file
-//todo: loader
-//todo: usar callback function con "refs"
-//todo: a lo mejor en vez de tener anidadas las escenas era mejor tener un listado (array) de escenas
-//todo: y cargar la nueva escena por su id
-//todo: usar fade-in en pie de imagen
-//todo: text to speech?
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -36,85 +28,25 @@ var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
 var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
 require("./App.css");
-var URL_CODE = 'https://github.com/YagoLopez/vrview-react/blob/bde928cf3507e0376a058a0df36634fb800e3158/src/App.tsx#L40';
+/**
+ * List of scenes.
+ *
+ * Each scene object contains information like: path to images/videos, optional hotspots,
+ * navigation between scenes and other parameters. (See IScene definition)
+ * Scenes can be loaded from hardcoded data or from a database.
+ */
+var scenes = require('./scenes.json');
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        // Initial state contains first scene
+        _this.state = scenes[0];
         /**
-         * List of scenes.
-         *
-         * Each scene object contains contains configuration information like: path to images/videos,
-         * optional hotspots, navigation between scenes and other parameters. (See IScene interfaz definition)
-         */
-        _this.scenes = [
-            {
-                "scene": {
-                    "id": 1,
-                    "width": "100%",
-                    "height": 400,
-                    "image": "../images/coral.jpg",
-                    "is_stereo": true,
-                    "is_debug": true,
-                    "title": "Title Scene 1",
-                    "description": "Underwater panorama with divers and coral reefs"
-                },
-                "hotspots": [
-                    { "name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 2 },
-                    { "name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2 }
-                ]
-            },
-            {
-                "scene": {
-                    "id": 2,
-                    "image": "../images/landscape1.jpg",
-                    "is_stereo": false,
-                    "title": "Title Scene 2",
-                    "description": "This is the description of scene 2"
-                },
-                "hotspots": [
-                    { "name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3 },
-                    { "name": "scene2-hotspot3", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 4 },
-                    { "name": "scene2-hotspot5", "pitch": -20, "yaw": -45, "radius": 0.05, "distance": 2,
-                        "clickFn": function () { return alert('Function executed'); } }
-                ]
-            },
-            {
-                "scene": {
-                    "id": 3,
-                    "image": "../images/palmbeach.jpg",
-                    "is_stereo": false,
-                    "title": "Title Scene 3",
-                    "description": "Tropical beach with palm trees"
-                },
-                "hotspots": [
-                    { "name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4 },
-                ]
-            },
-            {
-                "scene": {
-                    "id": 4,
-                    "image": "../images/landscape2.jpg",
-                    "is_stereo": false,
-                    "title": "Title Scene 4",
-                    "description": "This is the description of scene 4"
-                }
-            }
-        ];
-        _this.state = _this.scenes[0];
-        /**
-         * Change scene programatically.
-         * To change scene just set state with new data. State is only mantained in <Vrview>, not in <App> component
-         * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
-         */
-        _this.changeScene = function () {
-            _this.setState(_this.scenes[2]);
-        };
-        /**
-         * Reset scene to the initial state. It is needed to clear hotspot click handlers
+         * Reset state to the initial scene.
          */
         _this.resetScene = function () {
-            _this.setState(_this.scenes[0]);
+            _this.setState(scenes[0]);
         };
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
@@ -123,10 +55,11 @@ var App = (function (_super) {
             _this.vrviewCmp.toggleDebugMode();
         };
         /**
-         * This function is used to close Left Menu Panel when clicking overlay (outside panel).
+         * Close Left Menu Panel when clicking overlay (outside panel).
          * The left Menu Panel is created and deleted dynamically.
          * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
          */
+        //todo: revisar esto
         _this.renderPanelFooter = function () {
             var overlay = document.querySelector('.ms-Overlay');
             if (overlay) {
@@ -145,8 +78,8 @@ var App = (function (_super) {
             _this.resetScene();
             _this.hideLeftPanel();
         };
-        _this.changeSceneAndHideLeftMenu = function () {
-            _this.changeScene();
+        _this.changeSceneAndHideLeftMenu = function (idScene) {
+            _this.handleClickHotspot(idScene);
             _this.hideLeftPanel();
         };
         _this.toggleDebugModeAndHideLeftMenu = function () {
@@ -154,7 +87,7 @@ var App = (function (_super) {
             _this.hideLeftPanel();
         };
         _this.handleClickHotspot = function (idScene) {
-            var newSceneObj = _this.vrviewCmp.findSceneBydId(_this.scenes, idScene);
+            var newSceneObj = _this.vrviewCmp.findSceneBydId(scenes, idScene);
             if (!newSceneObj.hotspots) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: undefined });
             }
@@ -189,46 +122,38 @@ var App = (function (_super) {
                 name: 'Toggle Debug Mode',
                 icon: 'PowerBILogo',
                 onClick: this.toggleDebugMode,
-                title: 'Change Debug Mode State'
-            },
-            {
-                key: 'more',
-                name: 'Change Scene',
-                icon: 'Org',
-                items: [
-                    {
-                        key: 'changeScene',
-                        name: 'Change Scene Programatically',
-                        icon: 'DecreaseIndentLegacy',
-                        onClick: this.changeScene,
-                        title: 'Scene changed by code',
-                    },
-                    {
-                        key: 'viewCode',
-                        name: 'View Code',
-                        icon: 'IncreaseIndentLegacy',
-                        href: URL_CODE,
-                        target: '_blank'
-                    }
-                ]
+                title: 'Show/Hide small window with canvas info in low left corner'
             }
         ];
+        // Menu link keys must be equals to scene ids to show active scene in menu
         var leftMenuItems = [{
                 links: [
                     { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
                     { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
                     { name: 'Change Scene', url: '',
                         links: [{
-                                name: 'Programatically',
-                                key: 'changeScene',
-                                url: '',
-                                onClick: this.changeSceneAndHideLeftMenu
+                                name: 'Scene 1',
+                                key: '1',
+                                url: 'javascript:void(0)',
+                                onClick: function () { return _this.changeSceneAndHideLeftMenu(1); }
                             },
                             {
-                                name: 'View Code',
-                                key: 'viewCode',
-                                url: URL_CODE,
-                                target: '_blank'
+                                name: 'Scene 2',
+                                key: '2',
+                                url: 'javascript:void(0)',
+                                onClick: function () { return _this.changeSceneAndHideLeftMenu(2); }
+                            },
+                            {
+                                name: 'Scene 3',
+                                key: '3',
+                                url: 'javascript:void(0)',
+                                onClick: function () { return _this.changeSceneAndHideLeftMenu(3); }
+                            },
+                            {
+                                name: 'Scene 4',
+                                key: '4',
+                                url: 'javascript:void(0)',
+                                onClick: function () { return _this.changeSceneAndHideLeftMenu(4); }
                             }],
                         isExpanded: true
                     }
@@ -240,35 +165,35 @@ var App = (function (_super) {
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 1',
                 checked: this.state.scene.id == 1,
-                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+                onClick: function () { return _this.handleClickHotspot(1); }
             },
             {
                 key: '2',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 2',
                 checked: this.state.scene.id == 2,
-                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+                onClick: function () { return _this.handleClickHotspot(2); }
             },
             {
                 key: '3',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 3',
                 checked: this.state.scene.id == 3,
-                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+                onClick: function () { return _this.handleClickHotspot(3); }
             },
             {
                 key: '4',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 4',
                 checked: this.state.scene.id == 4,
-                onClick: function () { return alert('this.state.scene.id: ' + _this.state.scene.id); }
+                onClick: function () { return _this.handleClickHotspot(4); }
             }
         ];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
             React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "Vrview React" },
                 React.createElement("div", null,
-                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: 'resetScene' }))),
+                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: this.state.scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
                 React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),

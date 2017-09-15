@@ -6,7 +6,7 @@
  * Do not confuse Vrview Object with Vrview Component
  */
 export interface IVrviewPlayer {
-  _events: Object,
+  _events: {click: Function[]},
   iframe: HTMLIFrameElement,
   isPaused: boolean,
   sender: {iframe: Object},
