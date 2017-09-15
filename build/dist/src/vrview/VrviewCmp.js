@@ -91,9 +91,9 @@ var Vrview = (function (_super) {
     Vrview.prototype.addClickHandler = function (hotspot) {
         var _this = this;
         this.vrviewPlayer.on('click', function (event) {
+            debugger;
             if (event.id === hotspot.name) {
                 // If there is a function defined by the user for the click event, run it
-                hotspot.clickFn && hotspot.clickFn();
                 if (hotspot.clickFn) {
                     hotspot.clickFn();
                 }

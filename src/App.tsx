@@ -102,14 +102,14 @@ export class App extends React.Component<{}, IScene> {
    * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
    */
   changeScene = (): void => {
-    this.setState({scene: this.scenes[2].scene, hotspots: this.scenes[2].hotspots})
+    this.setState(this.scenes[2]);
   };
 
   /**
    * Reset scene to the initial state. It is needed to clear hotspot click handlers
    */
   resetScene = (): void => {
-    this.setState({scene: this.scenes[0].scene, hotspots: this.scenes[0].hotspots})
+    this.setState(this.scenes[0]);
   };
 
   /**

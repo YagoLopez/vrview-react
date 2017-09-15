@@ -55,9 +55,9 @@ export default class Vrview extends React.Component<any, {}> {
 
   addClickHandler(hotspot: IHotspot): void {
     this.vrviewPlayer.on( 'click', (event: {id: string}) => {
+      debugger
       if(event.id === hotspot.name){
         // If there is a function defined by the user for the click event, run it
-        hotspot.clickFn && hotspot.clickFn();
         if(hotspot.clickFn){
           hotspot.clickFn();
         } else {

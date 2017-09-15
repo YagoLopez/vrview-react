@@ -108,13 +108,13 @@ var App = (function (_super) {
          * Reason for this is to manage the rendering of <Vrview> with its life-cycle methods
          */
         _this.changeScene = function () {
-            _this.setState({ scene: _this.scenes[2].scene, hotspots: _this.scenes[2].hotspots });
+            _this.setState(_this.scenes[2]);
         };
         /**
          * Reset scene to the initial state. It is needed to clear hotspot click handlers
          */
         _this.resetScene = function () {
-            _this.setState({ scene: _this.scenes[0].scene, hotspots: _this.scenes[0].hotspots });
+            _this.setState(_this.scenes[0]);
         };
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
