@@ -3,12 +3,12 @@ import Vrview from './vrview/VrviewCmp';
 import {IScene} from "./vrview/interfaces/IScene";
 
 import {Fabric} from "office-ui-fabric-react/lib/Fabric";
-// import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
-// import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
-// import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
-// import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
-// import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
-// import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
+import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
+import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
+import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
+import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
+import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
+import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 import './App.css';
 
 
@@ -20,8 +20,9 @@ import './App.css';
  * navigation between scenes and other parameters. (See IScene definition)
  * Scenes can be loaded from hardcoded data or from a database.
  */
-// const scenes = require('./scenes.json');
+const scenes = require('./scenes.json');
 
+/*
 const scenes = [
   {
     "scene":
@@ -80,6 +81,7 @@ const scenes = [
       }
   }
 ];
+*/
 
 export class App extends React.Component<{}, IScene > {
 
@@ -119,11 +121,11 @@ export class App extends React.Component<{}, IScene > {
   };
 
   showLeftPanel = (): void => {
-    // (this.refs.panel as Panel).open();
+    (this.refs.panel as Panel).open();
   };
 
   hideLeftPanel = (): void => {
-    // (this.refs.panel as Panel).dismiss();
+    (this.refs.panel as Panel).dismiss();
   };
 
   resetSceneAndHideLeftMenu = (): void => {
@@ -152,7 +154,6 @@ export class App extends React.Component<{}, IScene > {
 
   render(){
 
-/*
     const topMenuItems: IContextualMenuItem[] = [
       {
         key: 'menuBtn',
@@ -180,7 +181,7 @@ export class App extends React.Component<{}, IScene > {
       }
     ];
 
-    // Menu link keys must be equals to scene ids to show active scene in menu
+    /* Menu link keys must be equals to scene ids to show active scene in menu */
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
@@ -246,13 +247,10 @@ export class App extends React.Component<{}, IScene > {
         onClick: () => this.handleClickHotspot(4)
       }
     ];
-*/
 
     return(
-
       <Fabric>
 
-{/*
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
 
         <Panel
@@ -262,32 +260,27 @@ export class App extends React.Component<{}, IScene > {
           headerText="Vrview React">
           <div><Nav groups={ leftMenuItems } selectedKey={ this.state.scene.id.toString() } /></div>
         </Panel>
-*/}
 
         <div className="pad15">
           <div className="centered header">Vrview React</div>
           <div className="centered subheader">React Component based on Google&apos;s Vrview Library</div>
         </div>
 
-        {/*<DocumentCard className="layout shadow">*/}
+        <DocumentCard className="layout shadow">
           {/* Vrview Component ----------------------------------------------------------- */}
-{/*
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             onClickHotspot={ this.handleClickHotspot } />
-*/}
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{this.state.scene.title}</div>
             <div>{this.state.scene.description}</div>
           </div>
-        {/*</DocumentCard>*/}
+        </DocumentCard>
 
-{/*
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
-*/}
 
       </Fabric>
-    );
+    )
   }
 }

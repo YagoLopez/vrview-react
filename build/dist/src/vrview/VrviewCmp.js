@@ -31,6 +31,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+//todo: parece que aqui esta el problema. usar "require()"
 var VRView = require("./vrview.js");
 /**
  * Vrview component creates a 3d scene with optional hotspots

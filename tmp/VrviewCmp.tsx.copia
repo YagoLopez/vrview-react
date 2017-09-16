@@ -79,11 +79,12 @@ export default class Vrview extends React.Component<IScene, {}> {
    * Component initialization. Executed after dom load
    */
   componentDidMount() {
+    // console.log('VRView, ', VRView);
     const onVrViewLoad = () => {
       // Vrview Player object creation
       this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
       this.vrviewPlayer.on('ready', () => {
-        this.loadHotspots();
+        // this.loadHotspots();
       });
     };
     window.addEventListener('load', onVrViewLoad);
