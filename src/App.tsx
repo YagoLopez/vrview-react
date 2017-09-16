@@ -273,9 +273,11 @@ export class App extends React.Component<{}, IScene > {
 
         {/*<DocumentCard className="layout shadow">*/}
           {/* Vrview Component ----------------------------------------------------------- */}
+{/*
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             onClickHotspot={ this.handleClickHotspot } />
+*/}
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{this.state.scene.title}</div>
