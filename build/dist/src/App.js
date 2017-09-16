@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
+var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
 // import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 // import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 // import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
@@ -238,8 +238,7 @@ var App = (function (_super) {
               }
             ];
         */
-        return (React.createElement("div", null,
-            "TEST",
+        return (React.createElement(Fabric_1.Fabric, null,
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
                 React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),

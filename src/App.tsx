@@ -2,7 +2,7 @@ import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import {IScene} from "./vrview/interfaces/IScene";
 
-// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
+import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 // import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 // import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 // import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
@@ -249,10 +249,8 @@ export class App extends React.Component<{}, IScene > {
 */
 
     return(
-      <div>
-        TEST
 
-      {/*<Fabric>*/}
+      <Fabric>
 
 {/*
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
@@ -289,8 +287,7 @@ export class App extends React.Component<{}, IScene > {
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
 */}
 
-      </div>
-      // </Fabric>
+      </Fabric>
     );
   }
 }
