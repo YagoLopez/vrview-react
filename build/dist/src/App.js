@@ -9,24 +9,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var VrviewCmp_1 = require("./vrview/VrviewCmp");
-var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
-var CommandBar_1 = require("office-ui-fabric-react/lib/CommandBar");
-var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
-var Panel_1 = require("office-ui-fabric-react/lib/Panel");
-var Nav_1 = require("office-ui-fabric-react/lib/Nav");
-var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
-var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
+// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
+// import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
+// import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
+// import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
+// import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
+// import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
+// import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 require("./App.css");
 /**
  * List of scenes.
@@ -123,10 +114,10 @@ var App = (function (_super) {
             }
         };
         _this.showLeftPanel = function () {
-            _this.refs.panel.open();
+            // (this.refs.panel as Panel).open();
         };
         _this.hideLeftPanel = function () {
-            _this.refs.panel.dismiss();
+            // (this.refs.panel as Panel).dismiss();
         };
         _this.resetSceneAndHideLeftMenu = function () {
             _this.resetScene();
@@ -152,111 +143,102 @@ var App = (function (_super) {
         return _this;
     }
     App.prototype.render = function () {
-        var _this = this;
-        var topMenuItems = [
-            {
+        /*
+            const topMenuItems: IContextualMenuItem[] = [
+              {
                 key: 'menuBtn',
                 icon: 'CollapseMenu',
                 onClick: this.showLeftPanel,
                 title: 'Left Menu'
-            },
-            {
+              },
+              {
                 key: 'divider',
-                itemType: ContextualMenu_1.ContextualMenuItemType.Divider
-            },
-            {
+                itemType: ContextualMenuItemType.Divider
+              },
+              {
                 key: 'resetScene',
                 name: 'Reset Scene',
                 icon: 'RevToggleKey',
                 onClick: this.resetScene,
                 title: 'Return to Initial Scene'
-            },
-            {
+              },
+              {
                 key: 'toggleDebugMode',
                 name: 'Toggle Debug Mode',
                 icon: 'PowerBILogo',
                 onClick: this.toggleDebugMode,
                 title: 'Show/Hide small window with canvas info in low left corner'
-            }
-        ];
-        // Menu link keys must be equals to scene ids to show active scene in menu
-        var leftMenuItems = [{
-                links: [
-                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
-                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
-                    { name: 'Change Scene', url: '',
-                        links: [{
-                                name: 'Scene 1',
-                                key: '1',
-                                url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(1); }
-                            },
-                            {
-                                name: 'Scene 2',
-                                key: '2',
-                                url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(2); }
-                            },
-                            {
-                                name: 'Scene 3',
-                                key: '3',
-                                url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(3); }
-                            },
-                            {
-                                name: 'Scene 4',
-                                key: '4',
-                                url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(4); }
-                            }],
-                        isExpanded: true
-                    }
+              }
+            ];
+        
+            // Menu link keys must be equals to scene ids to show active scene in menu
+            const leftMenuItems: INavLinkGroup[] = [{
+              links:
+                [
+                  { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
+                  { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+                  { name: 'Change Scene', url: '',
+                    links: [{
+                      name: 'Scene 1',
+                      key: '1',
+                      url: 'javascript:void(0)',
+                      onClick: () => this.changeSceneAndHideLeftMenu(1)
+                    },
+                    {
+                      name: 'Scene 2',
+                      key: '2',
+                      url: 'javascript:void(0)',
+                      onClick: () => this.changeSceneAndHideLeftMenu(2)
+                    },
+                    {
+                      name: 'Scene 3',
+                      key: '3',
+                      url: 'javascript:void(0)',
+                      onClick: () => this.changeSceneAndHideLeftMenu(3)
+                    },
+                    {
+                      name: 'Scene 4',
+                      key: '4',
+                      url: 'javascript:void(0)',
+                      onClick: () => this.changeSceneAndHideLeftMenu(4)
+                    }],
+                    isExpanded: true
+                  }
                 ]
             }];
-        var choiceGroup = [
-            {
+        
+            const choiceGroup: IChoiceGroupOption[] = [
+              {
                 key: '1',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 1',
                 checked: this.state.scene.id == 1,
-                onClick: function () { return _this.handleClickHotspot(1); }
-            },
-            {
+                onClick: () => this.handleClickHotspot(1)
+              },
+              {
                 key: '2',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 2',
                 checked: this.state.scene.id == 2,
-                onClick: function () { return _this.handleClickHotspot(2); }
-            },
-            {
+                onClick: () => this.handleClickHotspot(2)
+              },
+              {
                 key: '3',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 3',
                 checked: this.state.scene.id == 3,
-                onClick: function () { return _this.handleClickHotspot(3); }
-            },
-            {
+                onClick: () => this.handleClickHotspot(3)
+              },
+              {
                 key: '4',
                 iconProps: { iconName: 'Photo2' },
                 text: 'Scene 4',
                 checked: this.state.scene.id == 4,
-                onClick: function () { return _this.handleClickHotspot(4); }
-            }
-        ];
-        return (React.createElement(Fabric_1.Fabric, null,
-            React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "Vrview React" },
-                React.createElement("div", null,
-                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: this.state.scene.id.toString() }))),
-            React.createElement("div", { className: "pad15" },
-                React.createElement("div", { className: "centered header" }, "Vrview React"),
-                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
-            React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
-                React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
-                React.createElement("div", { className: "pad15" },
-                    React.createElement("div", { className: "card-title" }, this.state.scene.title),
-                    React.createElement("div", null, this.state.scene.description))),
-            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
+                onClick: () => this.handleClickHotspot(4)
+              }
+            ];
+        */
+        return (React.createElement("div", null, "TEST"));
     };
     return App;
 }(React.Component));

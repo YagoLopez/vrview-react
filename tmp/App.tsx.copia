@@ -2,13 +2,13 @@ import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import {IScene} from "./vrview/interfaces/IScene";
 
-// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
-// import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
-// import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
-// import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
-// import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
-// import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
-// import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
+import {Fabric} from "office-ui-fabric-react/lib/Fabric";
+import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
+import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
+import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
+import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
+import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
+import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 import './App.css';
 
 
@@ -119,11 +119,11 @@ export class App extends React.Component<{}, IScene > {
   };
 
   showLeftPanel = (): void => {
-    // (this.refs.panel as Panel).open();
+    (this.refs.panel as Panel).open();
   };
 
   hideLeftPanel = (): void => {
-    // (this.refs.panel as Panel).dismiss();
+    (this.refs.panel as Panel).dismiss();
   };
 
   resetSceneAndHideLeftMenu = (): void => {
@@ -152,7 +152,6 @@ export class App extends React.Component<{}, IScene > {
 
   render(){
 
-/*
     const topMenuItems: IContextualMenuItem[] = [
       {
         key: 'menuBtn',
@@ -246,13 +245,8 @@ export class App extends React.Component<{}, IScene > {
         onClick: () => this.handleClickHotspot(4)
       }
     ];
-*/
 
     return(
-
-      <div>TEST</div>
-
-/*
       <Fabric>
 
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
@@ -271,11 +265,11 @@ export class App extends React.Component<{}, IScene > {
         </div>
 
         <DocumentCard className="layout shadow">
-          {/!* Vrview Component ----------------------------------------------------------- *!/}
+          {/* Vrview Component ----------------------------------------------------------- */}
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             onClickHotspot={ this.handleClickHotspot } />
-          {/!* /Vrview Component ---------------------------------------------------------- *!/}
+          {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{this.state.scene.title}</div>
             <div>{this.state.scene.description}</div>
@@ -285,7 +279,6 @@ export class App extends React.Component<{}, IScene > {
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
 
       </Fabric>
-*/
     );
   }
 }
