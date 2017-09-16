@@ -9,9 +9,18 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
+var VrviewCmp_1 = require("./vrview/VrviewCmp");
+// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 // import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 // import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 // import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
@@ -238,8 +247,16 @@ var App = (function (_super) {
               }
             ];
         */
-        return (React.createElement(Fabric_1.Fabric, null,
-            React.createElement("div", null, "TEST")));
+        var _this = this;
+        return (React.createElement("div", null,
+            "TEST",
+            React.createElement("div", { className: "pad15" },
+                React.createElement("div", { className: "centered header" }, "Vrview React"),
+                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
+            React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
+            React.createElement("div", { className: "pad15" },
+                React.createElement("div", { className: "card-title" }, this.state.scene.title),
+                React.createElement("div", null, this.state.scene.description))));
     };
     return App;
 }(React.Component));

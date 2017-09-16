@@ -2,7 +2,7 @@ import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import {IScene} from "./vrview/interfaces/IScene";
 
-import {Fabric} from "office-ui-fabric-react/lib/Fabric";
+// import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 // import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 // import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";
 // import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
@@ -249,9 +249,10 @@ export class App extends React.Component<{}, IScene > {
 */
 
     return(
+      <div>
+        TEST
 
-      <Fabric>
-        <div>TEST</div>
+      {/*<Fabric>*/}
 
 {/*
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
@@ -263,28 +264,31 @@ export class App extends React.Component<{}, IScene > {
           headerText="Vrview React">
           <div><Nav groups={ leftMenuItems } selectedKey={ this.state.scene.id.toString() } /></div>
         </Panel>
+*/}
 
         <div className="pad15">
           <div className="centered header">Vrview React</div>
           <div className="centered subheader">React Component based on Google&apos;s Vrview Library</div>
         </div>
 
-        <DocumentCard className="layout shadow">
-          /!* Vrview Component ----------------------------------------------------------- *!/
+        {/*<DocumentCard className="layout shadow">*/}
+          {/* Vrview Component ----------------------------------------------------------- */}
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
             onClickHotspot={ this.handleClickHotspot } />
-          /!* /Vrview Component ---------------------------------------------------------- *!/
+          {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{this.state.scene.title}</div>
             <div>{this.state.scene.description}</div>
           </div>
-        </DocumentCard>
+        {/*</DocumentCard>*/}
 
+{/*
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
 */}
 
-      </Fabric>
+      </div>
+      // </Fabric>
     );
   }
 }
