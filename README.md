@@ -5,7 +5,7 @@
 - It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points (aka hotspots) to navigate between images/videos
 - It is posible to assign an arbitrary function to a hotspot click event
-- Using a mobile and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
+- Using a smartphone and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
 or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
 - <a href="https://yagolopez.js.org/vrview-react/build/" target="_blank">DEMO full screen (for mobile)</a>
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"

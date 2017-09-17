@@ -2,8 +2,9 @@
 
 /**
  * Interface for Vrview Object
+ * 
  * This object is responsible for creation and handling of 3d scene
- * Do not confuse Vrview Object with Vrview Component
+ * Do not confuse Vrview Object with <Vrview> Component
  */
 export interface IVrviewPlayer {
   _events: {click: Function[]},

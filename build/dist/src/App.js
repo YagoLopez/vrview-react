@@ -36,66 +36,6 @@ require("./App.css");
  * Scenes can be loaded from hardcoded data or from a database.
  */
 var scenes = require('./scenes.json');
-/*
-const scenes = [
-  {
-    "scene":
-      {
-        "id": 1,
-        "width": "100%",
-        "height": 400,
-        "image": "../images/coral.jpg",
-        "is_stereo": true,
-        "is_debug": true,
-        "title": "Title Scene 1",
-        "description": "Initial scene with three hotspots. One hotspot has a new scene associated, other has no new scene and the third executes a function"
-      },
-    "hotspots": [
-      {"name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 2},
-      {"name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2},
-      {"name": "scene1-hotspot3", "pitch": -20, "yaw": -25, "radius": 0.05, "distance": 2,
-        "clickFn": "alert('Function executed');"}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 2,
-        "image": "../images/landscape1.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 2",
-        "description": "Scene 2 has two hotspots with respectives scenes associated"
-      },
-    "hotspots": [
-      {"name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3},
-      {"name": "scene2-hotspot5", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 4}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 3,
-        "image": "../images/palmbeach.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 3",
-        "description": "Scene 3 has only one hotspot associated to Scene 4"
-      },
-    "hotspots": [
-      {"name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 4,
-        "image": "../images/landscape2.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 4",
-        "description": "This is scene 4 without hotspots"
-      }
-  }
-];
-*/
 var App = (function (_super) {
     __extends(App, _super);
     function App() {

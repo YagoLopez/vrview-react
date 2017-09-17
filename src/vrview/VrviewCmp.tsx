@@ -18,6 +18,7 @@
 //todo: text to speech?
 //todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
 // no imperativamente como ahora
+//todo: about page
 
 import * as React from "react";
 //todo: parece que aqui esta el problema. usar "require()"
