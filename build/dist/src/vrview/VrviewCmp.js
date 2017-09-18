@@ -51,7 +51,7 @@ var Vrview = (function (_super) {
          * @returns {Window}
          */
         _this.getIframeWindow = function (iframe_object) {
-            var result = undefined;
+            var result;
             if (iframe_object.contentWindow) {
                 result = iframe_object.contentWindow;
             }

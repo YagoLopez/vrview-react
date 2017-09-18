@@ -120,7 +120,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
    * @returns {Window}
    */
   getIframeWindow = (iframe_object: any): Window => {
-    let result: Window | any = undefined;
+    let result: Window | any;
     if (iframe_object.contentWindow) {
       result = iframe_object.contentWindow;
     }
