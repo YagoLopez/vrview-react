@@ -107,8 +107,10 @@ var App = (function (_super) {
         /* Menu link keys must be equals to scene ids to show active scene in menu */
         var leftMenuItems = [{
                 links: [
-                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: function () { return _this.leftMenuAction(_this.resetScene); } },
-                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: function () { return _this.leftMenuAction(_this.toggleDebugMode); } },
+                    { name: 'Reset Scene', url: '', key: 'resetScene',
+                        onClick: function () { return _this.leftMenuAction(_this.resetScene); } },
+                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
+                        onClick: function () { return _this.leftMenuAction(_this.toggleDebugMode); } },
                     { name: 'Change Scene', url: '',
                         links: [{
                                 name: 'Scene 1',

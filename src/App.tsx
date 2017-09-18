@@ -101,8 +101,10 @@ export class App extends React.Component<any, IVrviewConfig> {
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
-          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: () => this.leftMenuAction(this.resetScene) },
-          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: () => this.leftMenuAction(this.toggleDebugMode)},
+          { name: 'Reset Scene', url: '', key: 'resetScene',
+            onClick: () => this.leftMenuAction(this.resetScene) },
+          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
+            onClick: () => this.leftMenuAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',
             links: [{
               name: 'Scene 1',
