@@ -32,7 +32,7 @@ require("./App.css");
  * List of scenes.
  *
  * Each scene object contains information like: path to images/videos, optional hotspots,
- * navigation between scenes and other parameters. (See IScene definition)
+ * navigation between scenes and other parameters. (See IVrviewConfig definition)
  * Scenes can be loaded from hardcoded data or from a database.
  */
 var scenes = require('./scenes.json');

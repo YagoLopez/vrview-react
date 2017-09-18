@@ -38,7 +38,7 @@ var VRView = require("./vrview.js");
  * Vrview component creates a 3d scene with optional hotspots
  * It receives the data of the scene as props
  *
- * @Props: ISceneConfig
+ * @Props: IVrviewConfig
  */
 var Vrview = (function (_super) {
     __extends(Vrview, _super);
@@ -63,9 +63,9 @@ var Vrview = (function (_super) {
         /**
          * Helper function to find scene by id
          *
-         * @param scenes {IScene[]} Array of scenes
+         * @param scenes {IVrviewConfig[]} Array of scenes
          * @param id {number | string} Scene id
-         * @returns {IScene} Scene searched
+         * @returns {IVrviewConfig} Scene searched
          */
         _this.findSceneBydId = function (scenes, id) {
             for (var i = 0; i < scenes.length; i++) {

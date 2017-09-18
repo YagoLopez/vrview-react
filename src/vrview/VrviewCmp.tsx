@@ -23,7 +23,7 @@
 import * as React from "react";
 //todo: parece que aqui esta el problema. usar "require()"
 import * as VRView from  "./vrview.js";
-import {IScene} from "./interfaces/IScene";
+import {IVrviewConfig} from "./interfaces/IVrviewConfig";
 import {IHotspot} from "./interfaces/IHotspot";
 import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
@@ -33,9 +33,9 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
  * Vrview component creates a 3d scene with optional hotspots
  * It receives the data of the scene as props
  *
- * @Props: ISceneConfig
+ * @Props: IVrviewConfig
  */
-export default class Vrview extends React.Component<IScene, {}> {
+export default class Vrview extends React.Component<IVrviewConfig, {}> {
 
   // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;
@@ -156,11 +156,11 @@ export default class Vrview extends React.Component<IScene, {}> {
   /**
    * Helper function to find scene by id
    *
-   * @param scenes {IScene[]} Array of scenes
+   * @param scenes {IVrviewConfig[]} Array of scenes
    * @param id {number | string} Scene id
-   * @returns {IScene} Scene searched
+   * @returns {IVrviewConfig} Scene searched
    */
-  findSceneBydId = (scenes: IScene[], id: number | string): IScene | void => {
+  findSceneBydId = (scenes: IVrviewConfig[], id: number | string): IVrviewConfig | void => {
     for(let i = 0; i < scenes.length; i++){
       if(scenes[i].scene.id === id){
         return scenes[i];
