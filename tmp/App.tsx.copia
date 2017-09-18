@@ -11,8 +11,6 @@ import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
 import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 import './App.css';
 
-
-
 /**
  * List of scenes.
  *
@@ -20,71 +18,12 @@ import './App.css';
  * navigation between scenes and other parameters. (See IScene definition)
  * Scenes can be loaded from hardcoded data or from a database.
  */
-// const scenes = require('./scenes.json');
+const scenes = require('./scenes.json');
 
-const scenes = [
-  {
-    "scene":
-      {
-        "id": 1,
-        "width": "100%",
-        "height": 400,
-        "image": "../images/coral.jpg",
-        "is_stereo": true,
-        "is_debug": true,
-        "title": "Title Scene 1",
-        "description": "Initial scene with three hotspots. One hotspot has a new scene associated, other has no new scene and the third executes a function"
-      },
-    "hotspots": [
-      {"name": "scene1-hotspot1", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 2},
-      {"name": "scene1-hotspot2", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2},
-      {"name": "scene1-hotspot3", "pitch": -20, "yaw": -25, "radius": 0.05, "distance": 2,
-        "clickFn": "alert('Function executed');"}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 2,
-        "image": "../images/landscape1.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 2",
-        "description": "Scene 2 has two hotspots with respectives scenes associated"
-      },
-    "hotspots": [
-      {"name": "scene2-hotspot4", "pitch": 0, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 3},
-      {"name": "scene2-hotspot5", "pitch": 0, "yaw": -35, "radius": 0.05, "distance": 2, "idNewScene": 4}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 3,
-        "image": "../images/palmbeach.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 3",
-        "description": "Scene 3 has only one hotspot associated to Scene 4"
-      },
-    "hotspots": [
-      {"name": "scene2-hotspot4", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4}
-    ]
-  },
-  {
-    "scene":
-      {
-        "id": 4,
-        "image": "../images/landscape2.jpg",
-        "is_stereo": false,
-        "title": "Title Scene 4",
-        "description": "This is scene 4 without hotspots"
-      }
-  }
-];
+export class App extends React.Component<any, IScene> {
 
-export class App extends React.Component<{}, IScene > {
-
-  // Initial state contains first scene
-  state: IScene = scenes[0];
+  // Initial state contains first scene and state for left menu
+  state = scenes[0];
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -108,15 +47,14 @@ export class App extends React.Component<{}, IScene > {
    * The left Menu Panel is created and deleted dynamically.
    * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
    */
-    //todo: revisar esto
-  renderPanelFooter = (): any => {
-    const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
-    if (overlay){
-      overlay.addEventListener('mousedown', () => {
-        this.hideLeftPanel();
-      })
-    }
-  };
+  // renderPanelFooter = (): any => {
+  //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
+  //   if (overlay){
+  //     overlay.addEventListener('mousedown', () => {
+  //       this.hideLeftPanel();
+  //     })
+  //   }
+  // };
 
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
@@ -133,12 +71,16 @@ export class App extends React.Component<{}, IScene > {
 
   changeSceneAndHideLeftMenu = (idScene: number | string): void => {
     this.handleClickHotspot(idScene);
-    this.hideLeftPanel()
+    this.hideLeftPanel();
   };
 
   toggleDebugModeAndHideLeftMenu = (): void => {
     this.toggleDebugMode();
     this.hideLeftPanel();
+  };
+
+  executeActionAndCloseLeftMenu = (action: Function, params: {}): void => {
+    action(params);
   };
 
   handleClickHotspot = (idScene: number | string): void => {
@@ -151,6 +93,8 @@ export class App extends React.Component<{}, IScene > {
   };
 
   render(){
+
+    const scene = this.state.scene;
 
     const topMenuItems: IContextualMenuItem[] = [
       {
@@ -179,7 +123,7 @@ export class App extends React.Component<{}, IScene > {
       }
     ];
 
-    // Menu link keys must be equals to scene ids to show active scene in menu
+    /* Menu link keys must be equals to scene ids to show active scene in menu */
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
@@ -254,9 +198,10 @@ export class App extends React.Component<{}, IScene > {
         <Panel
           ref="panel"
           type={ PanelType.smallFixedNear }
-          onRenderFooter={ this.renderPanelFooter }
+          isOpen={ this.state.showLeftPanelMenu }
+          isLightDismiss={ true }
           headerText="Vrview React">
-          <div><Nav groups={ leftMenuItems } selectedKey={ this.state.scene.id.toString() } /></div>
+          <div><Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } /></div>
         </Panel>
 
         <div className="pad15">
@@ -271,8 +216,8 @@ export class App extends React.Component<{}, IScene > {
             onClickHotspot={ this.handleClickHotspot } />
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
-            <div className="card-title">{this.state.scene.title}</div>
-            <div>{this.state.scene.description}</div>
+            <div className="card-title">{ scene.title }</div>
+            <div>{ scene.description }</div>
           </div>
         </DocumentCard>
 

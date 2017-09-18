@@ -40,7 +40,7 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Initial state contains first scene
+        // Initial state contains first scene and state for left menu
         _this.state = scenes[0];
         /**
          * Reset state to the initial scene.
@@ -59,15 +59,14 @@ var App = (function (_super) {
          * The left Menu Panel is created and deleted dynamically.
          * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
          */
-        //todo: revisar esto
-        _this.renderPanelFooter = function () {
-            var overlay = document.querySelector('.ms-Overlay');
-            if (overlay) {
-                overlay.addEventListener('mousedown', function () {
-                    _this.hideLeftPanel();
-                });
-            }
-        };
+        // renderPanelFooter = (): any => {
+        //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
+        //   if (overlay){
+        //     overlay.addEventListener('mousedown', () => {
+        //       this.hideLeftPanel();
+        //     })
+        //   }
+        // };
         _this.showLeftPanel = function () {
             _this.refs.panel.open();
         };
@@ -86,6 +85,9 @@ var App = (function (_super) {
             _this.toggleDebugMode();
             _this.hideLeftPanel();
         };
+        _this.executeActionAndCloseLeftMenu = function (action, params) {
+            action(params);
+        };
         _this.handleClickHotspot = function (idScene) {
             var newSceneObj = _this.vrviewCmp.findSceneBydId(scenes, idScene);
             if (!newSceneObj.hotspots) {
@@ -99,6 +101,7 @@ var App = (function (_super) {
     }
     App.prototype.render = function () {
         var _this = this;
+        var scene = this.state.scene;
         var topMenuItems = [
             {
                 key: 'menuBtn',
@@ -191,17 +194,17 @@ var App = (function (_super) {
         ];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, onRenderFooter: this.renderPanelFooter, headerText: "Vrview React" },
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, isOpen: this.state.showLeftPanelMenu, isLightDismiss: true, headerText: "Vrview React" },
                 React.createElement("div", null,
-                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: this.state.scene.id.toString() }))),
+                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React"),
                 React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },
-                    React.createElement("div", { className: "card-title" }, this.state.scene.title),
-                    React.createElement("div", null, this.state.scene.description))),
+                    React.createElement("div", { className: "card-title" }, scene.title),
+                    React.createElement("div", null, scene.description))),
             React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
     };
     return App;

@@ -18,6 +18,7 @@
 //todo: text to speech?
 //todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
 // no imperativamente como ahora
+//todo: about page
 
 import * as React from "react";
 //todo: parece que aqui esta el problema. usar "require()"
@@ -79,12 +80,11 @@ export default class Vrview extends React.Component<IScene, {}> {
    * Component initialization. Executed after dom load
    */
   componentDidMount() {
-    // console.log('VRView, ', VRView);
     const onVrViewLoad = () => {
       // Vrview Player object creation
       this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
       this.vrviewPlayer.on('ready', () => {
-        // this.loadHotspots();
+        this.loadHotspots();
       });
     };
     window.addEventListener('load', onVrViewLoad);

@@ -11,8 +11,6 @@ import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
 import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
 import './App.css';
 
-
-
 /**
  * List of scenes.
  *
@@ -22,10 +20,10 @@ import './App.css';
  */
 const scenes = require('./scenes.json');
 
-export class App extends React.Component<{}, IScene > {
+export class App extends React.Component<any, IScene> {
 
-  // Initial state contains first scene
-  state: IScene = scenes[0];
+  // Initial state contains first scene and state for left menu
+  state = scenes[0];
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -49,15 +47,14 @@ export class App extends React.Component<{}, IScene > {
    * The left Menu Panel is created and deleted dynamically.
    * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
    */
-    //todo: revisar esto
-  renderPanelFooter = (): any => {
-    const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
-    if (overlay){
-      overlay.addEventListener('mousedown', () => {
-        this.hideLeftPanel();
-      })
-    }
-  };
+  // renderPanelFooter = (): any => {
+  //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
+  //   if (overlay){
+  //     overlay.addEventListener('mousedown', () => {
+  //       this.hideLeftPanel();
+  //     })
+  //   }
+  // };
 
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
@@ -74,12 +71,16 @@ export class App extends React.Component<{}, IScene > {
 
   changeSceneAndHideLeftMenu = (idScene: number | string): void => {
     this.handleClickHotspot(idScene);
-    this.hideLeftPanel()
+    this.hideLeftPanel();
   };
 
   toggleDebugModeAndHideLeftMenu = (): void => {
     this.toggleDebugMode();
     this.hideLeftPanel();
+  };
+
+  executeActionAndCloseLeftMenu = (action: Function, params: {}): void => {
+    action(params);
   };
 
   handleClickHotspot = (idScene: number | string): void => {
@@ -92,6 +93,8 @@ export class App extends React.Component<{}, IScene > {
   };
 
   render(){
+
+    const scene = this.state.scene;
 
     const topMenuItems: IContextualMenuItem[] = [
       {
@@ -195,9 +198,10 @@ export class App extends React.Component<{}, IScene > {
         <Panel
           ref="panel"
           type={ PanelType.smallFixedNear }
-          onRenderFooter={ this.renderPanelFooter }
+          isOpen={ this.state.showLeftPanelMenu }
+          isLightDismiss={ true }
           headerText="Vrview React">
-          <div><Nav groups={ leftMenuItems } selectedKey={ this.state.scene.id.toString() } /></div>
+          <div><Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } /></div>
         </Panel>
 
         <div className="pad15">
@@ -212,8 +216,8 @@ export class App extends React.Component<{}, IScene > {
             onClickHotspot={ this.handleClickHotspot } />
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
-            <div className="card-title">{this.state.scene.title}</div>
-            <div>{this.state.scene.description}</div>
+            <div className="card-title">{ scene.title }</div>
+            <div>{ scene.description }</div>
           </div>
         </DocumentCard>
 
