@@ -23,7 +23,7 @@ const scenes = require('./scenes.json');
 export class App extends React.Component<any, IVrviewConfig> {
 
   // Initial state contains first scene and state for left menu
-  state = scenes[0];
+  state: IVrviewConfig = scenes[0];
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -42,20 +42,6 @@ export class App extends React.Component<any, IVrviewConfig> {
     this.vrviewCmp.toggleDebugMode()
   };
 
-  /**
-   * Close Left Menu Panel when clicking overlay (outside panel).
-   * The left Menu Panel is created and deleted dynamically.
-   * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
-   */
-  // renderPanelFooter = (): any => {
-  //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
-  //   if (overlay){
-  //     overlay.addEventListener('mousedown', () => {
-  //       this.hideLeftPanel();
-  //     })
-  //   }
-  // };
-
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
   };
@@ -64,23 +50,9 @@ export class App extends React.Component<any, IVrviewConfig> {
     (this.refs.panel as Panel).dismiss();
   };
 
-  resetSceneAndHideLeftMenu = (): void => {
-    this.resetScene();
-    this.hideLeftPanel();
-  };
-
-  changeSceneAndHideLeftMenu = (idScene: number | string): void => {
-    this.handleClickHotspot(idScene);
-    this.hideLeftPanel();
-  };
-
-  toggleDebugModeAndHideLeftMenu = (): void => {
-    this.toggleDebugMode();
-    this.hideLeftPanel();
-  };
-
-  executeActionAndCloseLeftMenu = (action: Function, params: {}): void => {
+  leftMenuAction = (action: Function, params?: {}): void => {
     action(params);
+    this.hideLeftPanel();
   };
 
   handleClickHotspot = (idScene: number | string): void => {
@@ -127,32 +99,32 @@ export class App extends React.Component<any, IVrviewConfig> {
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
-          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
-          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: () => this.leftMenuAction(this.resetScene) },
+          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: () => this.leftMenuAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',
             links: [{
               name: 'Scene 1',
               key: '1',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(1)
+              onClick: () => this.leftMenuAction(this.handleClickHotspot, 1)
             },
             {
               name: 'Scene 2',
               key: '2',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(2)
+              onClick: () => this.leftMenuAction(this.handleClickHotspot, 2)
             },
             {
               name: 'Scene 3',
               key: '3',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(3)
+              onClick: () => this.leftMenuAction(this.handleClickHotspot, 3)
             },
             {
               name: 'Scene 4',
               key: '4',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(4)
+              onClick: () => this.leftMenuAction(this.handleClickHotspot, 4)
             }],
             isExpanded: true
           }
@@ -198,7 +170,6 @@ export class App extends React.Component<any, IVrviewConfig> {
         <Panel
           ref="panel"
           type={ PanelType.smallFixedNear }
-          isOpen={ this.state.showLeftPanelMenu }
           isLightDismiss={ true }
           headerText="Vrview React">
           <div><Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } /></div>

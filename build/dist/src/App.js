@@ -54,39 +54,15 @@ var App = (function (_super) {
         _this.toggleDebugMode = function () {
             _this.vrviewCmp.toggleDebugMode();
         };
-        /**
-         * Close Left Menu Panel when clicking overlay (outside panel).
-         * The left Menu Panel is created and deleted dynamically.
-         * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
-         */
-        // renderPanelFooter = (): any => {
-        //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
-        //   if (overlay){
-        //     overlay.addEventListener('mousedown', () => {
-        //       this.hideLeftPanel();
-        //     })
-        //   }
-        // };
         _this.showLeftPanel = function () {
             _this.refs.panel.open();
         };
         _this.hideLeftPanel = function () {
             _this.refs.panel.dismiss();
         };
-        _this.resetSceneAndHideLeftMenu = function () {
-            _this.resetScene();
-            _this.hideLeftPanel();
-        };
-        _this.changeSceneAndHideLeftMenu = function (idScene) {
-            _this.handleClickHotspot(idScene);
-            _this.hideLeftPanel();
-        };
-        _this.toggleDebugModeAndHideLeftMenu = function () {
-            _this.toggleDebugMode();
-            _this.hideLeftPanel();
-        };
-        _this.executeActionAndCloseLeftMenu = function (action, params) {
+        _this.leftMenuAction = function (action, params) {
             action(params);
+            _this.hideLeftPanel();
         };
         _this.handleClickHotspot = function (idScene) {
             var newSceneObj = _this.vrviewCmp.findSceneBydId(scenes, idScene);
@@ -131,32 +107,32 @@ var App = (function (_super) {
         /* Menu link keys must be equals to scene ids to show active scene in menu */
         var leftMenuItems = [{
                 links: [
-                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
-                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+                    { name: 'Reset Scene', url: '', key: 'resetScene', onClick: function () { return _this.leftMenuAction(_this.resetScene); } },
+                    { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: function () { return _this.leftMenuAction(_this.toggleDebugMode); } },
                     { name: 'Change Scene', url: '',
                         links: [{
                                 name: 'Scene 1',
                                 key: '1',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(1); }
+                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 1); }
                             },
                             {
                                 name: 'Scene 2',
                                 key: '2',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(2); }
+                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 2); }
                             },
                             {
                                 name: 'Scene 3',
                                 key: '3',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(3); }
+                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 3); }
                             },
                             {
                                 name: 'Scene 4',
                                 key: '4',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.changeSceneAndHideLeftMenu(4); }
+                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 4); }
                             }],
                         isExpanded: true
                     }
@@ -194,7 +170,7 @@ var App = (function (_super) {
         ];
         return (React.createElement(Fabric_1.Fabric, null,
             React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, isOpen: this.state.showLeftPanelMenu, isLightDismiss: true, headerText: "Vrview React" },
+            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, isLightDismiss: true, headerText: "Vrview React" },
                 React.createElement("div", null,
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
