@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Vrvirew React",
+  "name": "React component to show 360 images and videos",
   "icons": [
     {
       "src": "favicon.ico",

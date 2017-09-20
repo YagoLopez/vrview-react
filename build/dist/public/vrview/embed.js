@@ -12133,7 +12133,7 @@
                 this.tween = new TWEEN.Tween(hotspot.scale).to(FOCUS_SCALE, FOCUS_DURATION)
                     .easing(TWEEN.Easing.Quadratic.InOut)
                     .start();
-                // modification
+                // MODIFICATIONS
                 // if (this.worldRenderer.isVRMode()) {
                 //   this.timeForHospotClick = setTimeout(() => {
                 //     this.emit('click', id);
@@ -12390,6 +12390,7 @@
                 worldRenderer.hotspotRenderer.add(pitch, yaw, radius, distance, id);
             }
             function onSetContent(e) {
+                // MODIFICATIONS
                 // console.log('set content');
                 var loader = document.getElementById('loader');
                 loader.classList.add('visible');
@@ -13146,6 +13147,7 @@
                 }
             };
             WorldRenderer.prototype.didLoad_ = function (opt_event) {
+                // MODIFICATIONS
                 // Util.sendParentMessage({
                 //   type: 'load',
                 //   data: {id: 'test-id'}

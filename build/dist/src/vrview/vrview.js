@@ -474,7 +474,6 @@ else {
                     }
                     var type = message.type.toLowerCase();
                     var data = message.data;
-                    debugger;
                     switch (type) {
                         // case 'load':
                         // console.log('LOAD EVENT');
