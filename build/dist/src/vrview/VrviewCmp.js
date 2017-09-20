@@ -1,17 +1,15 @@
 "use strict";
+//todo: loader
+//todo: favicon
+//todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
-//todo: dismiss left menu panel on click overlay
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event for browser compatibility
-//todo: favicon
-//todo: loader
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
-//todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
 //todo: hotspot editor (user creates hotspots when clicking on scene)
-//todo: revisar IVrview
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
@@ -32,13 +30,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-//todo: parece que aqui esta el problema. usar "require()"
 var VRView = require("./vrview.js");
 /**
- * Vrview component creates a 3d scene with optional hotspots
- * It receives the data of the scene as props
+ * Vrview Component creates a 3d scene with optional hotspots
+ * It receives scene data as props from parent component
  *
- * @Props: IVrviewConfig
+ * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
 var Vrview = (function (_super) {
     __extends(Vrview, _super);
@@ -61,7 +58,7 @@ var Vrview = (function (_super) {
             return result;
         };
         /**
-         * Helper function to find scene by id
+         * Helper function to find scene by id in an array of scenes
          *
          * @param scenes {IVrviewConfig[]} Array of scenes
          * @param id {number | string} Scene id
@@ -76,6 +73,9 @@ var Vrview = (function (_super) {
         };
         return _this;
     }
+    /**
+     * Loads hotspot configuration data from props
+     */
     Vrview.prototype.loadHotspots = function () {
         var _this = this;
         var hotspots = this.props.hotspots;
@@ -107,14 +107,14 @@ var Vrview = (function (_super) {
                         _this.props.onClickHotspot && _this.props.onClickHotspot(hotspot.idNewScene);
                     }
                     else {
-                        alert('No Scene defined for hotspot');
+                        alert('No Scene defined for hotspot: ' + event.id);
                     }
                 }
             }
         });
     };
     /**
-     * Component initialization. Executed after dom load
+     * Component initialization after dom loading
      */
     Vrview.prototype.componentDidMount = function () {
         var _this = this;
@@ -128,8 +128,8 @@ var Vrview = (function (_super) {
         window.addEventListener('load', onVrViewLoad);
     };
     /**
-     * On change event. Executed after state changed
-     * Function setContent() must be executed asynchronously
+     * On change event. Executed after state changes
+     * Note: setContent() must be executed asynchronously
      * This hack is due to how Vrview and EventEmmitters works in vrview.js
      */
     Vrview.prototype.componentDidUpdate = function () {
@@ -149,12 +149,18 @@ var Vrview = (function (_super) {
             }
         }
     };
+    /**
+     * Find out if canvas debug info is enabled
+     *
+     * @param {HTMLIFrameElement} iframe containing 3d scene
+     * @returns {boolean}
+     */
     Vrview.prototype.isDebugEnabled = function (iframe) {
         return (this.getIframeWindow(iframe)).document.querySelector('#stats') != null;
     };
     /**
      * Toggle Canvas Debug Mode
-     * To enable/disable debug mode it is needed to create a new Vrview Player object.
+     * To enable/disable debug mode it is needed to create a new Vrview Player object and reload the scene
      * It is not enough to change 'is_debug' field in the state
      */
     Vrview.prototype.toggleDebugMode = function () {

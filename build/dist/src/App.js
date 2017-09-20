@@ -60,7 +60,7 @@ var App = (function (_super) {
         _this.hideLeftPanel = function () {
             _this.refs.panel.dismiss();
         };
-        _this.leftMenuAction = function (action, params) {
+        _this.leftPanelAction = function (action, params) {
             action(params);
             _this.hideLeftPanel();
         };
@@ -108,33 +108,33 @@ var App = (function (_super) {
         var leftMenuItems = [{
                 links: [
                     { name: 'Reset Scene', url: '', key: 'resetScene',
-                        onClick: function () { return _this.leftMenuAction(_this.resetScene); } },
+                        onClick: function () { return _this.leftPanelAction(_this.resetScene); } },
                     { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
-                        onClick: function () { return _this.leftMenuAction(_this.toggleDebugMode); } },
+                        onClick: function () { return _this.leftPanelAction(_this.toggleDebugMode); } },
                     { name: 'Change Scene', url: '',
                         links: [{
                                 name: 'Scene 1',
                                 key: '1',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 1); }
+                                onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 1); }
                             },
                             {
                                 name: 'Scene 2',
                                 key: '2',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 2); }
+                                onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 2); }
                             },
                             {
                                 name: 'Scene 3',
                                 key: '3',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 3); }
+                                onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 3); }
                             },
                             {
                                 name: 'Scene 4',
                                 key: '4',
                                 url: 'javascript:void(0)',
-                                onClick: function () { return _this.leftMenuAction(_this.handleClickHotspot, 4); }
+                                onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 4); }
                             }],
                         isExpanded: true
                     }

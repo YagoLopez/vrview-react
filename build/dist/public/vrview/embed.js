@@ -6497,6 +6497,7 @@
                 var event = new CustomEvent('vrdisplaypresentchange', { detail: { display: this } });
                 window.dispatchEvent(event);
             };
+            // MODIFICATIONS
             // VRDisplay.prototype.fireVRDisplayConnect_ = function() {
             //   // Important: unfortunately we cannot have full spec compliance here.
             //   // CustomEvent custom fields all go under e.detail (so the VRDisplay ends up
@@ -12132,12 +12133,12 @@
                 this.tween = new TWEEN.Tween(hotspot.scale).to(FOCUS_SCALE, FOCUS_DURATION)
                     .easing(TWEEN.Easing.Quadratic.InOut)
                     .start();
+                // modification
                 // if (this.worldRenderer.isVRMode()) {
                 //   this.timeForHospotClick = setTimeout(() => {
                 //     this.emit('click', id);
                 //   }, 1200 )
                 // }
-                // modification
                 if (this.worldRenderer.isVRMode()) {
                     this.timeForHospotClick = setTimeout(function () {
                         this.emit('click', id);
@@ -12389,6 +12390,9 @@
                 worldRenderer.hotspotRenderer.add(pitch, yaw, radius, distance, id);
             }
             function onSetContent(e) {
+                // console.log('set content');
+                var loader = document.getElementById('loader');
+                loader.classList.add('visible');
                 if (Util.isDebug()) {
                     console.log('onSetContent', e);
                 }
@@ -12452,6 +12456,7 @@
                 });
             }
             function onSetFullscreen() {
+                console.log('full screen');
                 if (!worldRenderer.videoProxy) {
                     onApiError('Attempt to set fullscreen, but no video found.');
                     return;
@@ -13141,6 +13146,13 @@
                 }
             };
             WorldRenderer.prototype.didLoad_ = function (opt_event) {
+                // Util.sendParentMessage({
+                //   type: 'load',
+                //   data: {id: 'test-id'}
+                // });
+                // console.log('scene did load');
+                var loader = document.getElementById('loader');
+                loader.classList.remove('visible');
                 var event = opt_event || {};
                 this.emit('load', event);
                 if (this.sceneResolve) {

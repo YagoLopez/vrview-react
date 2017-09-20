@@ -503,6 +503,8 @@ Player.prototype.onMessage_ = function(event) {
   var data = message.data;
 
   switch (type) {
+    // case 'load':
+    // console.log('LOAD EVENT');
     case 'ready':
     case 'modechange':
     case 'error':
@@ -593,7 +595,6 @@ Player.prototype.absolutifyPaths_ = function(contentInfo) {
     }
   }
 };
-
 
 module.exports = Player;
 
@@ -703,7 +704,6 @@ Util.getQueryParameter = function(name) {
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
-
 // From http://stackoverflow.com/questions/11871077/proper-way-to-detect-webgl-support.
 Util.isWebGLEnabled = function() {
   var canvas = document.createElement('canvas');
@@ -764,6 +764,7 @@ Util.getExtension = function(url) {
   return url.split('.').pop();
 };
 
+
 Util.createGetParams = function(params) {
   var out = '?';
   for (var k in params) {
@@ -820,7 +821,7 @@ Util.relativeToAbsolutePath = function(base, relative) {
  */
 Util.isPathAbsolute = function(path) {
   return ! /^(?:\/|[a-z]+:\/\/)/.test(path);
-}
+};
 
 Util.isEmptyObject = function(obj) {
   return Object.getOwnPropertyNames(obj).length == 0;
@@ -838,7 +839,6 @@ Util.getCurrentScript = function() {
   }
   return document.currentScript || document.scripts[document.scripts.length - 1];
 };
-
 
 module.exports = Util;
 

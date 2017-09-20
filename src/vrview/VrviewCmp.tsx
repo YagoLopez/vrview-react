@@ -1,16 +1,14 @@
+//todo: loader
+//todo: favicon
+//todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
-//todo: dismiss left menu panel on click overlay
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event for browser compatibility
-//todo: favicon
-//todo: loader
 //todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
 //todo: hacer algunos test
-//todo: añadir enlace a conversion de formato de cardboard
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
 //todo: hotspot editor (user creates hotspots when clicking on scene)
-//todo: revisar IVrview
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
@@ -21,7 +19,6 @@
 //todo: about page
 
 import * as React from "react";
-//todo: parece que aqui esta el problema. usar "require()"
 import * as VRView from  "./vrview.js";
 import {IVrviewConfig} from "./interfaces/IVrviewConfig";
 import {IHotspot} from "./interfaces/IHotspot";
@@ -30,16 +27,19 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
 
 /**
- * Vrview component creates a 3d scene with optional hotspots
- * It receives the data of the scene as props
+ * Vrview Component creates a 3d scene with optional hotspots
+ * It receives scene data as props from parent component
  *
- * @Props: IVrviewConfig
+ * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
 export default class Vrview extends React.Component<IVrviewConfig, {}> {
 
   // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;
 
+  /**
+   * Loads hotspot configuration data from props
+   */
   loadHotspots(): void {
     const hotspots = this.props.hotspots as IHotspot[];
     hotspots && hotspots.forEach( (hotspot: IHotspot) => {
@@ -69,7 +69,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
           if(hotspot.idNewScene){
             this.props.onClickHotspot && this.props.onClickHotspot(hotspot.idNewScene);
           } else {
-            alert('No Scene defined for hotspot');
+            alert('No Scene defined for hotspot: ' + event.id);
           }
         }
       }
@@ -77,7 +77,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   }
 
   /**
-   * Component initialization. Executed after dom load
+   * Component initialization after dom loading
    */
   componentDidMount() {
     const onVrViewLoad = () => {
@@ -91,8 +91,8 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   }
 
   /**
-   * On change event. Executed after state changed
-   * Function setContent() must be executed asynchronously
+   * On change event. Executed after state changes
+   * Note: setContent() must be executed asynchronously
    * This hack is due to how Vrview and EventEmmitters works in vrview.js
    */
   componentDidUpdate() {
@@ -130,13 +130,19 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
     return result;
   };
 
+  /**
+   * Find out if canvas debug info is enabled
+   *
+   * @param {HTMLIFrameElement} iframe containing 3d scene
+   * @returns {boolean}
+   */
   isDebugEnabled(iframe: HTMLIFrameElement): boolean {
     return (this.getIframeWindow(iframe)).document.querySelector('#stats') != null
   }
 
   /**
    * Toggle Canvas Debug Mode
-   * To enable/disable debug mode it is needed to create a new Vrview Player object.
+   * To enable/disable debug mode it is needed to create a new Vrview Player object and reload the scene
    * It is not enough to change 'is_debug' field in the state
    */
   toggleDebugMode(): void {
@@ -154,7 +160,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   }
 
   /**
-   * Helper function to find scene by id
+   * Helper function to find scene by id in an array of scenes
    *
    * @param scenes {IVrviewConfig[]} Array of scenes
    * @param id {number | string} Scene id

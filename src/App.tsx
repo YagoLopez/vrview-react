@@ -52,9 +52,8 @@ export class App extends React.Component<any, IVrviewConfig> {
     (this.refs.panel as Panel).dismiss();
   };
 
-  leftMenuAction = (action: Function, params?: {}): void => {
-    action(params);
-    this.hideLeftPanel();
+  leftPanelAction = (action: Function, params?: {}): void => {
+    action(params); this.hideLeftPanel();
   };
 
   handleClickHotspot = (idScene: number | string): void => {
@@ -102,33 +101,33 @@ export class App extends React.Component<any, IVrviewConfig> {
       links:
         [
           { name: 'Reset Scene', url: '', key: 'resetScene',
-            onClick: () => this.leftMenuAction(this.resetScene) },
+            onClick: () => this.leftPanelAction(this.resetScene) },
           { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
-            onClick: () => this.leftMenuAction(this.toggleDebugMode)},
+            onClick: () => this.leftPanelAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',
             links: [{
               name: 'Scene 1',
               key: '1',
               url: 'javascript:void(0)',
-              onClick: () => this.leftMenuAction(this.handleClickHotspot, 1)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 1)
             },
             {
               name: 'Scene 2',
               key: '2',
               url: 'javascript:void(0)',
-              onClick: () => this.leftMenuAction(this.handleClickHotspot, 2)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 2)
             },
             {
               name: 'Scene 3',
               key: '3',
               url: 'javascript:void(0)',
-              onClick: () => this.leftMenuAction(this.handleClickHotspot, 3)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 3)
             },
             {
               name: 'Scene 4',
               key: '4',
               url: 'javascript:void(0)',
-              onClick: () => this.leftMenuAction(this.handleClickHotspot, 4)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 4)
             }],
             isExpanded: true
           }
