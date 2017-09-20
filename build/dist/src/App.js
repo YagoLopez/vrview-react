@@ -143,28 +143,36 @@ var App = (function (_super) {
         var choiceGroup = [
             {
                 key: '1',
-                iconProps: { iconName: 'Photo2' },
+                imageSrc: '../images/coral.jpg',
+                selectedImageSrc: '../images/coral.jpg',
+                imageSize: { width: 50, height: 50 },
                 text: 'Scene 1',
                 checked: this.state.scene.id == 1,
                 onClick: function () { return _this.handleClickHotspot(1); }
             },
             {
                 key: '2',
-                iconProps: { iconName: 'Photo2' },
+                imageSrc: '../images/landscape1.jpg',
+                selectedImageSrc: '../images/landscape1.jpg',
+                imageSize: { width: 50, height: 50 },
                 text: 'Scene 2',
                 checked: this.state.scene.id == 2,
                 onClick: function () { return _this.handleClickHotspot(2); }
             },
             {
                 key: '3',
-                iconProps: { iconName: 'Photo2' },
+                imageSrc: '../images/palmbeach.jpg',
+                selectedImageSrc: '../images/palmbeach.jpg',
+                imageSize: { width: 50, height: 50 },
                 text: 'Scene 3',
                 checked: this.state.scene.id == 3,
                 onClick: function () { return _this.handleClickHotspot(3); }
             },
             {
                 key: '4',
-                iconProps: { iconName: 'Photo2' },
+                imageSrc: '../images/landscape2.jpg',
+                selectedImageSrc: '../images/landscape2.jpg',
+                imageSize: { width: 50, height: 50 },
                 text: 'Scene 4',
                 checked: this.state.scene.id == 4,
                 onClick: function () { return _this.handleClickHotspot(4); }
@@ -176,8 +184,8 @@ var App = (function (_super) {
                 React.createElement("div", null,
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
-                React.createElement("div", { className: "centered header" }, "Vrview React"),
-                React.createElement("div", { className: "centered subheader" }, "React Component based on Google's Vrview Library")),
+                React.createElement("div", { className: "centered header" }, "Vrview React Component"),
+                React.createElement("div", { className: "centered subheader" }, "Visualize 360\u00BA photos and videos")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },

@@ -1,4 +1,4 @@
-//todo: loader
+//todo: probar a usar require con imagenes desde "src" directory
 //todo: favicon
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
