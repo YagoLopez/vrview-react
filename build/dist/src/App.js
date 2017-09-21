@@ -33,7 +33,7 @@ require("./App.css");
  *
  * Each scene object contains information like: path to images/videos, optional hotspots,
  * navigation between scenes and other parameters. (See IVrviewConfig definition)
- * Scenes can be loaded from hardcoded data or from a database.
+ * Scenes can be loaded from hardcoded data or from an external store (Redux, MobX, Singleton Service, etc).
  */
 var scenes = require('./scenes.json');
 var App = (function (_super) {
