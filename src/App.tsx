@@ -141,7 +141,7 @@ export class App extends React.Component<any, IVrviewConfig> {
         key: '1',
         imageSrc: require('./img/small-coral.jpg'),
         selectedImageSrc: require('./img/small-coral.jpg'),
-        imageSize: { width: 50, height: 50 },
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 1',
         checked: this.state.scene.id == 1,
         onClick: () => this.handleClickHotspot(1)
@@ -150,7 +150,7 @@ export class App extends React.Component<any, IVrviewConfig> {
         key: '2',
         imageSrc: require('./img/small-landscape1.jpg'),
         selectedImageSrc: require('./img/small-landscape1.jpg'),
-        imageSize: { width: 50, height: 50 },
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 2',
         checked: this.state.scene.id == 2,
         onClick: () => this.handleClickHotspot(2)
@@ -159,7 +159,7 @@ export class App extends React.Component<any, IVrviewConfig> {
         key: '3',
         imageSrc: require('./img/small-palmbeach.jpg'),
         selectedImageSrc: require('./img/small-palmbeach.jpg'),
-        imageSize: { width: 50, height: 50 },
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 3',
         checked: this.state.scene.id == 3,
         onClick: () => this.handleClickHotspot(3)
@@ -168,7 +168,7 @@ export class App extends React.Component<any, IVrviewConfig> {
         key: '4',
         imageSrc: require('./img/small-landscape2.jpg'),
         selectedImageSrc: require('./img/small-landscape2.jpg'),
-        imageSize: { width: 50, height: 50 },
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 4',
         checked: this.state.scene.id == 4,
         onClick: () => this.handleClickHotspot(4)

@@ -7,7 +7,7 @@
       "height": 400,
       "image": "../images/coral.jpg",
       "is_stereo": true,
-      "is_debug": true,
+      "is_debug": false,
       "title": "Title Scene 1",
       "description": "Initial scene. Hotspot (1) has a scene 2 associated. Hotspot (2) has no scene associated. Hotspot (3) has a function associated"
     },

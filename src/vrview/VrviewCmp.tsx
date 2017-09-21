@@ -1,4 +1,3 @@
-//todo: probar a usar require con imagenes desde "src" directory
 //todo: favicon
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
@@ -12,12 +11,12 @@
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
-//todo: usar fade-in en pie de imagen
+//todo: usar fade-in en texto pie de imagen
 //todo: text to speech?
 //todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
 // no imperativamente como ahora
 //todo: about page
-//todo: document.querySelector('iframe') puede fallar si hay varios iframes
+//todo: establecer debug mode al cambiar de escena (ahora solo se hace onComponentDidMount())
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
@@ -115,25 +114,10 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   }
 
   /**
-   * Get iframe window object where 3d canvas scene exists from parent document
-   *
-   * @param iframe_object
-   * @returns {Window}
+   * Get iframe window object from parent document where 3d canvas scene exists
    */
-  // getIframeWindow = (iframe_object: any): Window => {
-  //   let result: Window | any;
-  //   if (iframe_object.contentWindow) {
-  //     result = iframe_object.contentWindow;
-  //   }
-  //   if (iframe_object.window) {
-  //     result = iframe_object.window;
-  //   }
-  //   return result;
-  // };
-
-
   getIframe = (): HTMLIFrameElement | undefined => {
-    const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+    const iframe = document.querySelector('#vrview')!.querySelector('iframe') as HTMLIFrameElement;
     !iframe && console.warn('Vrview iframe not found');
     return iframe;
   };
@@ -144,17 +128,10 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
    * The loader will be hidden when scene is completely loaded
    * See: "public/vrview/embed.js" -> "WorldRenderer.prototype.didLoad_()"
    */
-  // showLoader = (): void => {
-  //   const iframe = document.querySelector('iframe') as HTMLIFrameElement;
-  //   if(iframe.contentDocument){
-  //     const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
-  //     loader.classList.add('visible');
-  //   }
-  // };
   showLoader = (): void => {
-      const iframe = this.getIframe()!;
-      const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
-      loader && loader.classList.add('visible');
+    const iframe = this.getIframe()!;
+    const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
+    loader && loader.classList.add('visible');
   };
 
   /**
@@ -172,20 +149,6 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
    * To enable/disable debug mode it is needed to create a new Vrview Player object and reload the scene
    * It is not enough to change 'is_debug' field in the state
    */
-  // toggleDebugMode(): void {
-  //   this.clearHotspotsClickHandlers();
-  //   const scene = this.props.scene;
-  //   const iframe = document.querySelector('iframe') as HTMLIFrameElement;
-  //   const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
-  //   // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
-  //   // (not to use "state: scene.is_debug")
-  //   scene.is_debug = !this.isDebugEnabled(iframe);
-  //   scene.width = iframe.width;
-  //   scene.height = iframe.height;
-  //   iframeParentElement.removeChild(iframe);
-  //   this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
-  // }
-
   toggleDebugMode(): void {
     this.clearHotspotsClickHandlers();
     const scene = this.props.scene;
