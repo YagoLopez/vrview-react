@@ -1,5 +1,6 @@
 "use strict";
 //todo: favicon
+//todo: open cardboard image converter in new tab
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
 //todo: usar mapa (leaflet) y markers
@@ -60,20 +61,6 @@ var Vrview = (function (_super) {
             var iframe = _this.getIframe();
             var loader = iframe.contentDocument.getElementById('loader');
             loader && loader.classList.add('visible');
-        };
-        /**
-         * Helper function to find scene by id in an array of scenes
-         *
-         * @param scenes {IScene[]} Array of scenes
-         * @param id {number | string} Scene id
-         * @returns {IScene} Scene searched
-         */
-        _this.findSceneBydId = function (scenes, id) {
-            for (var i = 0; i < scenes.length; i++) {
-                if (scenes[i].scene.id === id) {
-                    return scenes[i];
-                }
-            }
         };
         return _this;
     }

@@ -9,21 +9,26 @@ import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
 import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
+import ScenesCollection from "./Scenes";
 import './App.css';
+
+
 
 /**
  * List of scenes.
  *
  * Each scene object contains information like: path to images/videos, optional hotspots,
- * navigation between scenes and other parameters. (See IScene definition)
- * Scenes can be loaded from hardcoded data or from a database.
+ * navigation between scenes and other parameters. (See IVrviewConfig definition)
+ * Scenes can be loaded from hardcoded data or from an external store (Redux, MobX, Singleton Service, etc).
  */
-const scenes = require('./scenes.json');
+const scenes: IScene[] = require('./scenes.json');
 
 export class App extends React.Component<any, IScene> {
 
-  // Initial state contains first scene and state for left menu
-  state = scenes[0];
+  // Initial state contains first scene
+  state: IScene = scenes[0];
+
+  scenes: ScenesCollection;
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -32,7 +37,8 @@ export class App extends React.Component<any, IScene> {
    * Reset state to the initial scene.
    */
   resetScene = (): void => {
-    this.setState(scenes[0])
+    this.vrviewCmp.showLoader();
+    this.setState(scenes[0]);
   };
 
   /**
@@ -42,20 +48,6 @@ export class App extends React.Component<any, IScene> {
     this.vrviewCmp.toggleDebugMode()
   };
 
-  /**
-   * Close Left Menu Panel when clicking overlay (outside panel).
-   * The left Menu Panel is created and deleted dynamically.
-   * To get a reference to the overlay, renderPanelFooter() is used while Panel exists.
-   */
-  // renderPanelFooter = (): any => {
-  //   const overlay = document.querySelector('.ms-Overlay') as HTMLElement;
-  //   if (overlay){
-  //     overlay.addEventListener('mousedown', () => {
-  //       this.hideLeftPanel();
-  //     })
-  //   }
-  // };
-
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
   };
@@ -64,26 +56,12 @@ export class App extends React.Component<any, IScene> {
     (this.refs.panel as Panel).dismiss();
   };
 
-  resetSceneAndHideLeftMenu = (): void => {
-    this.resetScene();
-    this.hideLeftPanel();
-  };
-
-  changeSceneAndHideLeftMenu = (idScene: number | string): void => {
-    this.handleClickHotspot(idScene);
-    this.hideLeftPanel();
-  };
-
-  toggleDebugModeAndHideLeftMenu = (): void => {
-    this.toggleDebugMode();
-    this.hideLeftPanel();
-  };
-
-  executeActionAndCloseLeftMenu = (action: Function, params: {}): void => {
-    action(params);
+  leftPanelAction = (action: Function, params?: {}): void => {
+    action(params); this.hideLeftPanel();
   };
 
   handleClickHotspot = (idScene: number | string): void => {
+    this.vrviewCmp.showLoader();
     const newSceneObj = this.vrviewCmp.findSceneBydId(scenes, idScene) as IScene;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
@@ -127,67 +105,80 @@ export class App extends React.Component<any, IScene> {
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
-          { name: 'Reset Scene', url: '', key: 'resetScene', onClick: this.resetSceneAndHideLeftMenu },
-          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode', onClick: this.toggleDebugModeAndHideLeftMenu },
+          { name: 'Reset Scene', url: '', key: 'resetScene',
+            onClick: () => this.leftPanelAction(this.resetScene) },
+          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
+            onClick: () => this.leftPanelAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',
             links: [{
               name: 'Scene 1',
               key: '1',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(1)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 1)
             },
             {
               name: 'Scene 2',
               key: '2',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(2)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 2)
             },
             {
               name: 'Scene 3',
               key: '3',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(3)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 3)
             },
             {
               name: 'Scene 4',
               key: '4',
               url: 'javascript:void(0)',
-              onClick: () => this.changeSceneAndHideLeftMenu(4)
+              onClick: () => this.leftPanelAction(this.handleClickHotspot, 4)
             }],
-            isExpanded: true
-          }
+            isExpanded: false
+          },
+          { name: 'Image Format Conversor', url: 'https://storage.googleapis.com/cardboard-camera-converter/index.html',
+            key: 'imageFormatConversor', onClick: () => {}, target: '_blank'}
         ]
     }];
 
-    const choiceGroup: IChoiceGroupOption[] = [
+    const choiceGroup: IChoiceGroupOption[] =[
       {
         key: '1',
-        iconProps: { iconName: 'Photo2' },
+        imageSrc: require('./img/small-coral.jpg'),
+        selectedImageSrc: require('./img/small-coral.jpg'),
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 1',
         checked: this.state.scene.id == 1,
         onClick: () => this.handleClickHotspot(1)
       },
       {
         key: '2',
-        iconProps: { iconName: 'Photo2' },
+        imageSrc: require('./img/small-landscape1.jpg'),
+        selectedImageSrc: require('./img/small-landscape1.jpg'),
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 2',
         checked: this.state.scene.id == 2,
         onClick: () => this.handleClickHotspot(2)
       },
       {
         key: '3',
-        iconProps: { iconName: 'Photo2' },
+        imageSrc: require('./img/small-palmbeach.jpg'),
+        selectedImageSrc: require('./img/small-palmbeach.jpg'),
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 3',
         checked: this.state.scene.id == 3,
         onClick: () => this.handleClickHotspot(3)
       },
       {
         key: '4',
-        iconProps: { iconName: 'Photo2' },
+        imageSrc: require('./img/small-landscape2.jpg'),
+        selectedImageSrc: require('./img/small-landscape2.jpg'),
+        imageSize: { width: 80, height: 50 },
         text: 'Scene 4',
         checked: this.state.scene.id == 4,
         onClick: () => this.handleClickHotspot(4)
       }
+
     ];
 
     return(
@@ -198,15 +189,14 @@ export class App extends React.Component<any, IScene> {
         <Panel
           ref="panel"
           type={ PanelType.smallFixedNear }
-          isOpen={ this.state.showLeftPanelMenu }
           isLightDismiss={ true }
           headerText="Vrview React">
           <div><Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } /></div>
         </Panel>
 
         <div className="pad15">
-          <div className="centered header">Vrview React</div>
-          <div className="centered subheader">React Component based on Google&apos;s Vrview Library</div>
+          <div className="centered header">Vrview React Component</div>
+          <div className="centered subheader">Visualizer of 360º photos and videos</div>
         </div>
 
         <DocumentCard className="layout shadow">
@@ -217,12 +207,11 @@ export class App extends React.Component<any, IScene> {
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{ scene.title }</div>
-            <div>{ scene.description }</div>
+            <div dangerouslySetInnerHTML={{__html: scene.description as any}} />
           </div>
         </DocumentCard>
 
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
-
       </Fabric>
     )
   }

@@ -1,4 +1,5 @@
 //todo: favicon
+//todo: open cardboard image converter in new tab
 //todo: añadir enlace a conversion de formato de cardboard
 //todo: revisar hotspot id en vrview.js
 //todo: usar mapa (leaflet) y markers
@@ -164,21 +165,6 @@ export default class Vrview extends React.Component<IScene, {}> {
     iframeParentElement.removeChild(iframe);
     this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
   }
-
-  /**
-   * Helper function to find scene by id in an array of scenes
-   *
-   * @param scenes {IScene[]} Array of scenes
-   * @param id {number | string} Scene id
-   * @returns {IScene} Scene searched
-   */
-  findSceneBydId = (scenes: IScene[], id: number | string): IScene | void => {
-    for(let i = 0; i < scenes.length; i++){
-      if(scenes[i].scene.id === id){
-        return scenes[i];
-      }
-    }
-  };
 
   render() {
     return (<div id='vrview' />)

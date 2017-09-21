@@ -40,7 +40,7 @@
       "image": "../images/palmbeach.jpg",
       "is_stereo": false,
       "title": "Scene 3",
-      "description": "<div>• Hotspot (5) → Scene (3)</div>"
+      "description": "<div>• Hotspot (5) → Scene (4)</div>"
     },
     "hotspots": [
       {"name": "scene3-hotspot5", "pitch": -10, "yaw": 0, "radius": 0.05, "distance": 2, "idNewScene": 4}

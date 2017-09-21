@@ -24,6 +24,8 @@ type information manually.
 - Install dependencies running `npm install` inside your local directory project
 - Run the application with `npm run start`
 
+## UML Diagram
+<p align="center"><img src="uml.jpg" /></p>
 
 ## Application Programming Interface
 

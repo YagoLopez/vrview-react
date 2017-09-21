@@ -9,34 +9,21 @@ import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
 import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
+import ScenesCollection from "./Scenes";
 import './App.css';
 
 
 
-/**
- * List of scenes.
- *
- * Each scene object contains information like: path to images/videos, optional hotspots,
- * navigation between scenes and other parameters. (See IVrviewConfig definition)
- * Scenes can be loaded from hardcoded data or from an external store (Redux, MobX, Singleton Service, etc).
- */
-const scenes: IScene[] = require('./scenes.json');
-
 export class App extends React.Component<any, IScene> {
 
-  // Initial state contains first scene
-  state: IScene = scenes[0];
+  // Collection of scenes
+  scenes: ScenesCollection = new ScenesCollection();
 
-  // Reference to Vrview Component
+  // Initial state contains first scene of the collection
+  state: IScene = this.scenes.getSceneByArrayIndex(0);
+
+  // Reference to Vrview Component to invoke some of its member methods
   vrviewCmp: Vrview;
-
-  /**
-   * Reset state to the initial scene.
-   */
-  resetScene = (): void => {
-    this.vrviewCmp.showLoader();
-    this.setState(scenes[0]);
-  };
 
   /**
    * Debug mode: a small window shows FPS (frames per second) in canvas
@@ -45,21 +32,42 @@ export class App extends React.Component<any, IScene> {
     this.vrviewCmp.toggleDebugMode()
   };
 
+  /**
+   * Show left menu of the user interface
+   */
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
   };
 
+  /**
+   * Hide left menu of the user interface
+   */
   hideLeftPanel = (): void => {
     (this.refs.panel as Panel).dismiss();
   };
 
+  /**
+   * Invoke action on click left panel menu item
+   *
+   * @param action {Function}
+   * @param params {} Optional. Arguments to pass to the function
+   */
   leftPanelAction = (action: Function, params?: {}): void => {
     action(params); this.hideLeftPanel();
   };
 
+  /**
+   * Load new scene when clicking a hotspot
+   *
+   * @param idScene {number | string} Id new scene to load
+   */
   handleClickHotspot = (idScene: number | string): void => {
+    const newSceneObj = this.scenes.findSceneBydId(idScene) as IScene;
+    if(!newSceneObj){
+      alert('No scene found for id: ' + idScene);
+      return;
+    }
     this.vrviewCmp.showLoader();
-    const newSceneObj = this.vrviewCmp.findSceneBydId(scenes, idScene) as IScene;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
     } else {
@@ -86,7 +94,7 @@ export class App extends React.Component<any, IScene> {
         key: 'resetScene',
         name: 'Reset Scene',
         icon: 'RevToggleKey',
-        onClick: this.resetScene,
+        onClick: () => this.handleClickHotspot(1),
         title: 'Return to Initial Scene'
       },
       {
@@ -103,7 +111,7 @@ export class App extends React.Component<any, IScene> {
       links:
         [
           { name: 'Reset Scene', url: '', key: 'resetScene',
-            onClick: () => this.leftPanelAction(this.resetScene) },
+            onClick: () => this.leftPanelAction(this.handleClickHotspot, 1) },
           { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
             onClick: () => this.leftPanelAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',

@@ -27,47 +27,56 @@ var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
 var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
+var Scenes_1 = require("./Scenes");
 require("./App.css");
-/**
- * List of scenes.
- *
- * Each scene object contains information like: path to images/videos, optional hotspots,
- * navigation between scenes and other parameters. (See IVrviewConfig definition)
- * Scenes can be loaded from hardcoded data or from an external store (Redux, MobX, Singleton Service, etc).
- */
-var scenes = require('./scenes.json');
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Initial state contains first scene
-        _this.state = scenes[0];
-        /**
-         * Reset state to the initial scene.
-         */
-        _this.resetScene = function () {
-            _this.vrviewCmp.showLoader();
-            _this.setState(scenes[0]);
-        };
+        // Collection of scenes
+        _this.scenes = new Scenes_1.default();
+        // Initial state contains first scene of the collection
+        _this.state = _this.scenes.getSceneByArrayIndex(0);
         /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
          */
         _this.toggleDebugMode = function () {
             _this.vrviewCmp.toggleDebugMode();
         };
+        /**
+         * Show left menu of the user interface
+         */
         _this.showLeftPanel = function () {
             _this.refs.panel.open();
         };
+        /**
+         * Hide left menu of the user interface
+         */
         _this.hideLeftPanel = function () {
             _this.refs.panel.dismiss();
         };
+        /**
+         * Invoke action on click left panel menu item
+         *
+         * @param action {Function}
+         * @param params {} Optional. Arguments to pass to the function
+         */
         _this.leftPanelAction = function (action, params) {
             action(params);
             _this.hideLeftPanel();
         };
+        /**
+         * Load new scene when clicking a hotspot
+         *
+         * @param idScene {number | string} Id new scene to load
+         */
         _this.handleClickHotspot = function (idScene) {
+            var newSceneObj = _this.scenes.findSceneBydId(idScene);
+            if (!newSceneObj) {
+                alert('No scene found for id: ' + idScene);
+                return;
+            }
             _this.vrviewCmp.showLoader();
-            var newSceneObj = _this.vrviewCmp.findSceneBydId(scenes, idScene);
             if (!newSceneObj.hotspots) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: undefined });
             }
@@ -95,7 +104,7 @@ var App = (function (_super) {
                 key: 'resetScene',
                 name: 'Reset Scene',
                 icon: 'RevToggleKey',
-                onClick: this.resetScene,
+                onClick: function () { return _this.handleClickHotspot(1); },
                 title: 'Return to Initial Scene'
             },
             {
@@ -110,7 +119,7 @@ var App = (function (_super) {
         var leftMenuItems = [{
                 links: [
                     { name: 'Reset Scene', url: '', key: 'resetScene',
-                        onClick: function () { return _this.leftPanelAction(_this.resetScene); } },
+                        onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 1); } },
                     { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
                         onClick: function () { return _this.leftPanelAction(_this.toggleDebugMode); } },
                     { name: 'Change Scene', url: '',
