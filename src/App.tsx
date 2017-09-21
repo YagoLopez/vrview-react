@@ -24,7 +24,7 @@ const scenes: IScene[] = require('./scenes.json');
 
 export class App extends React.Component<any, IScene> {
 
-  // Initial state contains first scene and state for left menu
+  // Initial state contains first scene
   state: IScene = scenes[0];
 
   // Reference to Vrview Component

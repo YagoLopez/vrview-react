@@ -40,7 +40,7 @@ var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // Initial state contains first scene and state for left menu
+        // Initial state contains first scene
         _this.state = scenes[0];
         /**
          * Reset state to the initial scene.

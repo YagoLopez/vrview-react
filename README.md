@@ -28,13 +28,13 @@ type information manually.
 ## Application Programming Interface
 
 ```reactjs
-<Vrview {...Configuration} />
+<Vrview {...scene} />
 ```
 
-Where `Configuration` implements the following interface:
+Where `scene` implements the following interface:
 
 ```typescript
-export interface IVrviewConfig {
+export interface IScene {
   scene: {
     id: number | string,
     title?: string,
@@ -85,11 +85,11 @@ export interface IHotspot {
 - Images and videos must go in `public` directory
 - Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
-- Define a list of scenes as the state of the App. Each scene follows the interface `IVrviewConfig`.
+- Define a list of scenes as the state of the App. Each scene follows the interface `IScene`.
 For example, for a simple scene:
 
 ```javascript
-sceneConfig: IVrviewConfig = {
+sceneConfig: IScene = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true}
 }
 ```
