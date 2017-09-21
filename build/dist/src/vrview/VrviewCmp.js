@@ -18,6 +18,7 @@
 // no imperativamente como ahora
 //todo: about page
 //todo: establecer debug mode al cambiar de escena (ahora solo se hace onComponentDidMount())
+//todo: habria que crear una clase scenes con findSceneById(), es decir, modelar el dominio?
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -63,9 +64,9 @@ var Vrview = (function (_super) {
         /**
          * Helper function to find scene by id in an array of scenes
          *
-         * @param scenes {IVrviewConfig[]} Array of scenes
+         * @param scenes {IScene[]} Array of scenes
          * @param id {number | string} Scene id
-         * @returns {IVrviewConfig} Scene searched
+         * @returns {IScene} Scene searched
          */
         _this.findSceneBydId = function (scenes, id) {
             for (var i = 0; i < scenes.length; i++) {

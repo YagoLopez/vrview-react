@@ -17,10 +17,11 @@
 // no imperativamente como ahora
 //todo: about page
 //todo: establecer debug mode al cambiar de escena (ahora solo se hace onComponentDidMount())
+//todo: habria que crear una clase scenes con findSceneById(), es decir, modelar el dominio?
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
-import {IVrviewConfig} from "./interfaces/IVrviewConfig";
+import {IScene} from "./interfaces/IScene";
 import {IHotspot} from "./interfaces/IHotspot";
 import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
@@ -32,7 +33,7 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
  *
  * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
-export default class Vrview extends React.Component<IVrviewConfig, {}> {
+export default class Vrview extends React.Component<IScene, {}> {
 
   // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;
@@ -167,11 +168,11 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   /**
    * Helper function to find scene by id in an array of scenes
    *
-   * @param scenes {IVrviewConfig[]} Array of scenes
+   * @param scenes {IScene[]} Array of scenes
    * @param id {number | string} Scene id
-   * @returns {IVrviewConfig} Scene searched
+   * @returns {IScene} Scene searched
    */
-  findSceneBydId = (scenes: IVrviewConfig[], id: number | string): IVrviewConfig | void => {
+  findSceneBydId = (scenes: IScene[], id: number | string): IScene | void => {
     for(let i = 0; i < scenes.length; i++){
       if(scenes[i].scene.id === id){
         return scenes[i];

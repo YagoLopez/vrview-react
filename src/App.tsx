@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
-import {IVrviewConfig} from "./vrview/interfaces/IVrviewConfig";
+import {IScene} from "./vrview/interfaces/IScene";
 
 import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
@@ -20,12 +20,12 @@ import './App.css';
  * navigation between scenes and other parameters. (See IVrviewConfig definition)
  * Scenes can be loaded from hardcoded data or from a database.
  */
-const scenes = require('./scenes.json');
+const scenes: IScene[] = require('./scenes.json');
 
-export class App extends React.Component<any, IVrviewConfig> {
+export class App extends React.Component<any, IScene> {
 
   // Initial state contains first scene and state for left menu
-  state: IVrviewConfig = scenes[0];
+  state: IScene = scenes[0];
 
   // Reference to Vrview Component
   vrviewCmp: Vrview;
@@ -59,7 +59,7 @@ export class App extends React.Component<any, IVrviewConfig> {
 
   handleClickHotspot = (idScene: number | string): void => {
     this.vrviewCmp.showLoader();
-    const newSceneObj = this.vrviewCmp.findSceneBydId(scenes, idScene) as IVrviewConfig;
+    const newSceneObj = this.vrviewCmp.findSceneBydId(scenes, idScene) as IScene;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
     } else {

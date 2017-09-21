@@ -5,7 +5,7 @@ import {IHotspot} from "./IHotspot";
 /**
  * Vrview scene configuration
  */
-export interface IVrviewConfig {
+export interface IScene {
   scene: {
     id: number | string,
     title?: string,
