@@ -34,7 +34,8 @@ export class App extends React.Component<any, IVrviewConfig> {
    * Reset state to the initial scene.
    */
   resetScene = (): void => {
-    this.setState(scenes[0])
+    this.vrviewCmp.showLoader();
+    this.setState(scenes[0]);
   };
 
   /**
@@ -57,6 +58,7 @@ export class App extends React.Component<any, IVrviewConfig> {
   };
 
   handleClickHotspot = (idScene: number | string): void => {
+    this.vrviewCmp.showLoader();
     const newSceneObj = this.vrviewCmp.findSceneBydId(scenes, idScene) as IVrviewConfig;
     if(!newSceneObj.hotspots){
       this.setState({scene: newSceneObj.scene, hotspots: undefined});
@@ -137,8 +139,8 @@ export class App extends React.Component<any, IVrviewConfig> {
     const choiceGroup: IChoiceGroupOption[] =[
       {
         key: '1',
-        imageSrc: '../images/coral.jpg',
-        selectedImageSrc: '../images/coral.jpg',
+        imageSrc: require('./img/small-coral.jpg'),
+        selectedImageSrc: require('./img/small-coral.jpg'),
         imageSize: { width: 50, height: 50 },
         text: 'Scene 1',
         checked: this.state.scene.id == 1,
@@ -146,8 +148,8 @@ export class App extends React.Component<any, IVrviewConfig> {
       },
       {
         key: '2',
-        imageSrc: '../images/landscape1.jpg',
-        selectedImageSrc: '../images/landscape1.jpg',
+        imageSrc: require('./img/small-landscape1.jpg'),
+        selectedImageSrc: require('./img/small-landscape1.jpg'),
         imageSize: { width: 50, height: 50 },
         text: 'Scene 2',
         checked: this.state.scene.id == 2,
@@ -155,8 +157,8 @@ export class App extends React.Component<any, IVrviewConfig> {
       },
       {
         key: '3',
-        imageSrc: '../images/palmbeach.jpg',
-        selectedImageSrc: '../images/palmbeach.jpg',
+        imageSrc: require('./img/small-palmbeach.jpg'),
+        selectedImageSrc: require('./img/small-palmbeach.jpg'),
         imageSize: { width: 50, height: 50 },
         text: 'Scene 3',
         checked: this.state.scene.id == 3,
@@ -164,8 +166,8 @@ export class App extends React.Component<any, IVrviewConfig> {
       },
       {
         key: '4',
-        imageSrc: '../images/landscape2.jpg',
-        selectedImageSrc: '../images/landscape2.jpg',
+        imageSrc: require('./img/small-landscape2.jpg'),
+        selectedImageSrc: require('./img/small-landscape2.jpg'),
         imageSize: { width: 50, height: 50 },
         text: 'Scene 4',
         checked: this.state.scene.id == 4,
@@ -189,7 +191,7 @@ export class App extends React.Component<any, IVrviewConfig> {
 
         <div className="pad15">
           <div className="centered header">Vrview React Component</div>
-          <div className="centered subheader">Visualize 360º photos and videos</div>
+          <div className="centered subheader">Visualizer of 360º photos and videos</div>
         </div>
 
         <DocumentCard className="layout shadow">

@@ -10493,8 +10493,8 @@ function onAddHotspot(e) {
 function onSetContent(e) {
 	// MODIFICATIONS
 	// console.log('set content');
-	var loader = document.getElementById('loader');
-	loader.classList.add('visible');
+	// var loader = document.getElementById('loader');
+	// loader.classList.add('visible');
 
 
   if (Util.isDebug()) {
@@ -11369,6 +11369,7 @@ WorldRenderer.prototype.didLoad_ = function(opt_event) {
   //   data: {id: 'test-id'}
   // });
 
+	// Hide loader
   // console.log('scene did load');
   var loader = document.getElementById('loader');
 	loader.classList.remove('visible');

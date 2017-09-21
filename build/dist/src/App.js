@@ -46,6 +46,7 @@ var App = (function (_super) {
          * Reset state to the initial scene.
          */
         _this.resetScene = function () {
+            _this.vrviewCmp.showLoader();
             _this.setState(scenes[0]);
         };
         /**
@@ -65,6 +66,7 @@ var App = (function (_super) {
             _this.hideLeftPanel();
         };
         _this.handleClickHotspot = function (idScene) {
+            _this.vrviewCmp.showLoader();
             var newSceneObj = _this.vrviewCmp.findSceneBydId(scenes, idScene);
             if (!newSceneObj.hotspots) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: undefined });
@@ -143,8 +145,8 @@ var App = (function (_super) {
         var choiceGroup = [
             {
                 key: '1',
-                imageSrc: '../images/coral.jpg',
-                selectedImageSrc: '../images/coral.jpg',
+                imageSrc: require('./img/small-coral.jpg'),
+                selectedImageSrc: require('./img/small-coral.jpg'),
                 imageSize: { width: 50, height: 50 },
                 text: 'Scene 1',
                 checked: this.state.scene.id == 1,
@@ -152,8 +154,8 @@ var App = (function (_super) {
             },
             {
                 key: '2',
-                imageSrc: '../images/landscape1.jpg',
-                selectedImageSrc: '../images/landscape1.jpg',
+                imageSrc: require('./img/small-landscape1.jpg'),
+                selectedImageSrc: require('./img/small-landscape1.jpg'),
                 imageSize: { width: 50, height: 50 },
                 text: 'Scene 2',
                 checked: this.state.scene.id == 2,
@@ -161,8 +163,8 @@ var App = (function (_super) {
             },
             {
                 key: '3',
-                imageSrc: '../images/palmbeach.jpg',
-                selectedImageSrc: '../images/palmbeach.jpg',
+                imageSrc: require('./img/small-palmbeach.jpg'),
+                selectedImageSrc: require('./img/small-palmbeach.jpg'),
                 imageSize: { width: 50, height: 50 },
                 text: 'Scene 3',
                 checked: this.state.scene.id == 3,
@@ -170,8 +172,8 @@ var App = (function (_super) {
             },
             {
                 key: '4',
-                imageSrc: '../images/landscape2.jpg',
-                selectedImageSrc: '../images/landscape2.jpg',
+                imageSrc: require('./img/small-landscape2.jpg'),
+                selectedImageSrc: require('./img/small-landscape2.jpg'),
                 imageSize: { width: 50, height: 50 },
                 text: 'Scene 4',
                 checked: this.state.scene.id == 4,
@@ -185,7 +187,7 @@ var App = (function (_super) {
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React Component"),
-                React.createElement("div", { className: "centered subheader" }, "Visualize 360\u00BA photos and videos")),
+                React.createElement("div", { className: "centered subheader" }, "Visualizer of 360\u00BA photos and videos")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },

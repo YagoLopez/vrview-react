@@ -18,6 +18,7 @@
 //todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
 // no imperativamente como ahora
 //todo: about page
+//todo: document.querySelector('iframe') puede fallar si hay varios iframes
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -42,20 +43,43 @@ var Vrview = (function (_super) {
     function Vrview() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
-         * Get window object from iframe where 3d canvas scene exists
+         * Get iframe window object where 3d canvas scene exists from parent document
          *
          * @param iframe_object
          * @returns {Window}
          */
-        _this.getIframeWindow = function (iframe_object) {
-            var result;
-            if (iframe_object.contentWindow) {
-                result = iframe_object.contentWindow;
-            }
-            if (iframe_object.window) {
-                result = iframe_object.window;
-            }
-            return result;
+        // getIframeWindow = (iframe_object: any): Window => {
+        //   let result: Window | any;
+        //   if (iframe_object.contentWindow) {
+        //     result = iframe_object.contentWindow;
+        //   }
+        //   if (iframe_object.window) {
+        //     result = iframe_object.window;
+        //   }
+        //   return result;
+        // };
+        _this.getIframe = function () {
+            var iframe = document.querySelector('iframe');
+            !iframe && console.warn('Vrview iframe not found');
+            return iframe;
+        };
+        /**
+         * Show loader text inside iframe when content is loading
+         *
+         * The loader will be hidden when scene is completely loaded
+         * See: "public/vrview/embed.js" -> "WorldRenderer.prototype.didLoad_()"
+         */
+        // showLoader = (): void => {
+        //   const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+        //   if(iframe.contentDocument){
+        //     const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
+        //     loader.classList.add('visible');
+        //   }
+        // };
+        _this.showLoader = function () {
+            var iframe = _this.getIframe();
+            var loader = iframe.contentDocument.getElementById('loader');
+            loader && loader.classList.add('visible');
         };
         /**
          * Helper function to find scene by id in an array of scenes
@@ -97,7 +121,7 @@ var Vrview = (function (_super) {
         var _this = this;
         this.vrviewPlayer.on('click', function (event) {
             if (event.id === hotspot.name) {
-                // If there is a function defined by the user for the click event, run it
+                // If there is a function defined by the user for the click event, execute it
                 if (hotspot.clickFn) {
                     eval(hotspot.clickFn);
                 }
@@ -156,17 +180,32 @@ var Vrview = (function (_super) {
      * @returns {boolean}
      */
     Vrview.prototype.isDebugEnabled = function (iframe) {
-        return (this.getIframeWindow(iframe)).document.querySelector('#stats') != null;
+        return (iframe.contentDocument.querySelector('#stats') != null);
     };
+    ;
     /**
      * Toggle Canvas Debug Mode
      * To enable/disable debug mode it is needed to create a new Vrview Player object and reload the scene
      * It is not enough to change 'is_debug' field in the state
      */
+    // toggleDebugMode(): void {
+    //   this.clearHotspotsClickHandlers();
+    //   const scene = this.props.scene;
+    //   const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+    //   const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
+    //   // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
+    //   // (not to use "state: scene.is_debug")
+    //   scene.is_debug = !this.isDebugEnabled(iframe);
+    //   scene.width = iframe.width;
+    //   scene.height = iframe.height;
+    //   iframeParentElement.removeChild(iframe);
+    //   this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
+    // }
     Vrview.prototype.toggleDebugMode = function () {
         this.clearHotspotsClickHandlers();
         var scene = this.props.scene;
-        var iframe = document.querySelector('iframe');
+        // const iframe = document.querySelector('iframe') as HTMLIFrameElement;
+        var iframe = this.getIframe();
         var iframeParentElement = iframe.parentElement;
         // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
         // (not to use "state: scene.is_debug")

@@ -12392,8 +12392,8 @@
             function onSetContent(e) {
                 // MODIFICATIONS
                 // console.log('set content');
-                var loader = document.getElementById('loader');
-                loader.classList.add('visible');
+                // var loader = document.getElementById('loader');
+                // loader.classList.add('visible');
                 if (Util.isDebug()) {
                     console.log('onSetContent', e);
                 }
@@ -13152,6 +13152,7 @@
                 //   type: 'load',
                 //   data: {id: 'test-id'}
                 // });
+                // Hide loader
                 // console.log('scene did load');
                 var loader = document.getElementById('loader');
                 loader.classList.remove('visible');
