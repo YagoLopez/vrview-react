@@ -194,7 +194,7 @@ var App = (function (_super) {
                 React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },
                     React.createElement("div", { className: "card-title" }, scene.title),
-                    React.createElement("div", null, scene.description))),
+                    React.createElement("div", { dangerouslySetInnerHTML: { __html: scene.description } }))),
             React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
     };
     return App;

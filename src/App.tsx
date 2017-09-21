@@ -204,7 +204,7 @@ export class App extends React.Component<any, IScene> {
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{ scene.title }</div>
-            <div>{ scene.description }</div>
+            <div dangerouslySetInnerHTML={{__html: scene.description as any}} />
           </div>
         </DocumentCard>
 
