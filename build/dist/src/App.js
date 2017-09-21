@@ -138,8 +138,10 @@ var App = (function (_super) {
                                 url: 'javascript:void(0)',
                                 onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 4); }
                             }],
-                        isExpanded: true
-                    }
+                        isExpanded: false
+                    },
+                    { name: 'Image Format Conversor', url: 'https://storage.googleapis.com/cardboard-camera-converter/index.html',
+                        key: 'imageFormatConversor', onClick: function () { }, target: '_blank' }
                 ]
             }];
         var choiceGroup = [

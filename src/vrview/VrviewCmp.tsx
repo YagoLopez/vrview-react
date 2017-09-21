@@ -91,8 +91,8 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   }
 
   /**
-   * On change event. Executed after state changes
-   * Note: setContent() must be executed asynchronously
+   * On change event, executed after state changes
+   * Note: VrviewPlayer.setContent() must be executed asynchronously
    * This hack is due to how Vrview and EventEmmitters works in vrview.js
    */
   componentDidUpdate() {
@@ -116,7 +116,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
   /**
    * Get iframe window object from parent document where 3d canvas scene exists
    */
-  getIframe = (): HTMLIFrameElement | undefined => {
+  getIframe = (): HTMLIFrameElement => {
     const iframe = document.querySelector('#vrview')!.querySelector('iframe') as HTMLIFrameElement;
     !iframe && console.warn('Vrview iframe not found');
     return iframe;
@@ -129,7 +129,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
    * See: "public/vrview/embed.js" -> "WorldRenderer.prototype.didLoad_()"
    */
   showLoader = (): void => {
-    const iframe = this.getIframe()!;
+    const iframe = this.getIframe();
     const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
     loader && loader.classList.add('visible');
   };
@@ -153,7 +153,7 @@ export default class Vrview extends React.Component<IVrviewConfig, {}> {
     this.clearHotspotsClickHandlers();
     const scene = this.props.scene;
     // const iframe = document.querySelector('iframe') as HTMLIFrameElement;
-    const iframe = this.getIframe()!;
+    const iframe = this.getIframe();
     const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
     // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
     // (not to use "state: scene.is_debug")

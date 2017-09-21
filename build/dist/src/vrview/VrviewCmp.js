@@ -131,8 +131,8 @@ var Vrview = (function (_super) {
         window.addEventListener('load', onVrViewLoad);
     };
     /**
-     * On change event. Executed after state changes
-     * Note: setContent() must be executed asynchronously
+     * On change event, executed after state changes
+     * Note: VrviewPlayer.setContent() must be executed asynchronously
      * This hack is due to how Vrview and EventEmmitters works in vrview.js
      */
     Vrview.prototype.componentDidUpdate = function () {

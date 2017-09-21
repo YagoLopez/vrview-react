@@ -131,8 +131,10 @@ export class App extends React.Component<any, IVrviewConfig> {
               url: 'javascript:void(0)',
               onClick: () => this.leftPanelAction(this.handleClickHotspot, 4)
             }],
-            isExpanded: true
-          }
+            isExpanded: false
+          },
+          { name: 'Image Format Conversor', url: 'https://storage.googleapis.com/cardboard-camera-converter/index.html',
+            key: 'imageFormatConversor', onClick: () => {}, target: '_blank'}
         ]
     }];
 
