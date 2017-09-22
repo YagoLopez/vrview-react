@@ -1,8 +1,8 @@
-# <p align="center">VRVIEW React</p>
-
 <p align="center"><img src="360.jpg" /></p>
 
-<b><p align="center">Virtual Reality React Component to show 360º photos, videos and virtual tours</p></b>
+# <p align="center">VRVIEW React</p>
+
+<b><p align="center">Virtual Reality React Component for 360º photos, videos and virtual tour visualization</p></b>
 
 - It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points (aka hotspots) to navigate between images/videos
@@ -32,7 +32,8 @@ type information manually.
 <Vrview {...scene} />
 ```
 
-Where `scene` implements the following interface:
+Vrview is a prure component. It receive scene data as props from a parent component and asign that props to state, that is,
+Vrview's state consists of scene data implementing the following interface:
 
 ```typescript
 export interface IScene {
@@ -66,7 +67,7 @@ export interface IScene {
 }
 ```
 
-And `IHotspot` has the following shape:
+A scene can have 0 or more hotspots of type `IHotspot`:
 
 ```typescript
 export interface IHotspot {
@@ -86,19 +87,22 @@ export interface IHotspot {
 - Images and videos must go in `public` directory
 - Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
-- Define a list of scenes as the state of the App. Each scene follows the interface `IScene`.
+- Define a scene as the state and pass it to `VrviewCmp` component as props. Each scene follows the interface `IScene`.
 For example, for a simple scene:
 
 ```javascript
-sceneConfig: IScene = {
+scene: IScene = {
   scene: {width: '90%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true}
 }
 ```
 
-- Or for a more complex scene with hotspots to navigate between images:
+- To create a virtual tour with several scenes you can define an array of scenes. To navigate from one
+scene to another define a hotspot and a relation with other scene using "idNewScene" as external key like in a
+relational database. In this demo it has been used the Repository Pattern and a `SceneCollection` Class that loads
+and manages the scenes from a `scenes.json` file but this data could be loaded from an external API.
 
 ```javascript
-{
+[{
   "scene":
   {
     "id": 1,
@@ -126,46 +130,22 @@ sceneConfig: IScene = {
      "title": "Title Scene 2",
      "description": "Scene 2 has two hotspots with respectives scenes associated"
    }
- }
+ }]
 ```
 
-- After the configuration object is defined, pass it as props to the component:
 
-```typescript
-<Vrview {...sceneConfig} />
-```
+- Each time the user clicks a hotspot a new scene is loaded from `ScenesCollection` and passed from `App`
+component to `VrviewCmp` as props and `VrviewCmp` set its state from the incoming props with the new scene data.
 
-- You can also define an arbitrary function for a hotspot click event. In this case instead of defining a `newScene` object
-just define the `clickFn` property:
+- Hotspots are optional and you can also define an arbitrary function for a hotspot click event.
+For example, in the following case instead of defining a `idNewScene` object just define the `clickFn` property:
 
 ```javascript
 {
   scene: {image: '../images/walrus.jpg', is_stereo: true},
   hotspots: [
-    {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: () => alert('Function executed')}
+    {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2, clickFn: '() => alert("Function executed")'}
   ]
-}
-```
-
-- The state of the scene must be managed in the Vrview component. So, for changing the scene programatically you must get
-a reference to Vrview and set the new state:
-
-```typescript
-changeScene = (): void => {
-  this.vrviewCmp.setState({
-    scene: {image: '../images/walrus.jpg', is_stereo: true},
-    hotspots: [
-      {name: 'hotspot5', pitch: -20, yaw: -25, radius: 0.05, distance: 2}
-    ]
-  })
-}
-
-render(){
-  return(
-    <div>
-      <Vrview {...this.sceneConfig} ref={(vrview: Vrview) => {this.vrviewCmp = vrview}} />
-    </div>
-  );
 }
 ```
 

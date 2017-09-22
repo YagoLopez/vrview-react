@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Vrview from './vrview/VrviewCmp';
 import {IScene} from "./vrview/interfaces/IScene";
-
 import {Fabric} from "office-ui-fabric-react/lib/Fabric";
 import {CommandBar} from "office-ui-fabric-react/lib/CommandBar";
 import {IContextualMenuItem, ContextualMenuItemType} from "office-ui-fabric-react/lib/ContextualMenu";

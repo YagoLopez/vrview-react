@@ -8,6 +8,8 @@
 .header {font-size: 1.5em; font-weight: bold}
 .subheader {font-size: 12px; color: darkgray}
 
+/* Media queries -------------------------------------------------------------------- */
+
 @media (min-width: 720px) {
   .command-bar {
     max-width: 100% !important;
@@ -28,3 +30,23 @@
     min-width: 100% !important
   }
 }
+
+/* Scrollbars ------------------------------------------------------------------------- */
+
+body{
+  scrollbar-base-color: #C0C0C0;
+  scrollbar-face-color: darkgrey;
+  scrollbar-3dlight-color: #C0C0C0;
+  scrollbar-highlight-color: #C0C0C0;
+  scrollbar-track-color: #EBEBEB;
+  scrollbar-arrow-color: black;
+  scrollbar-shadow-color: #C0C0C0;
+  scrollbar-dark-shadow-color: #C0C0C0;
+}
+::-webkit-scrollbar {width: 5px; height: 3px}
+::-webkit-scrollbar-button {background-color: darkgrey}
+::-webkit-scrollbar-track {background-color: lightgrey}
+::-webkit-scrollbar-track-piece {background-color: lightgrey}
+::-webkit-scrollbar-thumb {height: 50px; background-color: darkgrey; border-radius: 3px}
+::-webkit-scrollbar-corner {background-color: #999}
+::-webkit-resizer {background-color: #666}
