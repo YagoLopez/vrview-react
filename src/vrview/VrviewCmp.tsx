@@ -1,6 +1,6 @@
-//todo: favicon
+//todo: test browserstack ios
 //todo: open cardboard image converter in new tab
-//todo: añadir enlace a conversion de formato de cardboard
+//todo: favicon
 //todo: revisar hotspot id en vrview.js
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event for browser compatibility
@@ -8,7 +8,7 @@
 //todo: hacer algunos test
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
-//todo: hotspot editor (user creates hotspots when clicking on scene)
+//todo: hotspot editor (user creates hotspots by clicking on the scene)
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
@@ -18,7 +18,6 @@
 // no imperativamente como ahora
 //todo: about page
 //todo: establecer debug mode al cambiar de escena (ahora solo se hace onComponentDidMount())
-//todo: habria que crear una clase scenes con findSceneById(), es decir, modelar el dominio?
 
 import * as React from "react";
 import * as VRView from  "./vrview.js";
@@ -29,12 +28,12 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
 
 /**
- * Vrview Component creates a 3d scene with optional hotspots
+ * Vrview Pure Component creates a 3d scene with optional hotspots
  * It receives scene data as props from parent component
  *
  * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
-export default class Vrview extends React.Component<IScene, {}> {
+export default class Vrview extends React.PureComponent<IScene, {}> {
 
   // Vrview Player object. Do not confuse with <Vrview> component
   vrviewPlayer: IVrviewPlayer;

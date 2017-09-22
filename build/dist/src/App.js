@@ -27,7 +27,7 @@ var Panel_1 = require("office-ui-fabric-react/lib/Panel");
 var Nav_1 = require("office-ui-fabric-react/lib/Nav");
 var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
 var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
-var Scenes_1 = require("./Scenes");
+var Scenes_1 = require("./scenes/Scenes");
 require("./App.css");
 var App = (function (_super) {
     __extends(App, _super);

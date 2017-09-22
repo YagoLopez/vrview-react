@@ -1,6 +1,8 @@
 # <p align="center">VRVIEW React</p>
 
-<b><p align="center">Virtual Reality React Component to show equirectangular photospheres and 360º videos</p></b>
+<p align="center"><img src="360.jpg" /></p>
+
+<b><p align="center">Virtual Reality React Component to show 360º photos, videos and virtual tours</p></b>
 
 - It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points (aka hotspots) to navigate between images/videos
@@ -23,9 +25,6 @@ type information manually.
 - To copy and run this project: clone or fork this repository
 - Install dependencies running `npm install` inside your local directory project
 - Run the application with `npm run start`
-
-## UML Diagram
-<p align="center"><img src="uml.jpg" /></p>
 
 ## Application Programming Interface
 
@@ -169,6 +168,9 @@ render(){
   );
 }
 ```
+
+## UML Diagram
+<p align="center"><img src="uml.jpg" /></p>
 
 # Disclaimer
 At the moment it seems IE < 11 and some IOS can experiment malfunction with three.js library. Feel free to open an issue

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * @Class {ScenesCollection} Represent a list of scenes.
+ * @Class {ScenesCollection} It represents a list of scenes.
  *
  * Each scene contains information like: path to images/videos, optional hotspots,
  * navigation between scenes and other parameters. (See IVrviewConfig definition)
@@ -17,7 +17,7 @@ var ScenesCollection = (function () {
                 }
             }
         };
-        this.scenes = require('./scenes/scenes.json');
+        this.scenes = require('./scenes.json');
     }
     ScenesCollection.prototype.getAll = function () {
         return this.scenes;

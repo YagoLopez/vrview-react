@@ -1,7 +1,7 @@
-import {IScene} from "./vrview/interfaces/IScene";
+import {IScene} from "../vrview/interfaces/IScene";
 
 /**
- * @Class {ScenesCollection} Represent a list of scenes.
+ * @Class {ScenesCollection} It represents a list of scenes.
  *
  * Each scene contains information like: path to images/videos, optional hotspots,
  * navigation between scenes and other parameters. (See IVrviewConfig definition)
@@ -9,7 +9,7 @@ import {IScene} from "./vrview/interfaces/IScene";
  */
 export default class ScenesCollection {
 
-  scenes: IScene[];
+  private scenes: IScene[];
 
   constructor(){
     this.scenes = require('./scenes.json');

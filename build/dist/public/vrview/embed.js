@@ -13176,6 +13176,11 @@
                 // Rotate the camera parent to take into account the scene's rotation.
                 // By default, it should be at the center of the image.
                 var display = this.controls.getVRDisplay();
+                // MODIFICATIONS
+                if (!display) {
+                    this.camera.parent.rotation.y = 0;
+                    return;
+                }
                 // For desktop, we subtract the current display Y axis
                 var theta = display.theta_ || 0;
                 // For devices with orientation we make the current view center

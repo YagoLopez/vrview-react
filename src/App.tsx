@@ -9,12 +9,12 @@ import {Panel, PanelType} from 'office-ui-fabric-react/lib/Panel';
 import {Nav, INavLinkGroup} from 'office-ui-fabric-react/lib/Nav';
 import {DocumentCard} from 'office-ui-fabric-react/lib/DocumentCard';
 import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/ChoiceGroup';
-import ScenesCollection from "./Scenes";
+import ScenesCollection from "./scenes/Scenes";
 import './App.css';
 
 
 
-export class App extends React.Component<any, IScene> {
+export class App extends React.Component<{}, IScene> {
 
   // Collection of scenes
   scenes: ScenesCollection = new ScenesCollection();
