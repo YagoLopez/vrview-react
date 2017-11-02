@@ -25,6 +25,18 @@ export class App extends React.Component<{}, IScene> {
   vrviewCmp: Vrview;
 
   /**
+   * Reset state to the initial scene.
+   */
+  resetScene = (): void => {
+    if(this.state.scene.id !== 1){
+      this.vrviewCmp.showLoader();
+      this.setState(this.scenes.getSceneByArrayIndex(0));
+    } else {
+      alert('Current scene is initial scene');
+    }
+  };
+
+  /**
    * Debug mode: a small window shows FPS (frames per second) in canvas
    */
   toggleDebugMode = (): void => {
@@ -93,7 +105,7 @@ export class App extends React.Component<{}, IScene> {
         key: 'resetScene',
         name: 'Reset Scene',
         icon: 'RevToggleKey',
-        onClick: () => this.handleClickHotspot(1),
+        onClick: () => this.resetScene(),
         title: 'Return to Initial Scene'
       },
       {
@@ -110,7 +122,7 @@ export class App extends React.Component<{}, IScene> {
       links:
         [
           { name: 'Reset Scene', url: '', key: 'resetScene',
-            onClick: () => this.leftPanelAction(this.handleClickHotspot, 1) },
+            onClick: () => this.leftPanelAction(this.resetScene)},
           { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
             onClick: () => this.leftPanelAction(this.toggleDebugMode)},
           { name: 'Change Scene', url: '',
@@ -200,7 +212,7 @@ export class App extends React.Component<{}, IScene> {
 
         <div className="pad15">
           <div className="centered header">Vrview React Component</div>
-          <div className="centered subheader">Visualizer of 360º photos and videos</div>
+          <div className="centered subheader">Visualization of virtual tours, 360º photos and videos</div>
         </div>
 
         <DocumentCard className="layout shadow">

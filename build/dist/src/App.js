@@ -38,6 +38,18 @@ var App = (function (_super) {
         // Initial state contains first scene of the collection
         _this.state = _this.scenes.getSceneByArrayIndex(0);
         /**
+         * Reset state to the initial scene.
+         */
+        _this.resetScene = function () {
+            if (_this.state.scene.id !== 1) {
+                _this.vrviewCmp.showLoader();
+                _this.setState(_this.scenes.getSceneByArrayIndex(0));
+            }
+            else {
+                alert('Current scene is initial scene');
+            }
+        };
+        /**
          * Debug mode: a small window shows FPS (frames per second) in canvas
          */
         _this.toggleDebugMode = function () {
@@ -104,7 +116,7 @@ var App = (function (_super) {
                 key: 'resetScene',
                 name: 'Reset Scene',
                 icon: 'RevToggleKey',
-                onClick: function () { return _this.handleClickHotspot(1); },
+                onClick: function () { return _this.resetScene(); },
                 title: 'Return to Initial Scene'
             },
             {
@@ -119,7 +131,7 @@ var App = (function (_super) {
         var leftMenuItems = [{
                 links: [
                     { name: 'Reset Scene', url: '', key: 'resetScene',
-                        onClick: function () { return _this.leftPanelAction(_this.handleClickHotspot, 1); } },
+                        onClick: function () { return _this.leftPanelAction(_this.resetScene); } },
                     { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
                         onClick: function () { return _this.leftPanelAction(_this.toggleDebugMode); } },
                     { name: 'Change Scene', url: '',
@@ -198,7 +210,7 @@ var App = (function (_super) {
                     React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React Component"),
-                React.createElement("div", { className: "centered subheader" }, "Visualizer of 360\u00BA photos and videos")),
+                React.createElement("div", { className: "centered subheader" }, "Visualization of virtual tours, 360\u00BA photos and videos")),
             React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
                 React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },

@@ -16,7 +16,7 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 
 ## Requirements
 - Node/npm/yarn
-- A project created with Create-React-App for Typescript. If you don't want to use Typescript you must have to erase all
+- A project created with Create-React-App for Typescript. If you don't want to use Typescript you must erase all
 type information manually.
 
 ## Installation
@@ -84,7 +84,7 @@ export interface IHotspot {
 
 ## Use
 
-- Images and videos must go in `public` directory
+- Static assets like images and videos must go in `public` directory
 - Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
 - Define a scene as the state and pass it to `VrviewCmp` component as props. Each scene follows the interface `IScene`.

@@ -1,4 +1,6 @@
 "use strict";
+//todo: a lo mejor sobra la funcion getIframe() y se puede acceder al iframe usando vrviewPlayer: IVrviewPlayer.
+//todo: consultar digarama uml
 //todo: test browserstack ios
 //todo: open cardboard image converter in new tab
 //todo: favicon
