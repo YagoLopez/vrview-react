@@ -16,13 +16,13 @@ import './App.css';
 export class App extends React.PureComponent<{}, IScene> {
 
   // Collection of scenes
-  scenes: ScenesCollection = new ScenesCollection();
+  private scenes: ScenesCollection = new ScenesCollection();
 
   // Initial state contains first scene of the collection
-  state: IScene = this.scenes.getSceneByArrayIndex(0);
+  public state: IScene = this.scenes.getSceneByArrayIndex(0);
 
   // Reference to Vrview Component to invoke some of its member methods
-  vrviewCmp: Vrview;
+  private vrviewCmp: Vrview;
 
   /**
    * Reset state to the initial scene.

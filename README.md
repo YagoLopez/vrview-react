@@ -13,6 +13,7 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
   target="_blank">DEMO in simulator (for desktop)</a> <b>Warning: </b> Javascript in external iframes might have restrictions
   for security reasons. Run the full scren demo to avoid restrictions.
+  - Note: the demo uses Fabric UI Framework from Microsoft
 
 ## Requirements
 - Node/npm/yarn
@@ -150,7 +151,7 @@ For example, in the following case instead of defining a `idNewScene` object jus
 }
 ```
 
-## UML Diagram
+## UML Diagram for Demo
 <p align="center"><img src="uml.jpg" /></p>
 
 # Disclaimer
