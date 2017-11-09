@@ -96,6 +96,13 @@ var App = (function (_super) {
                 _this.setState({ scene: newSceneObj.scene, hotspots: newSceneObj.hotspots });
             }
         };
+        /**
+         * Use Google's Format Conversor to transform a 360 img to an apropiated format for visualization whit this component
+         */
+        _this.openImageFormatConversor = function () {
+            window.open('https://storage.googleapis.com/cardboard-camera-converter/index.html');
+            _this.hideLeftPanel();
+        };
         return _this;
     }
     App.prototype.render = function () {
@@ -127,7 +134,7 @@ var App = (function (_super) {
                 title: 'Show/Hide small window with canvas info in low left corner'
             }
         ];
-        /* Menu link keys must be equals to scene ids to show active scene in menu */
+        // Menu link keys must be equals to scene ids to show active scene in menu
         var leftMenuItems = [{
                 links: [
                     { name: 'Reset Scene', url: '', key: 'resetScene',
@@ -161,8 +168,8 @@ var App = (function (_super) {
                             }],
                         isExpanded: false
                     },
-                    { name: 'Image Format Conversor', url: 'https://storage.googleapis.com/cardboard-camera-converter/index.html',
-                        key: 'imageFormatConversor', onClick: function () { }, target: '_blank' }
+                    { name: 'Image Format Conversor', key: 'imageFormatConversor', url: '',
+                        onClick: this.openImageFormatConversor }
                 ]
             }];
         var choiceGroup = [
@@ -219,5 +226,5 @@ var App = (function (_super) {
             React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
     };
     return App;
-}(React.Component));
+}(React.PureComponent));
 exports.App = App;

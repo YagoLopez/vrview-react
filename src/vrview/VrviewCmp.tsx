@@ -1,4 +1,3 @@
-//todo: a lo mejor sobra la funcion getIframe() y se puede acceder al iframe usando vrviewPlayer: IVrviewPlayer.
 //todo: consultar digarama uml
 //todo: test browserstack ios
 //todo: open cardboard image converter in new tab
@@ -30,14 +29,16 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 
 
 /**
- * Vrview Pure Component creates a 3d scene with optional hotspots
+ * Vrview creates a 3d scene with optional hotspots
  * It receives scene data as props from parent component
  *
  * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
 export default class Vrview extends React.PureComponent<IScene, {}> {
 
-  // Vrview Player object. Do not confuse with <Vrview> component
+   // Vrview Player object. Do not confuse with <Vrview> component
+   // Vrview Player Objectis is an object belonging to VrView Library. It is the object that really create the scene in
+   // 3d
   vrviewPlayer: IVrviewPlayer;
 
   /**
@@ -117,22 +118,13 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
   }
 
   /**
-   * Get iframe window object from parent document where 3d canvas scene exists
-   */
-  getIframe = (): HTMLIFrameElement => {
-    const iframe = document.querySelector('#vrview')!.querySelector('iframe') as HTMLIFrameElement;
-    !iframe && console.warn('Vrview iframe not found');
-    return iframe;
-  };
-
-  /**
    * Show loader text inside iframe when content is loading
    *
    * The loader will be hidden when scene is completely loaded
    * See: "public/vrview/embed.js" -> "WorldRenderer.prototype.didLoad_()"
    */
   showLoader = (): void => {
-    const iframe = this.getIframe();
+    const iframe = this.vrviewPlayer.iframe as HTMLIFrameElement;
     const loader = iframe.contentDocument.getElementById('loader') as HTMLDivElement;
     loader && loader.classList.add('visible');
   };
@@ -155,9 +147,8 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
   toggleDebugMode(): void {
     this.clearHotspotsClickHandlers();
     const scene = this.props.scene;
-    // const iframe = document.querySelector('iframe') as HTMLIFrameElement;
-    const iframe = this.getIframe();
-    const iframeParentElement: HTMLDivElement = iframe.parentElement as HTMLDivElement;
+    const iframe = this.vrviewPlayer.iframe as HTMLIFrameElement;
+    const iframeParentElement = iframe.parentElement as HTMLDivElement;
     // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
     // (not to use "state: scene.is_debug")
     scene.is_debug = !this.isDebugEnabled(iframe);

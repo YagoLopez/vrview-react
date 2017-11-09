@@ -22,9 +22,10 @@ type information manually.
 ## Installation
 
 - To install in a existing `Create-React-App` project, run `nmp install --save YagoLopez/vrview-react`
-- To copy and run this project: clone or fork this repository
-- Install dependencies running `npm install` inside your local directory project
-- Run the application with `npm run start`
+- To copy and run this project:
+  - Clone or fork this repository
+  - Install dependencies: `npm install` inside your local directory project
+  - Run the application: `npm run start`
 
 ## Application Programming Interface
 
@@ -32,8 +33,8 @@ type information manually.
 <Vrview {...scene} />
 ```
 
-Vrview is a prure component. It receive scene data as props from a parent component and asign that props to state, that is,
-Vrview's state consists of scene data implementing the following interface:
+Vrview is a prure component. It receives scene data as props from a parent component. It asigns that props to its state
+which implements the following interface:
 
 ```typescript
 export interface IScene {
@@ -87,7 +88,7 @@ export interface IHotspot {
 - Static assets like images and videos must go in `public` directory
 - Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
-- Define a scene as the state and pass it to `VrviewCmp` component as props. Each scene follows the interface `IScene`.
+- Define a scene in json format and pass it to `VrviewCmp` component as props. Each scene follows the interface `IScene`.
 For example, for a simple scene:
 
 ```javascript
@@ -97,8 +98,8 @@ scene: IScene = {
 ```
 
 - To create a virtual tour with several scenes you can define an array of scenes. To navigate from one
-scene to another define a hotspot and a relation with other scene using "idNewScene" as external key like in a
-relational database. In this demo it has been used the Repository Pattern and a `SceneCollection` Class that loads
+scene to another define a hotspot and a relation with other scene using "idNewScene" as external key (like in a
+relational database). In this demo it has been used the Repository Pattern and a `SceneCollection` Class that loads
 and manages the scenes from a `scenes.json` file but this data could be loaded from an external API.
 
 ```javascript

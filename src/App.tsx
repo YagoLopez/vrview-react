@@ -13,7 +13,7 @@ import './App.css';
 
 
 
-export class App extends React.Component<{}, IScene> {
+export class App extends React.PureComponent<{}, IScene> {
 
   // Collection of scenes
   scenes: ScenesCollection = new ScenesCollection();
@@ -86,6 +86,14 @@ export class App extends React.Component<{}, IScene> {
     }
   };
 
+  /**
+   * Use Google's Format Conversor to transform a 360 img to an apropiated format for visualization whit this component
+   */
+  openImageFormatConversor = () => {
+    window.open('https://storage.googleapis.com/cardboard-camera-converter/index.html');
+    this.hideLeftPanel();
+  };
+
   render(){
 
     const scene = this.state.scene;
@@ -117,7 +125,7 @@ export class App extends React.Component<{}, IScene> {
       }
     ];
 
-    /* Menu link keys must be equals to scene ids to show active scene in menu */
+    // Menu link keys must be equals to scene ids to show active scene in menu
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
@@ -152,8 +160,8 @@ export class App extends React.Component<{}, IScene> {
             }],
             isExpanded: false
           },
-          { name: 'Image Format Conversor', url: 'https://storage.googleapis.com/cardboard-camera-converter/index.html',
-            key: 'imageFormatConversor', onClick: () => {}, target: '_blank'}
+          { name: 'Image Format Conversor', key: 'imageFormatConversor', url: '',
+            onClick: this.openImageFormatConversor }
         ]
     }];
 
