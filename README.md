@@ -2,13 +2,13 @@
 
 # <p align="center">VRVIEW React</p>
 
-<b><p align="center">Virtual Reality React Component for 360º photos, videos and virtual tour visualization</p></b>
+<b><p align="center">React Component for virtual tour creation</p></b>
 
 - It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
 - It is posible to define points (aka hotspots) to navigate between images/videos
 - It is posible to assign an arbitrary function to a hotspot click event
 - Using a smartphone and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
-or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
+  or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
 - <a href="https://yagolopez.js.org/vrview-react/build/" target="_blank">DEMO full screen (for mobile)</a>
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
   target="_blank">DEMO in simulator (for desktop)</a> <b>Warning: </b> Javascript in external iframes might have restrictions
@@ -18,7 +18,7 @@ or other specialized hardware it is posible to have a full and inmersive virtual
 ## Requirements
 - Node/npm/yarn
 - A project created with Create-React-App for Typescript. If you don't want to use Typescript you must erase all
-type information manually.
+  type information manually.
 
 ## Installation
 
@@ -90,7 +90,7 @@ export interface IHotspot {
 - Copy `public/vrview` folder to your project `public` folder
 - Import `Vrview` component from `node_modules/vrview-react/src/vrview`
 - Define a scene in json format and pass it to `VrviewCmp` component as props. Each scene follows the interface `IScene`.
-For example, for a simple scene:
+  For example, for a simple scene:
 
 ```javascript
 scene: IScene = {
@@ -99,9 +99,9 @@ scene: IScene = {
 ```
 
 - To create a virtual tour with several scenes you can define an array of scenes. To navigate from one
-scene to another define a hotspot and a relation with other scene using "idNewScene" as external key (like in a
-relational database). In this demo it has been used the Repository Pattern and a `SceneCollection` Class that loads
-and manages the scenes from a `scenes.json` file but this data could be loaded from an external API.
+  scene to another define a hotspot and a relation with other scene using "idNewScene" as external key (like in a
+  relational database). In this demo it has been used the Repository Pattern and a `SceneCollection` Class that loads
+  and manages the scenes from a `scenes.json` file but this data could be loaded from an external API.
 
 ```javascript
 [{
@@ -137,10 +137,10 @@ and manages the scenes from a `scenes.json` file but this data could be loaded f
 
 
 - Each time the user clicks a hotspot a new scene is loaded from `ScenesCollection` and passed from `App`
-component to `VrviewCmp` as props and `VrviewCmp` set its state from the incoming props with the new scene data.
+  component to `VrviewCmp` as props and `VrviewCmp` set its state from the incoming props with the new scene data.
 
 - Hotspots are optional and you can also define an arbitrary function for a hotspot click event.
-For example, in the following case instead of defining a `idNewScene` object just define the `clickFn` property:
+  For example, in the following case instead of defining a `idNewScene` object just define the `clickFn` property:
 
 ```javascript
 {
@@ -151,7 +151,7 @@ For example, in the following case instead of defining a `idNewScene` object jus
 }
 ```
 
-## UML Diagram for Demo
+## UML Diagram of the Demo
 <p align="center"><img src="uml.jpg" /></p>
 
 # Disclaimer

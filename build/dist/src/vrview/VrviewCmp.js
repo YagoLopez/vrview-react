@@ -1,21 +1,18 @@
 "use strict";
 //todo: consultar digarama uml
 //todo: test browserstack ios
-//todo: open cardboard image converter in new tab
 //todo: favicon
 //todo: revisar hotspot id en vrview.js
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event for browser compatibility
-//todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles
-//todo: hacer algunos test
+//todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles => usar home: "." en package.json
+//todo: hacer test
 //todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
-//todo: hotspot editor (user creates hotspots by clicking on the scene)
 //todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
 //todo: usar fade-in en texto pie de imagen
-//todo: text to speech?
 //todo: revisar toggle debug mode. debe ser mostrado u ocultado en funcion de estado de componente (declarativamente)
 // no imperativamente como ahora
 //todo: about page
