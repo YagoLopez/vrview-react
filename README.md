@@ -152,7 +152,7 @@ scene: IScene = {
 ```
 
 ## UML Diagram of the Demo
-<p align="center"><img src="uml.jpg" /></p>
+<p align="center"><img src="uml/uml.jpg" /></p>
 
 # Disclaimer
 At the moment it seems IE < 11 and some IOS can experiment malfunction with three.js library. Feel free to open an issue
