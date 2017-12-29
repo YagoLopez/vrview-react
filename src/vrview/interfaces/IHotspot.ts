@@ -1,8 +1,8 @@
 /**
  * Hotspot: clickable point in scene
  *
- * It enables to load another 3d scene in VrView
- * or execution of an arbitrary function on click (still not implemented)
+ * It enables to load another 3d scene
+ * or arbitrary function execution on click (still not implemented)
  */
 export interface IHotspot {
   name: string,                   // Hotspot identifier. Used on click event

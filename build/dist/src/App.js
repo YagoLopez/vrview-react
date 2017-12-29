@@ -1,4 +1,3 @@
-"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -17,24 +16,23 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var VrviewCmp_1 = require("./vrview/VrviewCmp");
-var Fabric_1 = require("office-ui-fabric-react/lib/Fabric");
-var CommandBar_1 = require("office-ui-fabric-react/lib/CommandBar");
-var ContextualMenu_1 = require("office-ui-fabric-react/lib/ContextualMenu");
-var Panel_1 = require("office-ui-fabric-react/lib/Panel");
-var Nav_1 = require("office-ui-fabric-react/lib/Nav");
-var DocumentCard_1 = require("office-ui-fabric-react/lib/DocumentCard");
-var ChoiceGroup_1 = require("office-ui-fabric-react/lib/ChoiceGroup");
-var Scenes_1 = require("./scenes/Scenes");
-require("./App.css");
+import * as React from 'react';
+import Vrview from './vrview/VrviewCmp';
+import { Fabric } from "office-ui-fabric-react/lib/Fabric";
+import { CommandBar } from "office-ui-fabric-react/lib/CommandBar";
+import { ContextualMenuItemType } from "office-ui-fabric-react/lib/ContextualMenu";
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+import { Nav } from 'office-ui-fabric-react/lib/Nav';
+import { DocumentCard } from 'office-ui-fabric-react/lib/DocumentCard';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import ScenesCollection from "./scenes/Scenes";
+import './App.css';
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         // Collection of scenes
-        _this.scenes = new Scenes_1.default();
+        _this.scenes = new ScenesCollection();
         // Initial state contains first scene of the collection
         _this.state = _this.scenes.getSceneByArrayIndex(0);
         /**
@@ -117,7 +115,7 @@ var App = (function (_super) {
             },
             {
                 key: 'divider',
-                itemType: ContextualMenu_1.ContextualMenuItemType.Divider
+                itemType: ContextualMenuItemType.Divider
             },
             {
                 key: 'resetScene',
@@ -168,7 +166,7 @@ var App = (function (_super) {
                             }],
                         isExpanded: false
                     },
-                    { name: 'Image Format Conversor', key: 'imageFormatConversor', url: '',
+                    { name: 'Change Img Format', key: 'imageFormatConversor', url: '',
                         onClick: this.openImageFormatConversor }
                 ]
             }];
@@ -210,21 +208,21 @@ var App = (function (_super) {
                 onClick: function () { return _this.handleClickHotspot(4); }
             }
         ];
-        return (React.createElement(Fabric_1.Fabric, null,
-            React.createElement(CommandBar_1.CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
-            React.createElement(Panel_1.Panel, { ref: "panel", type: Panel_1.PanelType.smallFixedNear, isLightDismiss: true, headerText: "Vrview React" },
+        return (React.createElement(Fabric, null,
+            React.createElement(CommandBar, { isSearchBoxVisible: false, items: topMenuItems, className: "command-bar" }),
+            React.createElement(Panel, { ref: "panel", type: PanelType.smallFixedNear, isLightDismiss: true, headerText: "Vrview React" },
                 React.createElement("div", null,
-                    React.createElement(Nav_1.Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
+                    React.createElement(Nav, { groups: leftMenuItems, selectedKey: scene.id.toString() }))),
             React.createElement("div", { className: "pad15" },
                 React.createElement("div", { className: "centered header" }, "Vrview React Component"),
                 React.createElement("div", { className: "centered subheader" }, "Visualization of virtual tours, 360\u00BA photos and videos")),
-            React.createElement(DocumentCard_1.DocumentCard, { className: "layout shadow" },
-                React.createElement(VrviewCmp_1.default, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
+            React.createElement(DocumentCard, { className: "layout shadow" },
+                React.createElement(Vrview, __assign({}, this.state, { ref: function (vrview) { _this.vrviewCmp = vrview; }, onClickHotspot: this.handleClickHotspot })),
                 React.createElement("div", { className: "pad15" },
                     React.createElement("div", { className: "card-title" }, scene.title),
                     React.createElement("div", { dangerouslySetInnerHTML: { __html: scene.description } }))),
-            React.createElement(ChoiceGroup_1.ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
+            React.createElement(ChoiceGroup, { label: 'Change Scene Programatically', options: choiceGroup, className: "centered pad15" })));
     };
     return App;
 }(React.PureComponent));
-exports.App = App;
+export { App };

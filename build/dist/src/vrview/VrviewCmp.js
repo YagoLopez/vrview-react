@@ -1,4 +1,3 @@
-"use strict";
 //todo: consultar digarama uml
 //todo: test browserstack ios
 //todo: favicon
@@ -27,9 +26,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var VRView = require("./vrview.js");
+import * as React from "react";
+import * as VRView from "./vrview.js";
 /**
  * Vrview creates a 3d scene with optional hotspots
  * It receives scene data as props from parent component
@@ -162,4 +160,4 @@ var Vrview = (function (_super) {
     };
     return Vrview;
 }(React.PureComponent));
-exports.default = Vrview;
+export default Vrview;

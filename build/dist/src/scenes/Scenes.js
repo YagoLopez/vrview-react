@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @Class {ScenesCollection} It represents a list of scenes.
  *
@@ -27,4 +25,4 @@ var ScenesCollection = (function () {
     };
     return ScenesCollection;
 }());
-exports.default = ScenesCollection;
+export default ScenesCollection;
