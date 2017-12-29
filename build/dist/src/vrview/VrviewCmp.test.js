@@ -13,6 +13,12 @@ var scene = {
     scene: { id: 1, width: '100%', height: 400, image: '../images/coral.jpg', is_stereo: true, is_debug: true }
 };
 describe('<Vrview/>', function () {
+    // it('Matches snapshot', () => {
+    //   const component = TestRenderer.create(
+    //     <Vrview>Pag Index Component Content</Vrview>
+    //   );
+    //   expect(component.toJSON()).toMatchSnapshot();
+    // });
     it('renders without crashing', function () {
         var div = document.createElement('div');
         ReactDOM.render(React.createElement(Vrview, __assign({}, scene)), div);

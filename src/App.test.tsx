@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+// import * as TestRenderer from 'react-test-renderer';
 import {App} from "./App";
 import {IScene} from "./vrview/interfaces/IScene";
 

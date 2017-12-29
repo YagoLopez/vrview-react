@@ -14,4 +14,9 @@ describe('<Vrview/>', () => {
     ReactDOM.render(<Vrview {...scene} />, div);
   });
 
+  // it('matches snapshot', () => {
+  //   const component = TestRenderer.create(<Vrview>Pag Vrview Content</Vrview>);
+  //   expect(component.toJSON()).toMatchSnapshot();
+  // });
+
 });
