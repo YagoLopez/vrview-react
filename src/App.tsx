@@ -11,6 +11,7 @@ import {ChoiceGroup, IChoiceGroupOption} from 'office-ui-fabric-react/lib/Choice
 import ScenesCollection from "./scenes/Scenes";
 import './App.css';
 
+
 export class App extends React.PureComponent<{}, IScene> {
 
   // Collection of scenes

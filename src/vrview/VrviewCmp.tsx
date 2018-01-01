@@ -77,9 +77,6 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
     })
   }
 
-  /**
-   * Component initialization after dom loading
-   */
   componentDidMount() {
     const onVrViewLoad = () => {
       // Vrview Player object creation
