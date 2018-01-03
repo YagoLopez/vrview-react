@@ -1,3 +1,7 @@
+<p align="center">
+<a href="https://travis-ci.org/YagoLopez/vrview-react">
+<img src="https://travis-ci.org/YagoLopez/vrview-react.svg?branch=master" />
+</a></p>
 <p align="center"><img src="360.jpg" /></p>
 
 # <p align="center">VRVIEW React</p>
