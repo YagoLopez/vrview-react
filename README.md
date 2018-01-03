@@ -1,7 +1,3 @@
-<p align="center">
-<a href="https://travis-ci.org/YagoLopez/vrview-react">
-<img src="https://travis-ci.org/YagoLopez/vrview-react.svg?branch=master" />
-</a></p>
 <p align="center"><img src="360.jpg" /></p>
 
 # <p align="center">VRVIEW React</p>
@@ -13,6 +9,9 @@
 - It is posible to assign an arbitrary function to a hotspot click event
 - Using a smartphone and <a href="https://vr.google.com/cardboard/" target="_blank">Google's Cardboard</a>
   or other specialized hardware it is posible to have a full and inmersive virtual reality expereince
+
+## Demo
+
 - <a href="https://yagolopez.js.org/vrview-react/build/" target="_blank">DEMO full screen (for mobile)</a>
 - <a href="http://mobiletest.me/htc_one_emulator/?u=https://yagolopez.js.org/vrview-react/build/"
   target="_blank">DEMO in simulator (for desktop)</a> <b>Warning: </b> Javascript in external iframes might have restrictions
@@ -38,8 +37,7 @@
 <Vrview {...scene} />
 ```
 
-Vrview is a prure component. It receives scene data as props from a parent component. It asigns that props to its state
-which implements the following interface:
+Vrview is a prure component. It receives scene data as props from a parent component and It asigns that props to its state which implements the following interface:
 
 ```typescript
 export interface IScene {
