@@ -58,7 +58,6 @@ export class App extends React.PureComponent<{}, IScene> {
 
   /**
    * Invoke action on click left panel menu item
-   *
    * @param action {Function}
    * @param params {} Optional. Arguments to pass to the function
    */
@@ -68,7 +67,6 @@ export class App extends React.PureComponent<{}, IScene> {
 
   /**
    * Load new scene when clicking a hotspot
-   *
    * @param idScene {number | string} Id new scene to load
    */
   handleClickHotspot = (idScene: number | string): void => {
@@ -86,7 +84,7 @@ export class App extends React.PureComponent<{}, IScene> {
   };
 
   /**
-   * Use Google's Format Conversor to transform a 360 img to an apropiated format for visualization whit this component
+   * Use Google's Format Conversor to transform a 360 img to an apropiated format for visualization with this component
    */
   openImageFormatConversor = () => {
     window.open('https://storage.googleapis.com/cardboard-camera-converter/index.html');
@@ -124,7 +122,7 @@ export class App extends React.PureComponent<{}, IScene> {
       }
     ];
 
-    // Menu link keys must be equals to scene ids to show active scene in menu
+    // Menu link keys must be equal to scene ids to show active scene in menu
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [

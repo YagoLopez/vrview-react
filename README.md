@@ -1,3 +1,18 @@
+<p align="center">
+
+  <a href="https://travis-ci.org/YagoLopez/vrview-react" title="Build Status">
+    <img src="https://travis-ci.org/YagoLopez/vrview-react.svg?branch=master" />
+  </a>
+
+  <a href="https://codeclimate.com/github/YagoLopez/vrview-react/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/c294fc94b8d840217b1c/maintainability" />
+  </a>
+  <a href="https://yagolopez.js.org/vrview-react/deps/deps.html" title="Dependencies Analysis">
+    <img src="https://img.shields.io/badge/dependencies-analysis-blue.svg" />
+  </a>
+
+</p>
+
 <p align="center"><img src="360.jpg" /></p>
 
 # <p align="center">VRVIEW React</p>
@@ -153,7 +168,7 @@ scene: IScene = {
 }
 ```
 
-## UML Diagram of the Demo
+## UML Demo Diagram
 <p align="center"><img src="uml/uml.jpg" /></p>
 
 # Disclaimer
@@ -161,4 +176,4 @@ At the moment it seems IE < 11 and some IOS can experiment malfunction with thre
 
 License MIT
 
-<p align="center"><a href="#">Return to top</a> &arrup;</p>
+<p align="center"><a href="#">Back to top &uarr;</a></p>

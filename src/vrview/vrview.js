@@ -377,6 +377,7 @@ var Message = require('../message');
 var Util = require('../util');
 
 // Save the executing script. This will be used to calculate the embed URL.
+// var CURRENT_SCRIPT_SRC = Util.getCurrentScript().src;
 var CURRENT_SCRIPT_SRC = Util.getCurrentScript().src;
 var FAKE_FULLSCREEN_CLASS = 'vrview-fake-fullscreen';
 
