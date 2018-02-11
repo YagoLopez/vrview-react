@@ -43,21 +43,21 @@ export class App extends React.PureComponent<{}, IScene> {
   };
 
   /**
-   * Show left menu of the user interface
+   * Show user interface left menu
    */
   showLeftPanel = (): void => {
     (this.refs.panel as Panel).open();
   };
 
   /**
-   * Hide left menu of the user interface
+   * Hide user interface left menu
    */
   hideLeftPanel = (): void => {
     (this.refs.panel as Panel).dismiss();
   };
 
   /**
-   * Invoke action on click left panel menu item
+   * Invoke action when clicking left panel menu item
    * @param action {Function}
    * @param params {} Optional. Arguments to pass to the function
    */
@@ -93,7 +93,7 @@ export class App extends React.PureComponent<{}, IScene> {
 
   render(){
 
-    const scene = this.state.scene;
+    const {scene} = this.state;
 
     const topMenuItems: IContextualMenuItem[] = [
       {
@@ -122,15 +122,21 @@ export class App extends React.PureComponent<{}, IScene> {
       }
     ];
 
-    // Menu link keys must be equal to scene ids to show active scene in menu
+    // links[].name.links.keys must be equal to scene ids
     const leftMenuItems: INavLinkGroup[] = [{
       links:
         [
-          { name: 'Reset Scene', url: '', key: 'resetScene',
-            onClick: () => this.leftPanelAction(this.resetScene)},
-          { name: 'Toggle Debug Mode', url: '', key: 'toggleDebugMode',
-            onClick: () => this.leftPanelAction(this.toggleDebugMode)},
-          { name: 'Change Scene', url: '',
+          {name: 'Reset Scene',
+            url: '',
+            key: 'resetScene',
+            onClick: () => this.leftPanelAction(this.resetScene)
+          },
+          {name: 'Toggle Debug Mode',
+            url: '',
+            key: 'toggleDebugMode',
+            onClick: () => this.leftPanelAction(this.toggleDebugMode)
+          },
+          {name: 'Change Scene', url: '',
             links: [{
               name: 'Scene 1',
               key: '1',
@@ -157,8 +163,12 @@ export class App extends React.PureComponent<{}, IScene> {
             }],
             isExpanded: false
           },
-          { name: 'Change Img Format', key: 'imageFormatConversor', url: '',
-            onClick: this.openImageFormatConversor }
+          {
+            name: 'Change Img Format',
+            key: 'imageFormatConversor',
+            url: '',
+            onClick: this.openImageFormatConversor
+          }
         ]
     }];
 
@@ -203,16 +213,17 @@ export class App extends React.PureComponent<{}, IScene> {
     ];
 
     return(
-      <Fabric>
 
+      <Fabric>
         <CommandBar isSearchBoxVisible={ false } items={ topMenuItems } className="command-bar" />
 
         <Panel
           ref="panel"
           type={ PanelType.smallFixedNear }
           isLightDismiss={ true }
-          headerText="Vrview React">
-          <div><Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } /></div>
+          headerText="Vrview React"
+        >
+          <Nav groups={ leftMenuItems } selectedKey={ scene.id.toString() } />
         </Panel>
 
         <div className="pad15">
@@ -224,16 +235,18 @@ export class App extends React.PureComponent<{}, IScene> {
           {/* Vrview Component ----------------------------------------------------------- */}
           <Vrview {...this.state}
             ref={ (vrview: Vrview) => {this.vrviewCmp = vrview} }
-            onClickHotspot={ this.handleClickHotspot } />
+            onClickHotspot={ this.handleClickHotspot }
+          />
           {/* /Vrview Component ---------------------------------------------------------- */}
           <div className="pad15">
             <div className="card-title">{ scene.title }</div>
-            <div dangerouslySetInnerHTML={{__html: scene.description as any}} />
+            <div dangerouslySetInnerHTML={{__html: scene.description as string}} />
           </div>
         </DocumentCard>
 
         <ChoiceGroup label='Change Scene Programatically' options={ choiceGroup } className="centered pad15" />
       </Fabric>
+
     )
   }
 }

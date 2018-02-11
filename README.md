@@ -57,47 +57,100 @@ Vrview is a prure component. It receives scene data as props from a parent compo
 ```typescript
 export interface IScene {
   scene: {
+
+    // Scene id
     id: number | string,
+
+    // Scene title
     title?: string,
+
+    // Scene description
     description?: string,
-    video?: string,                   // URL pointing to a 360° video file or an adaptive streaming
-                                      // manifest file (.mpd or .m3u8).
-    image?: string,                   // URL pointing to a 360° image file. Exactly one video or image is required.
-                                      // Images and videos must be in /public directory
-    width?:	string | number,          // Iframe's width attribute.
-    height?:	string | number,        // Iframe's height attribute.
-    preview?:	string,	                // URL to a preview image for a 360º scene (video/image).
-    is_stereo?:	boolean,	            // Indicates whether the content has stereo format or not.
-    is_debug?:	boolean,	            // Turns on/off debug canvas features (like showing the FPS meter).
-    is_vr_off?:	boolean,	            // Enables/disables the VR mode button.
-    is_autopan_off?: boolean,	        // Enables/disables the autopan introduction on desktop.
-    is_yaw_only?:	boolean,	          // When true, prevents roll and pitch. This is intended for stereo panoramas.
-    volume?: number,                  // The initial volume of the media; it ranges between 0 and 1; zero equals muted.
-    loop?: boolean,                   // Enable/disable the loop in the video
-    muted?: boolean,                  // Mutes/unmutes the sound of the video
-    default_yaw?:	number,	            // Numeric angle in degrees of the initial heading for scene.
-                                      // By default, the camera points at the center of the image.
-    hide_fullscreen_button?: boolean  // When true, the fullscreen button contained inside the VR View iframe will
-                                      // be hidden. This parameter is useful if the user wants to use VR View's fullscreen
-                                      // workflow (via vrView.setFullscreen() callback) with an element outside the iframe.
+
+    // URL pointing to a 360° video file or an adaptive streaming manifest file (.mpd or .m3u8).
+    video?: string,
+
+    // URL pointing to a 360° image file. Exactly one video or image is required.
+    // Images and videos must be in /public directory
+    image?: string,
+
+    // Iframe's width attribute.
+    width?:	string | number,
+
+    // Iframe's height attribute.
+    height?:	string | number,
+
+    // URL to a preview image for a 360º scene (video/image).
+    preview?:	string,
+
+    // Indicates whether the content has stereo format or not.
+    is_stereo?:	boolean,
+
+    // Turns on/off debug canvas features (like showing the FPS meter).
+    is_debug?:	boolean,
+
+    // Enables/disables the VR mode button.
+    is_vr_off?:	boolean,
+
+    // Enables/disables the autopan introduction on desktop.
+    is_autopan_off?: boolean,
+
+    // When true, prevents roll and pitch. This is intended for stereo panoramas.
+    is_yaw_only?:	boolean,
+
+    // The initial volume of the media; it ranges between 0 and 1; zero equals muted.
+    volume?: number,
+
+    // Enable/disable the loop in the video
+    loop?: boolean,
+
+    // Mutes/unmutes the sound of the video
+    muted?: boolean,
+
+    // Numeric angle in degrees of the initial heading for scene.
+    default_yaw?:	number,
+
+    // By default, the camera points at the center of the image.
+    // When true, the fullscreen button contained inside the VR View iframe will
+    // be hidden. This parameter is useful if the user wants to use VR View's fullscreen
+    // workflow (via vrView.setFullscreen() callback) with an element outside the iframe.
+    hide_fullscreen_button?: boolean
   },
-  onClickHotspot?: Function,          // Click event handler for a hotspot
-  hotspots?: Array<IHotspot>          // Array of clickable points on scene
+
+  // Click event handler for a hotspot
+  onClickHotspot?: Function,
+
+  // Array of clickable points on scene
+  hotspots?: Array<IHotspot>
 }
 ```
 
-A scene can have 0 or more hotspots of type `IHotspot`:
+A scene can have zero or more hotspots of type `IHotspot`:
 
 ```typescript
 export interface IHotspot {
-  name: string,                   // Hotspot identifier. Used on click event
-  pitch: number,                  // The latitude of center, specified in degrees, between -90 and 90, with 0 at the horizon.
-  yaw: number,                    // The longitude of center, specified in degrees, between -180 and 180, with 0 at the image center.
-  radius: number,                 // The radius of the hotspot, specified in meters.
-  distance: number                // The distance of the hotspot from camera, specified in meters.
-  idNewScene?: number | string    // Destination scene for on click event
-  clickFn?: string                // Arbitrary function to run on hotspot click event. (Function call must be string
-                                  // to be valid JSON)
+
+  // Hotspot identifier. Used on click event
+  name: string;
+
+  // The latitude of center, specified in degrees, between -90 and 90, with 0 at the horizon.
+  pitch: number;
+
+  // The longitude of center, specified in degrees, between -180 and 180, with 0 at the image center.
+  yaw: number;
+
+  // The radius of the hotspot, specified in meters.
+  radius: number;
+
+  // The distance of the hotspot from camera, specified in meters.
+  distance: number;
+
+  // Destination scene for on click event
+  idNewScene?: number | string;
+
+  // Arbitrary function to run on hotspot click event. (Function call must be string to be valid JSON)
+  clickFn?: string;
+
 }
 ```
 
