@@ -28,14 +28,15 @@ import {IVrviewPlayer} from "./interfaces/IVrviewPlayer";
 /**
  * Vrview creates a 3d scene with optional hotspots
  * It receives scene data as props from parent component
- *
  * @Props: {IVrviewConfig} Object implementing IVrviewConfig interface with scene data
  */
 export default class Vrview extends React.PureComponent<IScene, {}> {
 
-   // Vrview Player object. Do not confuse with <Vrview> component
-   // Vrview Player Objectis is an object belonging to VrView Library. It is the object that really create the scene in
-   // 3d
+  /**
+   * Vrview Player Object. Do not confuse with <Vrview> component
+   * Vrview Player Object is is an object created by VrView Library.
+   * It is the object that really create the scene in 3d
+   */
   vrviewPlayer: IVrviewPlayer;
 
   /**
@@ -60,6 +61,7 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
   }
 
   addClickHandler(hotspot: IHotspot): void {
+    const {onClickHotspot} = this.props;
     this.vrviewPlayer.on( 'click', (event: {id: string}) => {
       if(event.id === hotspot.name){
         // If there is a function defined by the user for the click event, execute it
@@ -68,7 +70,7 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
         } else {
           // If there is newSecene defined for this hotspot, set state to new scene
           if(hotspot.idNewScene){
-            this.props.onClickHotspot && this.props.onClickHotspot(hotspot.idNewScene);
+            onClickHotspot && onClickHotspot(hotspot.idNewScene);
           } else {
             alert('No Scene defined for hotspot: ' + event.id);
           }
@@ -113,7 +115,6 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
 
   /**
    * Show loader text inside iframe when content is loading
-   *
    * The loader will be hidden when scene is completely loaded
    * See: "public/vrview/embed.js" -> "WorldRenderer.prototype.didLoad_()"
    */
@@ -125,7 +126,6 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
 
   /**
    * Find out if canvas debug info is enabled
-   *
    * @param {HTMLIFrameElement} iframe containing 3d scene
    * @returns {boolean}
    */
@@ -140,7 +140,7 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
    */
   toggleDebugMode(): void {
     this.clearHotspotsClickHandlers();
-    const scene = this.props.scene;
+    const {scene} = this.props;
     const iframe = this.vrviewPlayer.iframe as HTMLIFrameElement;
     const iframeParentElement = iframe.parentElement as HTMLDivElement;
     // To know debug state it is needed to search for a dom element with debug info in the vrview iframe
@@ -149,7 +149,7 @@ export default class Vrview extends React.PureComponent<IScene, {}> {
     scene.width = iframe.width;
     scene.height = iframe.height;
     iframeParentElement.removeChild(iframe);
-    this.vrviewPlayer = new VRView.Player('vrview', this.props.scene);
+    this.vrviewPlayer = new VRView.Player('vrview', scene);
   }
 
   render() {

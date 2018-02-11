@@ -16,6 +16,12 @@
     "typescript": "^2.3.4"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.8",
+    "@types/jest": "^22.1.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "20.0.4",
+    "ts-jest": "^22.0.3",
     "live-server": "^1.2.0",
     "source-map-explorer": "^1.5.0",
     "tsutils": "^2.7.1"
@@ -23,9 +29,33 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "yarn:coverage": "yarn test --coverage",
+    "test": "jest test --env=jsdom",
+    "test:update": "jest -u",
+    "test:watch": "jest --watch",
+    "test:debug": "jest --debug",
+    "coverage": "jest --no-cache --coverage",
     "analyze": "source-map-explorer build/static/js/main.*"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    },
+    "setupFiles": [
+      "<rootDir>/config/test-shim.js",
+      "<rootDir>/config/test-setup.js"
+    ],
+    "mapCoverage": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/config/assetsTransformer.js"
+    },
+    "roots": ["src"],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "collectCoverageFrom": ["src/**/*.{tsx,ts}"]
   }
 }
