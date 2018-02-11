@@ -78,7 +78,7 @@ export interface IScene {
     width?:	string | number,
 
     // Iframe's height attribute.
-    height?:	string | number,
+    height?: string | number,
 
     // URL to a preview image for a 360º scene (video/image).
     preview?:	string,
@@ -87,7 +87,7 @@ export interface IScene {
     is_stereo?:	boolean,
 
     // Turns on/off debug canvas features (like showing the FPS meter).
-    is_debug?:	boolean,
+    is_debug?: boolean,
 
     // Enables/disables the VR mode button.
     is_vr_off?:	boolean,
