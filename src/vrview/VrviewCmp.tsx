@@ -1,14 +1,9 @@
-//todo: consultar digarama uml
 //todo: test browserstack ios
 //todo: favicon
 //todo: revisar hotspot id en vrview.js
 //todo: usar mapa (leaflet) y markers
 //todo: probar en una rama nueva con polyfill create custom event for browser compatibility
-//todo: modificar la plantilla "index.html" en /node_modules/react-scripts para limar detalles => usar home: "." en package.json
-//todo: hacer test
-//todo: service worker y manifest.json
 //todo: probar con video y las funciones de reproduccion de video
-//todo: test con browser stack
 //todo: hacer instalacion de prueba siguiendo pasos de readme.md
 //todo: usar callback function con "refs"
 //todo: usar fade-in en texto pie de imagen

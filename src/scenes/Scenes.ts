@@ -1,10 +1,9 @@
 import {IScene} from "../vrview/interfaces/IScene";
 
 /**
- * @Class {ScenesCollection} It represents a list of scenes.
- *
+ * @Class {ScenesCollection} represents a list of scenes.
  * Each scene contains information like: path to images/videos, optional hotspots,
- * navigation between scenes and other parameters. (See IVrviewConfig definition)
+ * navigation between scenes and other parameters. (See IScene definition)
  * Scenes can be loaded from hardcoded data or from an external store (Redux, MobX, Singleton Service, etc).
  */
 export default class ScenesCollection {

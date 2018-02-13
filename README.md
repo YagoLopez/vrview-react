@@ -117,9 +117,6 @@ export interface IScene {
     hide_fullscreen_button?: boolean
   },
 
-  // Click event handler for a hotspot
-  onClickHotspot?: Function,
-
   // Array of clickable points on scene
   hotspots?: Array<IHotspot>
 }

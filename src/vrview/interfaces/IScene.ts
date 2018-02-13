@@ -1,4 +1,4 @@
-//todo: eliminar la propiedad "scene" para mayor claridad o renombrar a "config" o "data"
+//todo: para mayor claridad o renombrar "scene" a "config" o "data"
 
 import {IHotspot} from "./IHotspot";
 
@@ -6,6 +6,7 @@ import {IHotspot} from "./IHotspot";
  * Vrview scene configuration
  */
 export interface IScene {
+
   scene: {
 
     // Scene id
