@@ -17,6 +17,8 @@
 
 # <p align="center">VRVIEW React</p>
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/YagoLopez/vrview-react.svg)](https://greenkeeper.io/)
+
 <b><p align="center">React Component for virtual tour creation</p></b>
 
 - It encapsulates <a href="https://developers.google.com/vr/concepts/vrview" target="_blank">Google's Vrview Library</a>
