@@ -5,14 +5,14 @@
   "homepage": ".",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^8.0.14",
+    "@types/node": "^9.4.5",
     "@types/prop-types": "^15.5.2",
-    "@types/react": "16.0.33",
-    "@types/react-dom": "16.0.3",
+    "@types/react": "16.0.37",
+    "@types/react-dom": "16.0.4",
     "office-ui-fabric-react": "^5.36.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.8.0",
+    "react-scripts-ts": "2.13.0",
     "typescript": "^2.3.4"
   },
   "devDependencies": {
@@ -20,7 +20,7 @@
     "@types/jest": "^22.1.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "20.0.4",
+    "jest": "22.2.2",
     "ts-jest": "^22.0.3",
     "live-server": "^1.2.0",
     "source-map-explorer": "^1.5.0",
