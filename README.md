@@ -52,7 +52,7 @@
 <Vrview {...scene} />
 ```
 
-Vrview is a prure component. It receives scene data as props from a parent component and It asigns that props to its state which implements the following interface:
+Vrview is a prure component. It receives scene data as props from a parent component and asign those props to its state which implements the following interface:
 
 ```typescript
 export interface IScene {
@@ -75,28 +75,28 @@ export interface IScene {
     image?: string,
 
     // Iframe's width attribute.
-    width?:	string | number,
+    width?: 	string | number,
 
     // Iframe's height attribute.
     height?: string | number,
 
     // URL to a preview image for a 360º scene (video/image).
-    preview?:	string,
+    preview?: string,
 
     // Indicates whether the content has stereo format or not.
-    is_stereo?:	boolean,
+    is_stereo?: boolean,
 
     // Turns on/off debug canvas features (like showing the FPS meter).
     is_debug?: boolean,
 
     // Enables/disables the VR mode button.
-    is_vr_off?:	boolean,
+    is_vr_off?: boolean,
 
     // Enables/disables the autopan introduction on desktop.
     is_autopan_off?: boolean,
 
     // When true, prevents roll and pitch. This is intended for stereo panoramas.
-    is_yaw_only?:	boolean,
+    is_yaw_only?: boolean,
 
     // The initial volume of the media; it ranges between 0 and 1; zero equals muted.
     volume?: number,
@@ -108,7 +108,7 @@ export interface IScene {
     muted?: boolean,
 
     // Numeric angle in degrees of the initial heading for scene.
-    default_yaw?:	number,
+    default_yaw?: number,
 
     // By default, the camera points at the center of the image.
     // When true, the fullscreen button contained inside the VR View iframe will
