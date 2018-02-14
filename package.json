@@ -4,6 +4,7 @@
   "private": true,
   "homepage": ".",
   "license": "MIT",
+  "main": "src/index.tsx",
   "dependencies": {
     "@types/node": "^8.0.14",
     "@types/prop-types": "^15.5.2",
